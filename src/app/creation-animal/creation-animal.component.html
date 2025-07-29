@@ -1,0 +1,62 @@
+<h1>Ajouter d'animal</h1>
+<form [formGroup]="creationAnimal" (ngSubmit)="onSubmit()">
+    <label>
+        Prénom :
+    </label>
+    <input formControlName="name">
+    <div *ngIf="creationAnimal.get('name')?.invalid && creationAnimal.get('name')?.touched">
+        Le prénom est obligatoire.
+    </div>
+
+    <label>
+        Age :
+    </label>
+    <input type="number" formControlName="age">
+    <div *ngIf="creationAnimal.get('age')?.invalid && creationAnimal.get('age')?.touched">
+        L'âge est obligatoire.
+    </div>
+
+    <label>
+        Espèce :
+    </label>
+    <select formControlName="espece" (ngModelChange)="getRacesById($event)">
+        <option *ngFor="let espece of especes" [value]="espece.id">{{ espece.name }}</option>
+    </select>
+    <div *ngIf="creationAnimal.get('espece')?.invalid && creationAnimal.get('espece')?.touched">
+        L'espèce est obligatoire'.
+    </div>
+
+    <label>
+        Race :
+    </label>
+    <select formControlName="race">
+        <option disabled>Choisissez une famille</option>
+        <option *ngFor="let race of races" [value]="race.id">{{ race.name }}</option>
+    </select>
+    <div *ngIf="creationAnimal.get('race')?.invalid && creationAnimal.get('race')?.touched">
+        La race est obligatoire.
+    </div>
+
+    <label>
+        Taille :
+    </label>
+    <select formControlName="size">
+        <option value=0>Petit</option>
+        <option value=1>Moyen</option>
+        <option value=2>Grand</option>
+    </select>
+
+    <label>
+        Caractères :
+    </label>      
+    <mat-select formControlName="nature" multiple>
+        <mat-option *ngFor="let nature of natures" [value]="nature">{{ nature.name }}</mat-option>
+    </mat-select>
+
+    <label>
+        Infos Supplémentaires :
+    </label>
+    <input formControlName="description">
+
+    <button type="submit">Ajouter l'annimal</button>
+</form>

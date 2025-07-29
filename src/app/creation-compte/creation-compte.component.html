@@ -1,34 +1,56 @@
 <form [formGroup]="creationCompte" (ngSubmit)="onSubmit()">
     <label>
         Prénom :
-        <input formControlName="firstName">
     </label>
+    <input formControlName="firstName">
     <div *ngIf="creationCompte.get('firstName')?.invalid && creationCompte.get('firstName')?.touched">
         Le prénom est obligatoire.
     </div>
 
     <label>
         Nom :
-        <input formControlName="lastName">
     </label>
+    <input formControlName="lastName">
     <div *ngIf="creationCompte.get('lastName')?.invalid && creationCompte.get('lastName')?.touched">
         Le nom est obligatoire.
     </div>
 
     <label>
-        Age :
-        <input type="number" formControlName="age">
+        Pseudonyme :
     </label>
+    <input formControlName="username">
+
+    <label>
+        Age :
+    </label>
+    <input type="number" formControlName="age">
+    <div *ngIf="creationCompte.get('age')?.invalid && creationCompte.get('age')?.touched">
+        L'âge est obligatoire.
+    </div>
+    <div *ngIf="verifAge && creationCompte.get('age')?.touched">
+        Vous devez avoir au moins 18 ans.
+    </div>
 
     <label>
         Localisation :
-        <input formControlName="localisation">
     </label>
+    <input formControlName="localisation">
 
     <label>
-        Disponibilité :
-        <input formControlName="disponibilite">
+        Email :
     </label>
-    
-    <button type="submit">Envoyer</button>
+    <input formControlName="email">
+    <div *ngIf="creationCompte.get('email')?.invalid && creationCompte.get('email')?.touched">
+        L'email est obligatoire.
+    </div>
+
+    <label>
+        Password :
+    </label>
+    <input formControlName="password">
+    <div *ngIf="creationCompte.get('password')?.invalid && creationCompte.get('password')?.touched">
+        Le mot de passe est obligatoire.
+    </div>
+
+    <button type="submit">S'inscrire</button>
 </form>

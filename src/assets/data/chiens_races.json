@@ -1,0 +1,1386 @@
+[
+    {
+        "id": "1",
+        "nom": "Affenpinscher"
+    },
+    {
+        "id": "2",
+        "nom": "Airedale Terrier"
+    },
+    {
+        "id": "3",
+        "nom": "Akita"
+    },
+    {
+        "id": "4",
+        "nom": "Akita américain"
+    },
+    {
+        "id": "5",
+        "nom": "Alano espagnol"
+    },
+    {
+        "id": "6",
+        "nom": "Alapaha Blue Blood Bulldog"
+    },
+    {
+        "id": "7",
+        "nom": "American Staffordshire Terrier"
+    },
+    {
+        "id": "8",
+        "nom": "Anglo-français de petite vénerie"
+    },
+    {
+        "id": "9",
+        "nom": "Ariégeois"
+    },
+    {
+        "id": "10",
+        "nom": "Australian Bulldog"
+    },
+    {
+        "id": "11",
+        "nom": "Azawakh"
+    },
+    {
+        "id": "12",
+        "nom": "Aïdi"
+    },
+    {
+        "id": "13",
+        "nom": "Bangkaew de Thaïlande"
+    },
+    {
+        "id": "14",
+        "nom": "Barbet"
+    },
+    {
+        "id": "15",
+        "nom": "Barbu tchèque"
+    },
+    {
+        "id": "16",
+        "nom": "Barzoï"
+    },
+    {
+        "id": "17",
+        "nom": "Basenji"
+    },
+    {
+        "id": "18",
+        "nom": "Basset artésien normand"
+    },
+    {
+        "id": "19",
+        "nom": "Basset bleu de Gascogne"
+    },
+    {
+        "id": "20",
+        "nom": "Basset de Westphalie"
+    },
+    {
+        "id": "21",
+        "nom": "Basset des Alpes"
+    },
+    {
+        "id": "22",
+        "nom": "Basset fauve de Bretagne"
+    },
+    {
+        "id": "23",
+        "nom": "Basset hound"
+    },
+    {
+        "id": "24",
+        "nom": "Basset suédois"
+    },
+    {
+        "id": "25",
+        "nom": "Beagle"
+    },
+    {
+        "id": "26",
+        "nom": "Beagle-harrier"
+    },
+    {
+        "id": "27",
+        "nom": "Bedlington terrier"
+    },
+    {
+        "id": "28",
+        "nom": "Berger Kangal"
+    },
+    {
+        "id": "29",
+        "nom": "Berger d'Asie centrale"
+    },
+    {
+        "id": "30",
+        "nom": "Berger de Bosnie-Herzégovine et de Croatie"
+    },
+    {
+        "id": "31",
+        "nom": "Berger du Caucase"
+    },
+    {
+        "id": "32",
+        "nom": "Berger du Karst"
+    },
+    {
+        "id": "33",
+        "nom": "Berger finnois de Laponie"
+    },
+    {
+        "id": "34",
+        "nom": "Berger roumain corbeau"
+    },
+    {
+        "id": "35",
+        "nom": "Bichon"
+    },
+    {
+        "id": "36",
+        "nom": "Bichon bolonais"
+    },
+    {
+        "id": "37",
+        "nom": "Bichon havanais"
+    },
+    {
+        "id": "38",
+        "nom": "Bichon maltais"
+    },
+    {
+        "id": "39",
+        "nom": "Bichon à poil frisé"
+    },
+    {
+        "id": "40",
+        "nom": "Billy"
+    },
+    {
+        "id": "41",
+        "nom": "Border Terrier"
+    },
+    {
+        "id": "42",
+        "nom": "Bouledogue"
+    },
+    {
+        "id": "43",
+        "nom": "Bouledogue américain"
+    },
+    {
+        "id": "44",
+        "nom": "Bouvier bernois"
+    },
+    {
+        "id": "45",
+        "nom": "Bouvier d'Appenzell"
+    },
+    {
+        "id": "46",
+        "nom": "Bouvier de l'Entlebuch"
+    },
+    {
+        "id": "47",
+        "nom": "Bouvier des Flandres"
+    },
+    {
+        "id": "48",
+        "nom": "Bouvier suisse"
+    },
+    {
+        "id": "49",
+        "nom": "Boxer"
+    },
+    {
+        "id": "50",
+        "nom": "Brachet allemand"
+    },
+    {
+        "id": "51",
+        "nom": "Brachet de Styrie à poil dur"
+    },
+    {
+        "id": "52",
+        "nom": "Brachet noir et feu"
+    },
+    {
+        "id": "53",
+        "nom": "Brachet polonais"
+    },
+    {
+        "id": "54",
+        "nom": "Brachet tyrolien"
+    },
+    {
+        "id": "55",
+        "nom": "Braque Saint-Germain"
+    },
+    {
+        "id": "56",
+        "nom": "Braque allemand à poil court"
+    },
+    {
+        "id": "57",
+        "nom": "Braque d'Auvergne"
+    },
+    {
+        "id": "58",
+        "nom": "Braque de Weimar"
+    },
+    {
+        "id": "59",
+        "nom": "Braque de l'Ariège"
+    },
+    {
+        "id": "60",
+        "nom": "Braque du Bourbonnais"
+    },
+    {
+        "id": "61",
+        "nom": "Braque français"
+    },
+    {
+        "id": "62",
+        "nom": "\"Braque français"
+    },
+    {
+        "id": "63",
+        "nom": "\"Braque français"
+    },
+    {
+        "id": "64",
+        "nom": "Braque hongrois à poil court"
+    },
+    {
+        "id": "65",
+        "nom": "Braque hongrois à poil dur"
+    },
+    {
+        "id": "66",
+        "nom": "Braque italien"
+    },
+    {
+        "id": "67",
+        "nom": "Braque slovaque à poil dur"
+    },
+    {
+        "id": "68",
+        "nom": "Briquet griffon vendéen"
+    },
+    {
+        "id": "69",
+        "nom": "Broholmer"
+    },
+    {
+        "id": "70",
+        "nom": "Buhund norvégien"
+    },
+    {
+        "id": "71",
+        "nom": "Bull Terrier"
+    },
+    {
+        "id": "72",
+        "nom": "Bull Terrier miniature"
+    },
+    {
+        "id": "73",
+        "nom": "Bulldog anglais"
+    },
+    {
+        "id": "74",
+        "nom": "Bullenbeißer"
+    },
+    {
+        "id": "75",
+        "nom": "Bullmastiff"
+    },
+    {
+        "id": "76",
+        "nom": "Ca de Bou"
+    },
+    {
+        "id": "77",
+        "nom": "Cairn terrier"
+    },
+    {
+        "id": "78",
+        "nom": "Cane Corso"
+    },
+    {
+        "id": "79",
+        "nom": "Caniche"
+    },
+    {
+        "id": "80",
+        "nom": "Carlin"
+    },
+    {
+        "id": "81",
+        "nom": "Cavalier King Charles Spaniel"
+    },
+    {
+        "id": "82",
+        "nom": "Chart polski"
+    },
+    {
+        "id": "83",
+        "nom": "Chien chinois à crête"
+    },
+    {
+        "id": "84",
+        "nom": "Chien courant d'Istrie à poil dur"
+    },
+    {
+        "id": "85",
+        "nom": "Chien courant d'Istrie à poil ras"
+    },
+    {
+        "id": "86",
+        "nom": "Chien courant de Bosnie à poil dur"
+    },
+    {
+        "id": "87",
+        "nom": "Chien courant de Halden"
+    },
+    {
+        "id": "88",
+        "nom": "Chien courant de Hamilton"
+    },
+    {
+        "id": "89",
+        "nom": "Chien courant de Hygen"
+    },
+    {
+        "id": "90",
+        "nom": "Chien courant de Schiller"
+    },
+    {
+        "id": "91",
+        "nom": "Chien courant de Transylvanie"
+    },
+    {
+        "id": "92",
+        "nom": "Chien courant de la vallée de la Save"
+    },
+    {
+        "id": "93",
+        "nom": "Chien courant de montagne du Monténégro"
+    },
+    {
+        "id": "94",
+        "nom": "Chien courant du Småland"
+    },
+    {
+        "id": "95",
+        "nom": "Chien courant espagnol"
+    },
+    {
+        "id": "96",
+        "nom": "Chien courant finlandais"
+    },
+    {
+        "id": "97",
+        "nom": "Chien courant grec"
+    },
+    {
+        "id": "98",
+        "nom": "Chien courant italien à poil dur"
+    },
+    {
+        "id": "99",
+        "nom": "Chien courant italien à poil ras"
+    },
+    {
+        "id": "100",
+        "nom": "Chien courant norvégien"
+    },
+    {
+        "id": "101",
+        "nom": "Chien courant polonais"
+    },
+    {
+        "id": "102",
+        "nom": "Chien courant serbe"
+    },
+    {
+        "id": "103",
+        "nom": "Chien courant slovaque"
+    },
+    {
+        "id": "104",
+        "nom": "Chien courant suisse"
+    },
+    {
+        "id": "105",
+        "nom": "Chien courant tricolore serbe"
+    },
+    {
+        "id": "106",
+        "nom": "Chien d'Artois"
+    },
+    {
+        "id": "107",
+        "nom": "Chien d'arrêt allemand à poil dur"
+    },
+    {
+        "id": "108",
+        "nom": "Chien d'arrêt allemand à poil long"
+    },
+    {
+        "id": "109",
+        "nom": "Chien d'arrêt allemand à poil raide"
+    },
+    {
+        "id": "110",
+        "nom": "Chien d'arrêt danois ancestral"
+    },
+    {
+        "id": "111",
+        "nom": "Chien d'arrêt frison"
+    },
+    {
+        "id": "112",
+        "nom": "Chien d'arrêt portugais"
+    },
+    {
+        "id": "113",
+        "nom": "Chien d'eau"
+    },
+    {
+        "id": "114",
+        "nom": "Chien d'eau américain"
+    },
+    {
+        "id": "115",
+        "nom": "Chien d'eau espagnol"
+    },
+    {
+        "id": "116",
+        "nom": "Chien d'eau frison"
+    },
+    {
+        "id": "117",
+        "nom": "Chien d'eau portugais"
+    },
+    {
+        "id": "118",
+        "nom": "Chien d'eau romagnol"
+    },
+    {
+        "id": "119",
+        "nom": "Chien d'ours de Carélie"
+    },
+    {
+        "id": "120",
+        "nom": "Chien d'oysel allemand"
+    },
+    {
+        "id": "121",
+        "nom": "Chien d'élan norvégien gris"
+    },
+    {
+        "id": "122",
+        "nom": "Chien d'élan norvégien noir"
+    },
+    {
+        "id": "123",
+        "nom": "Chien d'élan suédois"
+    },
+    {
+        "id": "124",
+        "nom": "Chien de Canaan"
+    },
+    {
+        "id": "125",
+        "nom": "Chien de Castro Laboreiro"
+    },
+    {
+        "id": "126",
+        "nom": "Chien de Rhodésie à crête dorsale"
+    },
+    {
+        "id": "127",
+        "nom": "Chien de Saint-Hubert"
+    },
+    {
+        "id": "128",
+        "nom": "Chien de Taïwan"
+    },
+    {
+        "id": "129",
+        "nom": "Chien de berger islandais"
+    },
+    {
+        "id": "130",
+        "nom": "Chien de berger roumain de Bucovine"
+    },
+    {
+        "id": "131",
+        "nom": "Chien de berger roumain des Carpathes"
+    },
+    {
+        "id": "132",
+        "nom": "Chien de berger yougoslave de Charplanina"
+    },
+    {
+        "id": "133",
+        "nom": "Chien de compagnie"
+    },
+    {
+        "id": "134",
+        "nom": "Chien de ferme dano-suédois"
+    },
+    {
+        "id": "135",
+        "nom": "Chien de garenne des Canaries"
+    },
+    {
+        "id": "136",
+        "nom": "Chien de garenne portugais"
+    },
+    {
+        "id": "137",
+        "nom": "Chien de la Serra da Estrela"
+    },
+    {
+        "id": "138",
+        "nom": "Chien de montagne"
+    },
+    {
+        "id": "139",
+        "nom": "Chien de montagne des Pyrénées"
+    },
+    {
+        "id": "140",
+        "nom": "Chien de perdrix de Drente"
+    },
+    {
+        "id": "141",
+        "nom": "Chien de rapport"
+    },
+    {
+        "id": "142",
+        "nom": "Chien de recherche au sang de Hanovre"
+    },
+    {
+        "id": "143",
+        "nom": "Chien de recherche au sang de la montagne bavaroise"
+    },
+    {
+        "id": "144",
+        "nom": "Chien de trait belge"
+    },
+    {
+        "id": "145",
+        "nom": "Chien du Groenland"
+    },
+    {
+        "id": "146",
+        "nom": "Chien du pharaon"
+    },
+    {
+        "id": "147",
+        "nom": "Chien finnois de Laponie"
+    },
+    {
+        "id": "148",
+        "nom": "Chien leveur de gibier"
+    },
+    {
+        "id": "149",
+        "nom": "Chien noir et feu pour la chasse au raton laveur"
+    },
+    {
+        "id": "150",
+        "nom": "Chien norvégien de macareux"
+    },
+    {
+        "id": "151",
+        "nom": "Chien nu du Pérou"
+    },
+    {
+        "id": "152",
+        "nom": "Chien thaïlandais à crête dorsale"
+    },
+    {
+        "id": "153",
+        "nom": "Chien à loutre"
+    },
+    {
+        "id": "154",
+        "nom": "Chihuahua"
+    },
+    {
+        "id": "155",
+        "nom": "Chow-chow"
+    },
+    {
+        "id": "156",
+        "nom": "Cimarron uruguayen"
+    },
+    {
+        "id": "157",
+        "nom": "Cirneco de l'Etna"
+    },
+    {
+        "id": "158",
+        "nom": "Clumber Spaniel"
+    },
+    {
+        "id": "159",
+        "nom": "Cocker américain"
+    },
+    {
+        "id": "160",
+        "nom": "Cocker spaniel anglais"
+    },
+    {
+        "id": "161",
+        "nom": "Continental Bulldog"
+    },
+    {
+        "id": "162",
+        "nom": "Coton de Tuléar"
+    },
+    {
+        "id": "163",
+        "nom": "Dalmatien"
+    },
+    {
+        "id": "164",
+        "nom": "Dandie Dinmont Terrier"
+    },
+    {
+        "id": "165",
+        "nom": "Deerhound"
+    },
+    {
+        "id": "166",
+        "nom": "Dobermann"
+    },
+    {
+        "id": "167",
+        "nom": "Dogue"
+    },
+    {
+        "id": "168",
+        "nom": "Dogue allemand"
+    },
+    {
+        "id": "169",
+        "nom": "Dogue argentin"
+    },
+    {
+        "id": "170",
+        "nom": "Dogue de Bordeaux"
+    },
+    {
+        "id": "171",
+        "nom": "Dogue de Cuba"
+    },
+    {
+        "id": "172",
+        "nom": "Dogue des Canaries"
+    },
+    {
+        "id": "173",
+        "nom": "Dogue du Tibet"
+    },
+    {
+        "id": "174",
+        "nom": "Esquimau canadien"
+    },
+    {
+        "id": "175",
+        "nom": "Eurasier"
+    },
+    {
+        "id": "176",
+        "nom": "Field Spaniel"
+    },
+    {
+        "id": "177",
+        "nom": "Fila"
+    },
+    {
+        "id": "178",
+        "nom": "Fila Brasileiro"
+    },
+    {
+        "id": "179",
+        "nom": "Fila de São Miguel"
+    },
+    {
+        "id": "180",
+        "nom": "Fox-terrier à poil dur"
+    },
+    {
+        "id": "181",
+        "nom": "Fox-terrier à poil lisse"
+    },
+    {
+        "id": "182",
+        "nom": "Foxhound américain"
+    },
+    {
+        "id": "183",
+        "nom": "Foxhound anglais"
+    },
+    {
+        "id": "184",
+        "nom": "Français blanc et noir"
+    },
+    {
+        "id": "185",
+        "nom": "Français blanc et orange"
+    },
+    {
+        "id": "186",
+        "nom": "Français tricolore"
+    },
+    {
+        "id": "187",
+        "nom": "Gascon saintongeois"
+    },
+    {
+        "id": "188",
+        "nom": "Golden retriever"
+    },
+    {
+        "id": "189",
+        "nom": "Grand anglo-français blanc et noir"
+    },
+    {
+        "id": "190",
+        "nom": "Grand anglo-français blanc et orange"
+    },
+    {
+        "id": "191",
+        "nom": "Grand anglo-français tricolore"
+    },
+    {
+        "id": "192",
+        "nom": "Grand basset griffon vendéen"
+    },
+    {
+        "id": "193",
+        "nom": "Grand bleu de Gascogne"
+    },
+    {
+        "id": "194",
+        "nom": "Grand bouvier suisse"
+    },
+    {
+        "id": "195",
+        "nom": "Grand griffon vendéen"
+    },
+    {
+        "id": "196",
+        "nom": "Grand spitz"
+    },
+    {
+        "id": "197",
+        "nom": "Grand épagneul de Münster"
+    },
+    {
+        "id": "198",
+        "nom": "Griffon belge"
+    },
+    {
+        "id": "199",
+        "nom": "Griffon bleu de Gascogne"
+    },
+    {
+        "id": "200",
+        "nom": "Griffon bruxellois"
+    },
+    {
+        "id": "201",
+        "nom": "Griffon d'arrêt à poil dur Korthals"
+    },
+    {
+        "id": "202",
+        "nom": "Griffon fauve de Bretagne"
+    },
+    {
+        "id": "203",
+        "nom": "Griffon nivernais"
+    },
+    {
+        "id": "204",
+        "nom": "Harrier"
+    },
+    {
+        "id": "205",
+        "nom": "Hokkaïdo"
+    },
+    {
+        "id": "206",
+        "nom": "Hovawart"
+    },
+    {
+        "id": "207",
+        "nom": "Husky de Sibérie"
+    },
+    {
+        "id": "208",
+        "nom": "Irish wolfhound"
+    },
+    {
+        "id": "209",
+        "nom": "Jack Russell terrier"
+    },
+    {
+        "id": "210",
+        "nom": "Jindo coréen"
+    },
+    {
+        "id": "211",
+        "nom": "Kai"
+    },
+    {
+        "id": "212",
+        "nom": "King Charles Spaniel"
+    },
+    {
+        "id": "213",
+        "nom": "Kintamani"
+    },
+    {
+        "id": "214",
+        "nom": "Kishu"
+    },
+    {
+        "id": "215",
+        "nom": "Kooikerhondje"
+    },
+    {
+        "id": "216",
+        "nom": "Kromfohrländer"
+    },
+    {
+        "id": "217",
+        "nom": "Labrador retriever"
+    },
+    {
+        "id": "218",
+        "nom": "Lakeland Terrier"
+    },
+    {
+        "id": "219",
+        "nom": "Landseer"
+    },
+    {
+        "id": "220",
+        "nom": "Lapphund suédois"
+    },
+    {
+        "id": "221",
+        "nom": "Laïka de Iakoutie"
+    },
+    {
+        "id": "222",
+        "nom": "Laïka de Sibérie occidentale"
+    },
+    {
+        "id": "223",
+        "nom": "Laïka de Sibérie orientale"
+    },
+    {
+        "id": "224",
+        "nom": "Laïka russo-européen"
+    },
+    {
+        "id": "225",
+        "nom": "Leonberg"
+    },
+    {
+        "id": "226",
+        "nom": "Lhassa Apso"
+    },
+    {
+        "id": "227",
+        "nom": "Lévrier"
+    },
+    {
+        "id": "228",
+        "nom": "Lévrier Tazi"
+    },
+    {
+        "id": "229",
+        "nom": "Lévrier afghan"
+    },
+    {
+        "id": "230",
+        "nom": "Lévrier espagnol"
+    },
+    {
+        "id": "231",
+        "nom": "Lévrier greyhound"
+    },
+    {
+        "id": "232",
+        "nom": "Lévrier hongrois"
+    },
+    {
+        "id": "233",
+        "nom": "Lévrier persan"
+    },
+    {
+        "id": "234",
+        "nom": "Lévrier whippet"
+    },
+    {
+        "id": "235",
+        "nom": "Malamute de l'Alaska"
+    },
+    {
+        "id": "236",
+        "nom": "Manchester terrier"
+    },
+    {
+        "id": "237",
+        "nom": "Mastiff"
+    },
+    {
+        "id": "238",
+        "nom": "Mastiff alpin"
+    },
+    {
+        "id": "239",
+        "nom": "Mastiff d'Anatolie"
+    },
+    {
+        "id": "240",
+        "nom": "Molosse"
+    },
+    {
+        "id": "241",
+        "nom": "Molossoïde"
+    },
+    {
+        "id": "242",
+        "nom": "Mâtin"
+    },
+    {
+        "id": "243",
+        "nom": "Mâtin des Pyrénées"
+    },
+    {
+        "id": "244",
+        "nom": "Mâtin espagnol"
+    },
+    {
+        "id": "245",
+        "nom": "Mâtin napolitain"
+    },
+    {
+        "id": "246",
+        "nom": "Norfolk Terrier"
+    },
+    {
+        "id": "247",
+        "nom": "Norwich Terrier"
+    },
+    {
+        "id": "248",
+        "nom": "Parson Russell terrier"
+    },
+    {
+        "id": "249",
+        "nom": "Perdiguero de Burgos"
+    },
+    {
+        "id": "250",
+        "nom": "Petit basset griffon vendéen"
+    },
+    {
+        "id": "251",
+        "nom": "Petit bleu de Gascogne"
+    },
+    {
+        "id": "252",
+        "nom": "Petit brabançon"
+    },
+    {
+        "id": "253",
+        "nom": "Petit chien courant suisse"
+    },
+    {
+        "id": "254",
+        "nom": "Petit chien lion"
+    },
+    {
+        "id": "255",
+        "nom": "Petit chien russe"
+    },
+    {
+        "id": "256",
+        "nom": "Petit lévrier italien"
+    },
+    {
+        "id": "257",
+        "nom": "Petit spitz"
+    },
+    {
+        "id": "258",
+        "nom": "Petit épagneul de Münster"
+    },
+    {
+        "id": "259",
+        "nom": "Phalène"
+    },
+    {
+        "id": "260",
+        "nom": "Pinscher"
+    },
+    {
+        "id": "261",
+        "nom": "Pinscher allemand"
+    },
+    {
+        "id": "262",
+        "nom": "Pinscher autrichien"
+    },
+    {
+        "id": "263",
+        "nom": "Pinscher nain"
+    },
+    {
+        "id": "264",
+        "nom": "Podenco d'Ibiza"
+    },
+    {
+        "id": "265",
+        "nom": "Pointer anglais"
+    },
+    {
+        "id": "266",
+        "nom": "Poitevin"
+    },
+    {
+        "id": "267",
+        "nom": "Porcelaine"
+    },
+    {
+        "id": "268",
+        "nom": "Pudelpointer"
+    },
+    {
+        "id": "269",
+        "nom": "Pékinois"
+    },
+    {
+        "id": "270",
+        "nom": "Rafeiro de l'Alentejo"
+    },
+    {
+        "id": "271",
+        "nom": "Ratier de Prague"
+    },
+    {
+        "id": "272",
+        "nom": "Ratier valencien"
+    },
+    {
+        "id": "273",
+        "nom": "Retriever de la Nouvelle-Écosse"
+    },
+    {
+        "id": "274",
+        "nom": "Retriever de la baie de Chesapeake"
+    },
+    {
+        "id": "275",
+        "nom": "Retriever à poil bouclé"
+    },
+    {
+        "id": "276",
+        "nom": "Retriever à poil plat"
+    },
+    {
+        "id": "277",
+        "nom": "Rottweiler"
+    },
+    {
+        "id": "278",
+        "nom": "Saint-bernard"
+    },
+    {
+        "id": "279",
+        "nom": "Samoyède"
+    },
+    {
+        "id": "280",
+        "nom": "Schnauzer"
+    },
+    {
+        "id": "281",
+        "nom": "Schnauzer géant"
+    },
+    {
+        "id": "282",
+        "nom": "Schnauzer miniature"
+    },
+    {
+        "id": "283",
+        "nom": "Schnauzer moyen"
+    },
+    {
+        "id": "284",
+        "nom": "Sealyham Terrier"
+    },
+    {
+        "id": "285",
+        "nom": "Setter Gordon"
+    },
+    {
+        "id": "286",
+        "nom": "Setter anglais"
+    },
+    {
+        "id": "287",
+        "nom": "Setter irlandais rouge"
+    },
+    {
+        "id": "288",
+        "nom": "Setter irlandais rouge et blanc"
+    },
+    {
+        "id": "289",
+        "nom": "Shar Pei"
+    },
+    {
+        "id": "290",
+        "nom": "Shiba"
+    },
+    {
+        "id": "291",
+        "nom": "Shih tzu"
+    },
+    {
+        "id": "292",
+        "nom": "Shikoku"
+    },
+    {
+        "id": "293",
+        "nom": "Skye terrier"
+    },
+    {
+        "id": "294",
+        "nom": "Sloughi"
+    },
+    {
+        "id": "295",
+        "nom": "Smous des Pays-Bas"
+    },
+    {
+        "id": "296",
+        "nom": "Spinone"
+    },
+    {
+        "id": "297",
+        "nom": "Spitz"
+    },
+    {
+        "id": "298",
+        "nom": "Spitz Loup"
+    },
+    {
+        "id": "299",
+        "nom": "Spitz allemand"
+    },
+    {
+        "id": "300",
+        "nom": "Spitz de Norrbotten"
+    },
+    {
+        "id": "301",
+        "nom": "Spitz finlandais"
+    },
+    {
+        "id": "302",
+        "nom": "Spitz japonais"
+    },
+    {
+        "id": "303",
+        "nom": "Spitz moyen"
+    },
+    {
+        "id": "304",
+        "nom": "Spitz nain"
+    },
+    {
+        "id": "305",
+        "nom": "Springer anglais"
+    },
+    {
+        "id": "306",
+        "nom": "Staffordshire Bull Terrier"
+    },
+    {
+        "id": "307",
+        "nom": "Sussex Spaniel"
+    },
+    {
+        "id": "308",
+        "nom": "Teckel"
+    },
+    {
+        "id": "309",
+        "nom": "Teckel à poil dur"
+    },
+    {
+        "id": "310",
+        "nom": "Teckel à poil long"
+    },
+    {
+        "id": "311",
+        "nom": "Teckel à poil ras"
+    },
+    {
+        "id": "312",
+        "nom": "Terre-neuve"
+    },
+    {
+        "id": "313",
+        "nom": "Terrier Kerry Blue"
+    },
+    {
+        "id": "314",
+        "nom": "Terrier australien"
+    },
+    {
+        "id": "315",
+        "nom": "Terrier australien à poil soyeux"
+    },
+    {
+        "id": "316",
+        "nom": "Terrier brésilien"
+    },
+    {
+        "id": "317",
+        "nom": "Terrier d'agrément anglais noir et feu"
+    },
+    {
+        "id": "318",
+        "nom": "Terrier de Boston"
+    },
+    {
+        "id": "319",
+        "nom": "Terrier de chasse allemand"
+    },
+    {
+        "id": "320",
+        "nom": "Terrier irlandais"
+    },
+    {
+        "id": "321",
+        "nom": "Terrier irlandais Glen of Imaal"
+    },
+    {
+        "id": "322",
+        "nom": "Terrier irlandais à poil doux"
+    },
+    {
+        "id": "323",
+        "nom": "Terrier japonais"
+    },
+    {
+        "id": "324",
+        "nom": "Terrier noir russe"
+    },
+    {
+        "id": "325",
+        "nom": "Terrier tchèque"
+    },
+    {
+        "id": "326",
+        "nom": "Terrier tibétain"
+    },
+    {
+        "id": "327",
+        "nom": "Terrier écossais"
+    },
+    {
+        "id": "328",
+        "nom": "Tosa"
+    },
+    {
+        "id": "329",
+        "nom": "Vallhund suédois"
+    },
+    {
+        "id": "330",
+        "nom": "Volpino italien"
+    },
+    {
+        "id": "331",
+        "nom": "Welsh Springer Spaniel"
+    },
+    {
+        "id": "332",
+        "nom": "Welsh terrier"
+    },
+    {
+        "id": "333",
+        "nom": "West Highland white terrier"
+    },
+    {
+        "id": "334",
+        "nom": "Xoloitzcuintle"
+    },
+    {
+        "id": "335",
+        "nom": "Yorkshire terrier"
+    },
+    {
+        "id": "336",
+        "nom": "Épagneul bleu de Picardie"
+    },
+    {
+        "id": "337",
+        "nom": "Épagneul breton"
+    },
+    {
+        "id": "338",
+        "nom": "Épagneul d'eau irlandais"
+    },
+    {
+        "id": "339",
+        "nom": "Épagneul de Pont-Audemer"
+    },
+    {
+        "id": "340",
+        "nom": "Épagneul français"
+    },
+    {
+        "id": "341",
+        "nom": "Épagneul japonais"
+    },
+    {
+        "id": "342",
+        "nom": "Épagneul nain continental"
+    },
+    {
+        "id": "343",
+        "nom": "Épagneul nain continental papillon"
+    },
+    {
+        "id": "344",
+        "nom": "Épagneul picard"
+    },
+    {
+        "id": "345",
+        "nom": "Épagneul tibétain"
+    },
+        {
+        "id": "346",
+        "nom": "Autre"
+    }
+]

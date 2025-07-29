@@ -18,18 +18,28 @@ export class CreationCompteComponent {
     this.creationCompte = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
+      username: new FormControl(''),
+      profilePicture: new FormControl(''),
       age: new FormControl(''),
       localisation: new FormControl(''),
-      disponibilite: new FormControl('')
+      email: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+
     });
   }
+    get verifAge(): boolean {
+      return (this.creationCompte.get('age')?.value ?? 0) < 18;
+    }
 
    onSubmit(){
+    this.creationCompte.markAllAsTouched();
+
     if (this.creationCompte.valid){
       this.http.post('http://localhost:8080/api/users/save', this.creationCompte.value)
         .subscribe({
           next: (res) => {
             console.log('Succès ! Utilisateur créé :', res);
+            
             alert('Compte créé avec succès !');
           },
           error: (err) => {

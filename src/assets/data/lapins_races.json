@@ -1,0 +1,314 @@
+[
+    {
+        "id": "1",
+        "nom": "Lapin domestique"
+    },
+    {
+        "id": "2",
+        "nom": "Lapin dans la culture"
+    },
+    {
+        "id": "3",
+        "nom": "Lapin de garenne"
+    },
+    {
+        "id": "4",
+        "nom": "Lapin nain"
+    },
+    {
+        "id": "5",
+        "nom": "Lapin angora"
+    },
+    {
+        "id": "6",
+        "nom": "Lapin bélier"
+    },
+    {
+        "id": "7",
+        "nom": "Lapin rex"
+    },
+    {
+        "id": "8",
+        "nom": "Cuniculture"
+    },
+    {
+        "id": "9",
+        "nom": "Laurices"
+    },
+    {
+        "id": "10",
+        "nom": "Géant papillon français"
+    },
+    {
+        "id": "11",
+        "nom": "Bélier français"
+    },
+    {
+        "id": "12",
+        "nom": "Géant blanc du Bouscat"
+    },
+    {
+        "id": "13",
+        "nom": "Géant des Flandres"
+    },
+    {
+        "id": "14",
+        "nom": "Alaska"
+    },
+    {
+        "id": "15",
+        "nom": "Argenté de Champagne"
+    },
+    {
+        "id": "16",
+        "nom": "Argenté de Saint Hubert"
+    },
+    {
+        "id": "17",
+        "nom": "Bélier anglais"
+    },
+    {
+        "id": "18",
+        "nom": "Bleu de Beveren"
+    },
+    {
+        "id": "19",
+        "nom": "Blanc de Hotot"
+    },
+    {
+        "id": "20",
+        "nom": "Blanc de Termonde"
+    },
+    {
+        "id": "21",
+        "nom": "Blanc de Vendée"
+    },
+    {
+        "id": "22",
+        "nom": "Blanc de Vienne"
+    },
+    {
+        "id": "23",
+        "nom": "Bleu de Vienne"
+    },
+    {
+        "id": "24",
+        "nom": "Gris de Vienne"
+    },
+    {
+        "id": "25",
+        "nom": "Gris bleu de Vienne"
+    },
+    {
+        "id": "26",
+        "nom": "Noir de Vienne"
+    },
+    {
+        "id": "27",
+        "nom": "Californien"
+    },
+    {
+        "id": "28",
+        "nom": "Chamois de Thuringe"
+    },
+    {
+        "id": "29",
+        "nom": "Fauve de Bourgogne"
+    },
+    {
+        "id": "30",
+        "nom": "Grand Chinchilla"
+    },
+    {
+        "id": "31",
+        "nom": "Grand Russe"
+    },
+    {
+        "id": "32",
+        "nom": "Gris du Bourbonnais"
+    },
+    {
+        "id": "33",
+        "nom": "Japonais"
+    },
+    {
+        "id": "34",
+        "nom": "Lièvre belge"
+    },
+    {
+        "id": "35",
+        "nom": "Lapin chèvre"
+    },
+    {
+        "id": "36",
+        "nom": "Néo-zélandais"
+    },
+    {
+        "id": "37",
+        "nom": "Noir et blanc"
+    },
+    {
+        "id": "38",
+        "nom": "Normand"
+    },
+    {
+        "id": "39",
+        "nom": "Papillon rhénan"
+    },
+    {
+        "id": "40",
+        "nom": "Argenté anglais"
+    },
+    {
+        "id": "41",
+        "nom": "Brun marron de Lorraine"
+    },
+    {
+        "id": "42",
+        "nom": "Lapin chinchilla"
+    },
+    {
+        "id": "43",
+        "nom": "Doré de Saxe"
+    },
+    {
+        "id": "44",
+        "nom": "Feh de Marbourg"
+    },
+    {
+        "id": "45",
+        "nom": "Feu noir"
+    },
+    {
+        "id": "46",
+        "nom": "Feu havane"
+    },
+    {
+        "id": "47",
+        "nom": "Feu bleu"
+    },
+    {
+        "id": "48",
+        "nom": "Feu Feh"
+    },
+    {
+        "id": "49",
+        "nom": "Havane français"
+    },
+    {
+        "id": "50",
+        "nom": "Hollandais"
+    },
+    {
+        "id": "51",
+        "nom": "Lynx"
+    },
+    {
+        "id": "52",
+        "nom": "Papillon anglais"
+    },
+    {
+        "id": "53",
+        "nom": "Petit papillon"
+    },
+    {
+        "id": "54",
+        "nom": "Petit bélier"
+    },
+    {
+        "id": "55",
+        "nom": "Perlfeh"
+    },
+    {
+        "id": "56",
+        "nom": "Rhoen"
+    },
+    {
+        "id": "57",
+        "nom": "Russe"
+    },
+    {
+        "id": "58",
+        "nom": "Sablé des Vosges"
+    },
+    {
+        "id": "59",
+        "nom": "Separator"
+    },
+    {
+        "id": "60",
+        "nom": "Zibeline/Martre"
+    },
+    {
+        "id": "61",
+        "nom": "Hermine"
+    },
+    {
+        "id": "62",
+        "nom": "Nain de couleur"
+    },
+    {
+        "id": "63",
+        "nom": "Nain lièvre"
+    },
+    {
+        "id": "64",
+        "nom": "Nain bélier"
+    },
+    {
+        "id": "65",
+        "nom": "Nain bélier angora"
+    },
+    {
+        "id": "66",
+        "nom": "Nain bélier Rex"
+    },
+    {
+        "id": "67",
+        "nom": "Nain bélier satin"
+    },
+    {
+        "id": "68",
+        "nom": "Nain angora"
+    },
+    {
+        "id": "69",
+        "nom": "Nain renard"
+    },
+    {
+        "id": "70",
+        "nom": "Nain Rex"
+    },
+    {
+        "id": "71",
+        "nom": "Nain satin"
+    },
+    {
+        "id": "72",
+        "nom": "Angora français"
+    },
+    {
+        "id": "73",
+        "nom": "Rex"
+    },
+    {
+        "id": "74",
+        "nom": "Renard"
+    },
+    {
+        "id": "75",
+        "nom": "Satin"
+    },
+    {
+        "id": "76",
+        "nom": "Orylag"
+    },
+    {
+        "id": "77",
+        "nom": "Tête de lion"
+    },
+    {
+        "id": "78",
+        "nom": "Autre"
+    }
+]

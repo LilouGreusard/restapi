@@ -1,0 +1,230 @@
+[
+    {
+        "id": "1",
+        "nom": "Abyssin"
+    },
+    {
+        "id": "2",
+        "nom": "American curl à poil court et à poil mi-long"
+    },
+    {
+        "id": "3",
+        "nom": "American shorthair"
+    },
+    {
+        "id": "4",
+        "nom": "American wirehair"
+    },
+    {
+        "id": "5",
+        "nom": "Angora turc"
+    },
+    {
+        "id": "6",
+        "nom": "Asian"
+    },
+    {
+        "id": "7",
+        "nom": "Balinais"
+    },
+    {
+        "id": "8",
+        "nom": "Bengal"
+    },
+    {
+        "id": "9",
+        "nom": "Bombay"
+    },
+    {
+        "id": "10",
+        "nom": "British shorthair"
+    },
+    {
+        "id": "11",
+        "nom": "British longhair"
+    },
+    {
+        "id": "12",
+        "nom": "Burmese américain"
+    },
+    {
+        "id": "13",
+        "nom": "Burmese anglais"
+    },
+    {
+        "id": "14",
+        "nom": "Burmilla"
+    },
+    {
+        "id": "15",
+        "nom": "Californian rex"
+    },
+    {
+        "id": "16",
+        "nom": "Ceylan"
+    },
+    {
+        "id": "17",
+        "nom": "Chartreux"
+    },
+    {
+        "id": "18",
+        "nom": "Cornish rex"
+    },
+    {
+        "id": "19",
+        "nom": "Cymric"
+    },
+    {
+        "id": "20",
+        "nom": "Donskoy"
+    },
+    {
+        "id": "21",
+        "nom": "Exotic shorthair"
+    },
+    {
+        "id": "22",
+        "nom": "German rex"
+    },
+    {
+        "id": "23",
+        "nom": "Havana brown"
+    },
+    {
+        "id": "24",
+        "nom": "Highland fold"
+    },
+    {
+        "id": "25",
+        "nom": "Highland straight"
+    },
+    {
+        "id": "26",
+        "nom": "Korat"
+    },
+    {
+        "id": "27",
+        "nom": "Maine coon"
+    },
+    {
+        "id": "28",
+        "nom": "Mandarin"
+    },
+    {
+        "id": "29",
+        "nom": "Manx"
+    },
+    {
+        "id": "30",
+        "nom": "Mau égyptien"
+    },
+    {
+        "id": "31",
+        "nom": "Munchkin à poil court et à poil mi-long"
+    },
+    {
+        "id": "32",
+        "nom": "Mau arabe"
+    },
+    {
+        "id": "33",
+        "nom": "Nebelung"
+    },
+    {
+        "id": "34",
+        "nom": "Norvégien"
+    },
+    {
+        "id": "35",
+        "nom": "Ocicat"
+    },
+    {
+        "id": "36",
+        "nom": "Oriental"
+    },
+    {
+        "id": "37",
+        "nom": "Persan"
+    },
+    {
+        "id": "38",
+        "nom": "Peterbald"
+    },
+    {
+        "id": "39",
+        "nom": "Pixie-bob à poil court et à poil long"
+    },
+    {
+        "id": "40",
+        "nom": "Ragdoll"
+    },
+    {
+        "id": "41",
+        "nom": "Sacré de birmanie"
+    },
+    {
+        "id": "42",
+        "nom": "Scottish fold"
+    },
+    {
+        "id": "43",
+        "nom": "Scottish straight"
+    },
+    {
+        "id": "44",
+        "nom": "Selkirk rex à poil court ou à poil mi-long"
+    },
+    {
+        "id": "45",
+        "nom": "Siamois"
+    },
+    {
+        "id": "46",
+        "nom": "Sibérien"
+    },
+    {
+        "id": "47",
+        "nom": "Singapura"
+    },
+    {
+        "id": "48",
+        "nom": "Snowshoe"
+    },
+    {
+        "id": "49",
+        "nom": "Sokoké"
+    },
+    {
+        "id": "50",
+        "nom": "Somali"
+    },
+    {
+        "id": "51",
+        "nom": "Sphynx"
+    },
+    {
+        "id": "52",
+        "nom": "Thaï"
+    },
+    {
+        "id": "53",
+        "nom": "Tiffany"
+    },
+    {
+        "id": "54",
+        "nom": "Tonkinois à poil court ou à poil mi-long"
+    },
+    {
+        "id": "55",
+        "nom": "Turc de van"
+    },
+    {
+        "id": "56",
+        "nom": "York chocolat"
+    },
+    {
+        "id": "57",
+        "nom": "Autre"
+    }
+]
