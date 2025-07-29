@@ -49,8 +49,8 @@
     <label>
         Caractères :
     </label>      
-    <mat-select formControlName="nature" multiple>
-        <mat-option *ngFor="let nature of natures" [value]="nature">{{ nature.name }}</mat-option>
+    <mat-select formControlName="natures" multiple>
+        <mat-option *ngFor="let nature of naturesList" [value]="nature">{{ nature.name }}</mat-option>
     </mat-select>
 
     <label>

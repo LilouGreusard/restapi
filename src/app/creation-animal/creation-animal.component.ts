@@ -25,7 +25,7 @@ export class CreationAnimalComponent implements OnInit {
   creationAnimal: FormGroup;
   races: Race[] = [];
   especes: Espece[] = [];
-  natures: Nature[] = [];
+  naturesList: Nature[] = [];
 
   @ViewChild('familleSelect') familleSelect!: ElementRef<HTMLSelectElement>;
 
@@ -36,7 +36,7 @@ export class CreationAnimalComponent implements OnInit {
       espece: new FormControl('', [Validators.required]),
       race: new FormControl('', [Validators.required]),
       size: new FormControl(''),
-      nature: new FormControl([]),
+      natures: new FormControl([]),
       description: new FormControl(''),
     });
   }
@@ -62,7 +62,7 @@ export class CreationAnimalComponent implements OnInit {
 // récupérer la liste des natures
   afficherNature() {
     this.natureService.getAll().then(data => {
-      this.natures = data
+      this.naturesList = data
     }).catch();
   }
 
