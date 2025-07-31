@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   FormControl,
@@ -17,7 +17,11 @@ import { Adresse } from '../models/adresse.model';
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    HttpClientModule,
+    
+// TODO: `HttpClientModule` should not be imported into a component directly.
+// Please refactor the code to add `provideHttpClient()` call to the provider list in the
+// application bootstrap logic and remove the `HttpClientModule` import from this component.
+HttpClientModule,
     LocalisationComponent,
   ],
   templateUrl: './creation-compte.component.html',

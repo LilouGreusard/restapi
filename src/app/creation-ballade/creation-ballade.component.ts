@@ -21,7 +21,7 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Ballade } from '../models/ballade.model';
 import { Statuts } from '../enums/status.enum';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { LocalisationComponent } from '../localisation/localisation.component';
 
@@ -38,7 +38,11 @@ import { LocalisationComponent } from '../localisation/localisation.component';
     AsyncPipe,
     CommonModule,
     NgSelectModule,
-    HttpClientModule,
+    
+// TODO: `HttpClientModule` should not be imported into a component directly.
+// Please refactor the code to add `provideHttpClient()` call to the provider list in the
+// application bootstrap logic and remove the `HttpClientModule` import from this component.
+HttpClientModule,
     LocalisationComponent,
   ],
   providers: [AdresseService],
