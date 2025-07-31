@@ -1,0 +1,21 @@
+<!-- code postale, commune  -->
+<div [formGroup]="formLocalisation">
+    <label>
+        Commune :
+    </label>
+    <input type="text" placeholder="Tapez un code postal" aria-label="Number" matInput [formControl]="lieuCtrl"
+        [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        @for (option of filteredCodePostaux | async; track option) {
+        <mat-option [value]="option">{{option}}</mat-option>
+        }
+    </mat-autocomplete>
+
+    <!-- Adresse, rue  -->
+    <label>
+        Adresse :
+    </label>
+    <mat-select formControlName="adresseCtrl" (ngModelChange)="emettreLieu()">
+        <mat-option [value]="item.id" *ngFor="let item of adressesParCodePostal"> {{item?.rue}}</mat-option>
+    </mat-select>
+</div>

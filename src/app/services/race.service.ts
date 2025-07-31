@@ -9,10 +9,10 @@ export class RaceService {
 
     constructor() {}
     async getAll(): Promise<Array<Race>> {
-        return ApiService.get('http://localhost:8080/api/race/all');
+        return ApiService.get('/race/all');
     }
     async getByEpeceId(especeId: number): Promise<Array<Race>> {
-         return ApiService.get('http://localhost:8080/api/race/espece/' + especeId);
+         return ApiService.get('/race/espece/' + especeId);
         
     }
 }

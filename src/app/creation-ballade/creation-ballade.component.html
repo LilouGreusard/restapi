@@ -1,0 +1,40 @@
+<h1>Création d'une Ballade</h1>
+<form [formGroup]="creationBallade" (ngSubmit)="onSubmit()">
+
+    <app-localisation [lilou]="'chouette'" (adresseEmit)="setAdresse($event)"></app-localisation>
+
+    <!-- Horaire  -->
+    <label>
+        Horaire :
+    </label>
+    <input type="time" formControlName="horaire">
+
+
+    <!-- Jours de la semaine  -->
+    <label>
+        Date :
+    </label>
+    <mat-select formControlName="date" multiple>
+        <mat-option #allSelected (click)="toggleAllSelection()">Tout les jours</mat-option>
+        <mat-option *ngFor="let jour of jours" [value]="jour" (click)="toggleOne()">
+            {{jour}}
+        </mat-option>
+    </mat-select>
+
+    <!-- Durée  -->
+    <label>
+        Durée :
+    </label>
+    <mat-select formControlName="duree">
+        <mat-option [value]="15">15 minutes</mat-option>
+        <mat-option [value]="30">30 minutes</mat-option>
+        <mat-option [value]="45">45 minutes</mat-option>
+        <mat-option [value]="60">1 heure</mat-option>
+    </mat-select>
+
+    <!-- Description -->
+    <label for="infos"> Description</label>
+    <textarea formControlName="infos" maxlength="250" rows="5"></textarea>
+
+    <button type="submit">Créer la ballade</button>
+</form>

@@ -9,6 +9,6 @@ export class NatureService {
 
     constructor() { }
     async getAll(): Promise<Array<Nature>> {
-        return ApiService.get('http://localhost:8080/api/nature/all');
+        return ApiService.get('/nature/all');
     }
 }

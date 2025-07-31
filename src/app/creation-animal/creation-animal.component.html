@@ -19,9 +19,9 @@
     <label>
         Espèce :
     </label>
-    <select formControlName="espece" (ngModelChange)="getRacesById($event)">
-        <option *ngFor="let espece of especes" [value]="espece.id">{{ espece.name }}</option>
-    </select>
+    <mat-select formControlName="espece" (ngModelChange)="getRacesById($event)">
+        <mat-option *ngFor="let espece of especes" [value]="espece.id">{{ espece.name }}</mat-option>
+    </mat-select>
     <div *ngIf="creationAnimal.get('espece')?.invalid && creationAnimal.get('espece')?.touched">
         L'espèce est obligatoire'.
     </div>
@@ -29,10 +29,10 @@
     <label>
         Race :
     </label>
-    <select formControlName="race">
-        <option disabled>Choisissez une famille</option>
-        <option *ngFor="let race of races" [value]="race.id">{{ race.name }}</option>
-    </select>
+    <mat-select formControlName="race">
+        <mat-option disabled>Choisissez une famille</mat-option>
+        <mat-option *ngFor="let race of races" [value]="race.id">{{ race.name }}</mat-option>
+    </mat-select>
     <div *ngIf="creationAnimal.get('race')?.invalid && creationAnimal.get('race')?.touched">
         La race est obligatoire.
     </div>
@@ -40,11 +40,11 @@
     <label>
         Taille :
     </label>
-    <select formControlName="size">
-        <option value=0>Petit</option>
-        <option value=1>Moyen</option>
-        <option value=2>Grand</option>
-    </select>
+    <mat-select formControlName="size">
+        <mat-option value=0>Petit</mat-option>
+        <mat-option value=1>Moyen</mat-option>
+        <mat-option value=2>Grand</mat-option>
+    </mat-select>
 
     <label>
         Caractères :

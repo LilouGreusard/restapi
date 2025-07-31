@@ -16,7 +16,7 @@ form {
     margin-bottom: 1rem;
   }
   
-  input, select, mat-select  {
+  input, select, mat-select, textarea  {
     display: block;
     width: 100%;
     padding: 0.5rem;
@@ -33,7 +33,6 @@ form {
       box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
     }
   }
-  
 
   div {
     color: #d9534f;
@@ -58,4 +57,9 @@ form {
       background-color: #0056b3;
     }
   }
+
+  textarea{
+    resize: none;
+  }
+
 }

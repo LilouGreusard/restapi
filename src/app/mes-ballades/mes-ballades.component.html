@@ -1,0 +1,42 @@
+<div *ngIf="loading">Chargement des ballades...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div>
+    <div *ngIf="!loading && !error" class="ballades">
+        <div *ngFor="let ballade of ballades">
+            <div class="ballade">
+
+                <!-- <div class="pictureFrame">
+                    <div class="picture">
+                        <img [src]="'/assets/images/espece_' + ballade.race?.espece?.id+ '.png'">
+                    </div>
+                </div> -->
+                
+                <span class="name">{{ ballade.lieu?.rue }}</span>
+                <span class="name">{{ ballade.lieu?.codePostal?.name }}</span>
+                <div class="attributes">
+                    <span class="attribute"> <span class="color">Jours :</span> {{ ballade.jours }}</span>
+                    <span class="attribute"> <span class="color">Heure :</span> {{ ballade.heure }}</span>
+                    <span class="attribute"> <span class="color">Durée :</span> {{ ballade.dureeMinute }}</span>
+                    <span class="attribute"> <span class="color">Statut :</span> {{ ballade.statut }}</span>
+                    <br />
+                    <span class="attribute color">Compagnon :</span>
+                    <span class="attribute">{{ ballade.compagnon?.name }}</span>
+                    <span class="attribute">{{ ballade.compagnon?.age }} ans</span>
+                    <span class="attribute">{{ ballade.compagnon?.race?.espece?.name }}</span>
+                    <span class="attribute">{{ ballade.compagnon?.race?.name }}</span>
+                    <span class="color">Natures du Compagnon : </span>
+                    <span class="nature" *ngFor="let nature of ballade.compagnon?.natures; let last = last">
+                        {{ nature.name }}<span *ngIf="!last">, </span>
+                    </span>
+                    <br />
+                    <span class="color">Participants : </span>
+                    <span class="participant" *ngFor="let participant of ballade.participants; let last = last">
+                        {{ participant.username }}<span *ngIf="!last">, </span>
+                    </span>
+                </div>
+  
+            </div>
+        </div>
+    </div>
+</div>

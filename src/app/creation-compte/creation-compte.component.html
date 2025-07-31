@@ -31,10 +31,7 @@
         Vous devez avoir au moins 18 ans.
     </div>
 
-    <label>
-        Localisation :
-    </label>
-    <input formControlName="localisation">
+    <app-localisation (adresseEmit)="setAdresse($event)"></app-localisation>
 
     <label>
         Email :

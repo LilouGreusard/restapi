@@ -9,6 +9,6 @@ export class EspeceService {
 
     constructor() { }
     async getAll(): Promise<Array<Espece>> {
-        return ApiService.get('http://localhost:8080/api/espece/all');
+        return ApiService.get('/espece/all');
     }
 }

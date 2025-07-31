@@ -1,0 +1,32 @@
+<div *ngIf="loading">Chargement des compagnons...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div>
+  <div *ngIf="!loading && !error" class="compagnons">
+    <div *ngFor="let compagnon of mesCompagnons">
+      <div class="compagnon">
+        <div class="pictureFrame">
+          <div class="picture">
+            <img [src]="'/assets/images/espece_' + compagnon.race?.espece?.id+ '.png'">
+          </div>
+        </div>
+        <span class="name">{{ compagnon.name }}</span>
+        <div class="attributes">
+          <span class="attribute"> <span class="color">Race :</span> {{ compagnon.race?.name }}</span>
+          <span class="attribute"> <span class="color">Age :</span> {{ compagnon.age }} ans</span>
+          <br />
+          <span class="color">Natures : </span>
+          <span class="nature" *ngFor="let nature of compagnon.natures; let last = last">
+            {{ nature.name }}<span *ngIf="!last">, </span>
+          </span>
+        </div>
+        <button matIconButton (click)="onSubmitCreer(compagnon.id)">
+          Créer une balade
+        </button>
+        <button matIconButton (click)="onSubmitRejoindre(compagnon.id)">
+          Rejoindre une balade
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
