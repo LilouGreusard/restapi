@@ -12,18 +12,17 @@ import {
   MatSelectModule,
 } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { map, Observable, startWith } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CodePostal } from '../models/code-postal.model';
 import { Adresse } from '../models/adresse.model';
 import { AdresseService } from '../services/adresse.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { Ballade } from '../models/ballade.model';
 import { Statuts } from '../enums/status.enum';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { LocalisationComponent } from '../localisation/localisation.component';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-creation-ballade',
@@ -37,12 +36,6 @@ import { LocalisationComponent } from '../localisation/localisation.component';
     MatAutocompleteModule,
     AsyncPipe,
     CommonModule,
-    NgSelectModule,
-    
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule,
     LocalisationComponent,
   ],
   providers: [AdresseService],
@@ -72,7 +65,6 @@ export class CreationBalladeComponent {
 
   constructor(
     private adresseService: AdresseService,
-    private http: HttpClient,
     private route: ActivatedRoute
   ) {}
 
@@ -139,17 +131,17 @@ export class CreationBalladeComponent {
     console.log(this.balade);
 
     if (this.creationBallade.valid) {
-      this.http
-        .post('http://localhost:8080/api/ballades/save', this.balade)
-        .subscribe({
-          next: (res) => {
-            console.log('Succès ! Ballade créé :', res);
-            alert('Ballade créé avec succès !');
-          },
-          error: (err) => {
-            console.error('Erreur lors de la création :', err);
-            alert('Erreur lors de la création de la Ballade.');
-          },
+      ApiService.postData(
+        '/ballades/save',
+        this.balade
+      )
+        .then((res: Ballade) => {
+          console.log('Succès ! Ballade créé :', res);
+          alert('Ballade créé avec succès !');
+        })
+        .catch((err) => {
+          console.error('Erreur lors de la création :', err);
+          alert('Erreur lors de la création de la Ballade.');
         });
     } else {
       alert('Champs Invalide !');

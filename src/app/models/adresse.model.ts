@@ -4,4 +4,5 @@ export interface Adresse {
   id?: number;
   rue?: string;
   codePostal?: CodePostal;
+  positionGps?: string;
 }

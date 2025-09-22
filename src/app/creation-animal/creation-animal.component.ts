@@ -8,7 +8,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { Race } from '../models/race.model';
 import { RaceService } from '../services/race.service';
 import { Espece } from '../models/espece.model';
@@ -19,6 +18,8 @@ import { NatureService } from '../services/nature.service';
 import { Nature } from '../models/nature.model';
 import { Router } from '@angular/router';
 import { CompteService } from '../services/compte.service';
+import { ApiService } from '../services/api.service';
+import { Compagnon } from '../models/compagnon.model';
 
 @Component({
   selector: 'app-creation-animal',
@@ -26,13 +27,7 @@ import { CompteService } from '../services/compte.service';
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule,
     FormsModule,
-    NgSelectModule,
     MatFormFieldModule,
     MatSelectModule,
   ],
@@ -48,7 +43,6 @@ export class CreationAnimalComponent implements OnInit {
   userId: number | null = null;
 
   constructor(
-    private http: HttpClient,
     private raceService: RaceService,
     private especeService: EspeceService,
     private natureService: NatureService,
@@ -121,31 +115,25 @@ export class CreationAnimalComponent implements OnInit {
     this.creationAnimal.markAllAsTouched();
 
     let postForm = this.creationAnimal.value;
+    postForm.user = { Id: this.userId };
 
     // valoriser la race à partir de l'id recu dans le form
     const raceId: number = this.creationAnimal.get('race')?.value;
-
     if (raceId) postForm.race = this.getRaceById(raceId);
 
-    postForm.user = { Id: this.userId };
-
-    console.log(postForm);
 
     if (this.creationAnimal.valid) {
-      this.http
-        .post('http://localhost:8080/api/compagnons/save', postForm)
-        .subscribe({
-          next: (res) => {
-            console.log('Succès ! Compagnon créé :', res);
+      ApiService.postData('/compagnons/save', postForm)
+        .then((res: Compagnon) => {
+          console.log('Succès ! Compagnon créé :', res);
 
-            alert('Compagnon créé avec succès !');
-            // TODO redirection vers le composant mes compagnons
-            this.router.navigate(['/mes-compagnons', this.userId]);
-          },
-          error: (err) => {
-            console.error('Erreur lors de la création :', err);
-            alert('Erreur lors de la création du compagnon.');
-          },
+          alert('Compagnon créé avec succès !');
+          // TODO redirection vers le composant mes compagnons
+          this.router.navigate(['/mes-compagnons', this.userId]);
+        })
+        .catch((err) => {
+          console.error('Erreur lors de la création :', err);
+          alert('Erreur lors de la création du compagnon.');
         });
     } else {
       alert('Champs Invalide !');

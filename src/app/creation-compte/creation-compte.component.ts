@@ -10,6 +10,7 @@ import {
 import { User } from '../models/compte.model';
 import { LocalisationComponent } from '../localisation/localisation.component';
 import { Adresse } from '../models/adresse.model';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-creation-compte',
@@ -17,11 +18,6 @@ import { Adresse } from '../models/adresse.model';
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule,
     LocalisationComponent,
   ],
   templateUrl: './creation-compte.component.html',
@@ -31,7 +27,7 @@ export class CreationCompteComponent {
   creationCompte: FormGroup;
   adresse: Adresse = {};
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.creationCompte = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -47,14 +43,14 @@ export class CreationCompteComponent {
     return (this.creationCompte.get('age')?.value ?? 0) < 18;
   }
 
-  setAdresse(adresse: Adresse){
-    this.adresse =  adresse
+  setAdresse(adresse: Adresse) {
+    this.adresse = adresse;
   }
 
   onSubmit() {
     this.creationCompte.markAllAsTouched();
 
-    let compte: User = {}
+    let compte: User = {};
 
     compte.firstName = this.creationCompte.controls['firstName'].value;
     compte.lastName = this.creationCompte.controls['lastName'].value;
@@ -63,22 +59,17 @@ export class CreationCompteComponent {
     compte.adresse = this.adresse;
     compte.email = this.creationCompte.controls['email'].value;
     compte.password = this.creationCompte.controls['password'].value;
-    
+
     if (this.creationCompte.valid) {
-      this.http
-        .post('http://localhost:8080/api/users/save', compte)
-        .subscribe({
-          next: (res: User) => {
-            console.log('Succès ! Utilisateur créé :', res);
-            if (res?.Id)
-              localStorage.setItem('USER_ID', JSON.stringify(res.Id));
-            alert('Compte créé avec succès !');
-            
-          },
-          error: (err) => {
-            console.error('Erreur lors de la création :', err);
-            alert('Erreur lors de la création du compte.');
-          },
+      ApiService.postData('users/save', compte)
+        .then((res: User) => {
+          console.log('Succès ! Utilisateur créé :', res);
+          if (res?.Id) localStorage.setItem('USER_ID', JSON.stringify(res.Id));
+          alert('Compte créé avec succès !');
+        })
+        .catch((err) => {
+          console.error('Erreur lors de la création :', err);
+          alert('Erreur lors de la création du compte.');
         });
     } else {
       alert('Champs Invalide !');

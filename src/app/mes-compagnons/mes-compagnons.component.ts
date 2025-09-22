@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Compagnon } from '../models/compagnon.model';
 import { CompagnonService } from '../services/compagnon.service';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
@@ -9,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-mes-compagnons',
   standalone: true,
-  imports: [NgSelectModule, CommonModule, MatButtonModule],
+  imports: [ CommonModule, MatButtonModule],
   providers: [CompagnonService],
   templateUrl: './mes-compagnons.component.html',
   styleUrl: './mes-compagnons.component.scss',

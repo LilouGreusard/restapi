@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Ballade } from '../models/ballade.model';
 import { BalladeService } from '../services/ballade.service';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
@@ -9,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-mes-ballades',
   standalone: true,
-  imports: [NgSelectModule, CommonModule, MatButtonModule],
+  imports: [ CommonModule, MatButtonModule],
   providers: [],
   templateUrl: './mes-ballades.component.html',
   styleUrl: './mes-ballades.component.scss',
@@ -47,6 +46,7 @@ export class MesBalladesComponent implements OnInit {
     else {
       //TODO
       //rediriger vers la page de connexion /création de compte
+      
     }
   }
 

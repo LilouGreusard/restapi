@@ -19,4 +19,8 @@ export class BalladeService {
 
     return [...organises, ...nonOrganises];
   }
+
+   async getAllBallades(): Promise<Ballade[]> {
+    return ApiService.get('/ballades/all');
+  }
 }
