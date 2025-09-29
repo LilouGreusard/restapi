@@ -9,7 +9,7 @@ export interface User {
   profilePictures?: string;
   age?: number;
   adresse?: Adresse;
-  email?: String;
-  password?: String;
+  email?: string;
+  password?: string;
   compagnons?: Compagnon[];
 }

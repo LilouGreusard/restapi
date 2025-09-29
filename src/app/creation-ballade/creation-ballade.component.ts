@@ -96,6 +96,7 @@ export class CreationBalladeComponent {
   }
 
   toggleAllSelection(): void {
+
     // Sélection de "Tout les jours"
     if (this.allSelected.selected) {
       this.creationBallade.controls['date'].patchValue([...this.jours]);
@@ -106,6 +107,7 @@ export class CreationBalladeComponent {
       this.allSelected.deselect();
     }
   }
+  
   setAdresse(adresse: Adresse) {
     this.balade.lieu = adresse;
   }
@@ -129,7 +131,7 @@ export class CreationBalladeComponent {
     console.log(this.organisateur);
     console.log(this.compagnon);
     console.log(this.balade);
-
+    
     if (this.creationBallade.valid) {
       ApiService.postData(
         '/ballades/save',

@@ -1,0 +1,292 @@
+import { HttpClient } from '@angular/common/http';
+import { CompteService } from '../services/compte.service';
+import { Router } from '@angular/router';
+import { BalladeService } from '../services/ballade.service';
+import { User } from '../models/compte.model';
+import { Component, EventEmitter, computed, signal, ViewChild, Output } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  MatFormField,
+  MatOption,
+  MatSelectModule,
+} from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { CodePostal } from '../models/code-postal.model';
+import { Adresse } from '../models/adresse.model';
+import { AdresseService } from '../services/adresse.service';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { Ballade } from '../models/ballade.model';
+import { Statuts } from '../enums/status.enum';
+import { ActivatedRoute } from '@angular/router';
+import { LocalisationComponent } from '../localisation/localisation.component';
+import { ApiService } from '../services/api.service';
+import { map, Observable, startWith } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+
+@Component({
+  selector: 'app-modifier-ballade',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule,
+    MatFormField,
+    MatInputModule,
+    MatAutocompleteModule,
+    AsyncPipe,
+    CommonModule,
+    LocalisationComponent,
+    MatFormFieldModule,
+  ],
+  providers: [AdresseService],
+  templateUrl: './modifier-ballade.component.html',
+  styleUrl: './modifier-ballade.component.scss'
+})
+
+export class modifierBalladeComponent {
+  codesPostaux: CodePostal[] = [];
+  filteredCodePostaux: Observable<String[]> | undefined ;
+  formLocalisation: FormGroup = new FormGroup({});
+  adressesParCodePostal: Adresse[] = [];
+  lieuCtrl = new FormControl('', [Validators.required]);
+  modifierBallade: FormGroup;
+  adresse: Adresse = {};
+  userId = 0;
+  balladeId = 0;
+  jours: string[] = [
+    'Lundi',
+    'Mardi',
+    'Mercredi',
+    'Jeudi',
+    'Vendredi',
+    'Samedi',
+    'Dimanche',
+  ];
+
+  @ViewChild('allSelected') allSelected!: MatOption;
+  @Output() adresseEmit = new EventEmitter<Adresse>();
+
+  constructor(
+    private balladeService: BalladeService,
+    private compteService: CompteService,
+    private adresseService: AdresseService,
+    private router: Router,
+  ) {
+    this.modifierBallade = new FormGroup({
+      id: new FormControl(null),
+      infos: new FormControl(''),
+      jours: new FormControl([], [Validators.required]),
+      heure: new FormControl('', [Validators.required]),
+      dureeMinute: new FormControl('', [Validators.required]),
+      compagnon: new FormControl('', [Validators.required]),
+      statut: new FormControl('', [Validators.required]),
+      organisateur: new FormControl('', [Validators.required]),
+      lieu: this.lieuCtrl,
+      adresseCtrl: new FormControl('', [Validators.required]),
+    });
+  }
+
+  ngOnInit(){
+    this.adresseService
+      .getAllCp()
+      .then((data) => (this.codesPostaux = data))
+      .catch((err) =>
+         console.log('erreur lors de la récupération des codes postaux')
+      );
+    // on ajoute l'auto complétion sur les codes postaux
+    this.filteredCodePostaux = this.formLocalisation
+      .get('lieu')
+      ?.valueChanges.pipe(
+        startWith(''),
+        map((value) => this._filter(value || ''))
+      );
+    this.modifierBallade.get('lieu')?.valueChanges.subscribe((value) => {
+      if (!value) this.adressesParCodePostal = [];
+      else this.getAdresseByCp(value);
+    });
+
+    // récupère l'id user stocker
+    const storeUserId = localStorage.getItem('USER_ID');
+    // si id présent récupère les infos
+    if(storeUserId){
+      this.userId =  JSON.parse(storeUserId);
+      this.loadUser (this.userId);
+    }
+
+    // récupère l'id user stocker
+    const storeBalladeId = localStorage.getItem('BALLADE_ID');
+    // si id présent récupère les infos
+    if(storeBalladeId){
+      this.balladeId =  JSON.parse(storeBalladeId);
+      this.loadBallade (this.balladeId);
+    }
+
+    console.log("id user :", storeUserId)
+    console.log("id ballade :", storeBalladeId)
+  }
+
+  getAdresseByCp(codePostalSelected: String) {
+    const codePostal = this.getCodePostalByCp(codePostalSelected);
+    if (codePostal?.id)
+      this.adresseService
+        .getByCodePostalId(codePostal?.id)
+        .then((data) => (this.adressesParCodePostal = data));
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.codesPostaux
+      .filter((cp) => cp.name?.toLowerCase().includes(filterValue))
+      .map((cp) => cp?.codePostal + ', ' + cp?.name || '');
+  }
+
+  getCodePostalByCp(codepostalSelected: String) {
+    const cpNameSelected = codepostalSelected.split(',');
+    return this.codesPostaux.find(
+      (cp) => cp.codePostal === Number.parseInt(cpNameSelected[0])
+    );
+  }
+
+  getAdressById(id: number) {
+    return this.adressesParCodePostal.find((adr) => adr.id == id);
+  }
+
+  emettreLieu(){
+    const adresseId = this.modifierBallade.get('adresseCtrl')?.value;
+    const adresse = this.getAdressById(adresseId);
+    this.adresseEmit.emit(adresse);
+  }
+
+  toggleOne(): void {
+    const selected = this.modifierBallade.controls['jours'].value.filter(
+      (v: any) => v
+    );
+    // Sélection de "Tout les jours" si chaque jour est individuellement sélectionné
+    if (selected.length === this.jours.length) {
+      this.allSelected.select();
+      // Déselection de "Tout les jours" si un jour est individuellement déselectionné
+    } else if (selected.length !== this.jours.length) {
+      this.allSelected.deselect();
+    }
+    this.modifierBallade.controls['jours'];
+  }
+
+  toggleAllSelection(): void {
+    // Sélection de "Tout les jours"
+    if (this.allSelected.selected) {
+      this.modifierBallade.controls['jours'].patchValue([...this.jours]);
+      this.allSelected.select();
+      // Déselection de "Tout les jours"
+    } else if (!this.allSelected.selected) {
+      this.modifierBallade.controls['jours'].patchValue([]);
+      this.allSelected.deselect();
+    }
+  }
+
+  // Fonction récupérant les infos d'un user par son id
+  loadUser(id: number){
+    this.compteService.getById(id).subscribe({
+      next: (user)=>{
+        this.adresse = user.adresse || {};    
+      },
+      error: (err)=>
+        console.error('Erreur récupération user', err)
+    });
+  }
+
+  loadBallade(id: number){
+    this.balladeService.getById(id).subscribe({
+      next: (ballade)=>{    
+      console.log('Ballade récupéré:', ballade);
+      if (!ballade) {
+        console.warn('Ballade est null ou undefined, impossible de patcher le formulaire');
+        return;
+      }
+
+      let joursArray: string[] = ballade.jours ? ballade.jours.split(',') : [];
+
+      // Si tous les jours sont sélectionnés, coche "Tout les jours" visuellement
+      if (joursArray.length === 7) {
+        this.allSelected.select();
+      } else {
+         this.allSelected.deselect();
+      }
+      
+      this.modifierBallade.patchValue({
+        id: ballade.id,
+        infos : ballade.infos,
+        lieu : `${ballade.lieu?.codePostal?.codePostal}, ${ballade.lieu?.codePostal?.name}`,
+        adresseCtrl : ballade.lieu?.id,
+        jours: joursArray, 
+        heure : ballade.heure,
+        dureeMinute: ballade.dureeMinute,
+        compagnon: ballade.compagnon?.id,
+        statut: ballade.statut,
+        organisateur: ballade.organisateur?.Id,
+        });
+      },
+
+      error: (err)=>
+        console.error('Erreur récupération ballade', err)
+    });
+  }
+  
+  setAdresse(adresse: Adresse) {
+    this.adresse = adresse;
+    this.modifierBallade.patchValue({adresse: this.adresse});
+  }
+
+  // Quand bouton cliqué
+  onSubmit() {
+    this.modifierBallade.markAllAsTouched();
+
+    const formValues = this.modifierBallade.value;
+
+    const joursString = Array.isArray(formValues.jours) 
+    ? formValues.jours.join(',') 
+    : '';
+
+    
+
+    // "créer" une ballade avec les données modifiés ou laissé tel quelle
+    let ballade: Ballade = {
+      id: this.modifierBallade.controls['id'].value,
+      infos:this.modifierBallade.controls['infos'].value,
+      lieu: this.getAdressById(this.modifierBallade.controls['adresseCtrl'].value),
+      jours: joursString, 
+      heure:this.modifierBallade.controls['heure'].value,
+      dureeMinute:this.modifierBallade.controls['dureeMinute'].value,
+      compagnon:{ id: this.modifierBallade.controls['compagnon'].value},
+      statut:this.modifierBallade.controls['statut'].value,
+      organisateur:{ Id: this.modifierBallade.controls['organisateur'].value},
+    };
+    console.log(this.modifierBallade.controls['id'].value)
+    console.log(ballade)
+    
+    // Si tout les champs sont valides, envoie les modif au back
+    if (this.modifierBallade.valid) {
+      console.log(ballade)
+      ApiService.postData('/ballades/update', ballade)
+        .then((res: Ballade) => {
+          console.log('Succès ! Ballade modifié:', res);
+          alert('Ballade modifié avec succès !');
+          this.router.navigate(['/mes-ballades']);
+        })
+        .catch((err) => {
+          console.error('Erreur lors de la modification :', err);
+          alert('Erreur lors de la modification de la ballade.');
+        });
+    } else {
+      alert('Champs Invalide !');
+    }
+  }
+}

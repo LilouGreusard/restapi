@@ -1,0 +1,30 @@
+<div *ngIf="loading">Chargement des compagnons...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div *ngIf="monCompte">
+  <div  class="compagnons">
+    <div class="compagnon">
+            <span class="name">{{ monCompte.firstName }}</span>
+            <span class="name">{{ monCompte.lastName }}</span>
+            <span *ngIf="" class="name">{{ monCompte.username }}</span>
+            <div class="attributes">
+                <span class="attribute"> <span class="color">Age :</span> {{ monCompte.age }} ans</span>
+                <span class="attribute"> <span class="color">Adresse :</span> {{ monCompte.adresse?.rue }}, {{ monCompte.adresse?.codePostal?.name }} {{ monCompte.adresse?.codePostal?.codePostal}}</span>
+                <span class="attribute"> <span class="color"> Email : </span> {{  monCompte.email }}</span>
+                <span class="attribute"> <span class="color"> Mot de passe : </span> {{  monCompte.password }}</span>
+            </div>
+            <button matIconButton (click)="onSubmitModifier()">
+                Modifier mon monCompte
+            </button>
+            <button matIconButton (click)="onSubmitAnnimaux()">
+                Mes annimaux
+            </button>
+            <button matIconButton (click)="onSubmitBallades()">
+                Mes ballades
+            </button>
+            <button matIconButton (click)="onSubmitSupprimer()">
+                Supprimer mon monCompte
+            </button>
+        </div>
+    </div>
+</div>

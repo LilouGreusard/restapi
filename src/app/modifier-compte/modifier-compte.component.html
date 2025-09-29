@@ -1,0 +1,53 @@
+<form [formGroup]="modifierCompte" (ngSubmit)="onSubmit()">
+    <label>
+        Prénom :
+    </label>
+    <input formControlName="firstName">
+    <div *ngIf="modifierCompte.get('firstName')?.invalid && modifierCompte.get('firstName')?.touched">
+        Le prénom est obligatoire.
+    </div>
+
+    <label>
+        Nom :
+    </label>
+    <input formControlName="lastName">
+    <div *ngIf="modifierCompte.get('lastName')?.invalid && modifierCompte.get('lastName')?.touched">
+        Le nom est obligatoire.
+    </div>
+
+    <label>
+        Pseudonyme :
+    </label>
+    <input formControlName="username">
+
+    <label>
+        Age :
+    </label>
+    <input type="number" formControlName="age">
+    <div *ngIf="modifierCompte.get('age')?.invalid && modifierCompte.get('age')?.touched">
+        L'âge est obligatoire.
+    </div>
+    <div *ngIf="verifAge && modifierCompte.get('age')?.touched">
+        Vous devez avoir au moins 18 ans.
+    </div>
+
+    <app-localisation (adresseEmit)="setAdresse($event)"></app-localisation>
+
+    <label>
+        Email :
+    </label>
+    <input formControlName="email">
+    <div *ngIf="modifierCompte.get('email')?.invalid && modifierCompte.get('email')?.touched">
+        L'email est obligatoire.
+    </div>
+
+    <label>
+        Password :
+    </label>
+    <input formControlName="password">
+    <div *ngIf="modifierCompte.get('password')?.invalid && modifierCompte.get('password')?.touched">
+        Le mot de passe est obligatoire.
+    </div>
+
+    <button type="submit">Modifier</button>
+</form>

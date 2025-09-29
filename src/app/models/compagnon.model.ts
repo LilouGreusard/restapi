@@ -8,5 +8,6 @@ export interface Compagnon {
   race?: Race;
   age?: number;
   natures?: Nature[];
-
+  description?: string; 
+  size?: number; 
 }

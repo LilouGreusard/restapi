@@ -50,4 +50,33 @@ export class MesBalladesComponent implements OnInit {
     }
   }
 
+  private loadBallades() {
+    if (this.userId) {
+      this.balladeService.getMesBallades(this.userId).then(
+        (data) => this.ballades = data,
+        () => this.error = "Erreur lors du rechargement"
+      );
+    }
+  }
+
+
+  onSubmitModifier(balladeId: any){
+    localStorage.setItem('BALLADE_ID', balladeId.toString());
+    console.log('ID stocké :', localStorage.getItem('BALLADE_ID'));
+    this.router.navigate(['/modifier-ballade']);
+  }
+
+  onSubmitSupprimer(balladeId: any) {
+    if (confirm("Voulez-vous vraiment supprimer cette ballade ?")) {
+      this.balladeService.deletedById(balladeId).subscribe({
+        next: () => {
+          this.ballades = this.ballades.filter(b => b.id !== balladeId);
+        },
+        error: (err) => {
+          console.error("Erreur suppression :", err);
+        }
+      });
+    }
+  }
+
 }

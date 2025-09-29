@@ -92,8 +92,8 @@ private addMarkers(): void {
     if (ballade) {
       console.log("Rejoindre la balade :", ballade);
       alert(`Vous avez rejoint la balade : ${ballade.infos}`);
-      // Ici tu peux appeler ton service pour ajouter l'utilisateur aux participants
-      // ex: this.baladeService.rejoindreBalade(id, userId)
+      // Ajouter id user connecter a ballade participant / se connecter
+      
     }
   }
 }

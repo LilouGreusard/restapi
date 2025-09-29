@@ -18,6 +18,5 @@ export class AdresseService {
     }
     async getByCodePostalId(codePostalId: number): Promise<Array<Adresse>> {
          return ApiService.get('/adresse/' + codePostalId);
-        
     }
 }

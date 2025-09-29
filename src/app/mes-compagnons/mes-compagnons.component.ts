@@ -48,12 +48,31 @@ export class MesCompagnonsComponent implements OnInit {
       //rediriger vers la page de connexion /création de compte
     }
   }
-
   onSubmitCreer(compagnonId: any){
-    this.router.navigate(['/creation-ballade'], { queryParams: { user: this.userId, compagnon: compagnonId} });
+    this.router.navigate(['/creation-ballade'], { queryParams: { user: this.userId, compagnon: compagnonId} })
+  }
+  onSubmitModifier(compagnonId: any){
+    localStorage.setItem('COMPAGNON_ID', compagnonId.toString());
+    console.log('ID stocké :', localStorage.getItem('COMPAGNON_ID'));
+    this.router.navigate(['/modifier-animal']);
+  }
+  onSubmitCreerA(){
+    this.router.navigate(['/creation-compagnon']);
+  }
+  onSubmitRejoindre(){
+    this.router.navigate(['/cartes-balades'], { });
   }
 
-  onSubmitRejoindre(compagnonId: any){
-    
+  onSubmitSupprimer(compagnonId: any) {
+    if (confirm("Voulez-vous vraiment supprimer ce compagnon ?")) {
+      this.compagnonService.deletedById(compagnonId).subscribe({
+        next: () => {
+          this.mesCompagnons = this.mesCompagnons.filter(c => c.id !== compagnonId);
+        },
+        error: (err) => {
+          console.error("Erreur suppression :", err);
+        }
+      });
+    }
   }
 }

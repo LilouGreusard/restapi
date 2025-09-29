@@ -23,10 +23,19 @@
         <button matIconButton (click)="onSubmitCreer(compagnon.id)">
           Créer une balade
         </button>
-        <button matIconButton (click)="onSubmitRejoindre(compagnon.id)">
-          Rejoindre une balade
+        <button matIconButton (click)="onSubmitModifier(compagnon.id)">
+          Modifier compagnon
+        </button>
+        <button matIconButton (click)="onSubmitSupprimer(compagnon.id)">
+          Supprimer compagnon
         </button>
       </div>
     </div>
   </div>
+  <button matIconButton (click)="onSubmitCreerA()">
+    Ajouter Annimal
+  </button>
+  <button matIconButton (click)="onSubmitRejoindre()">
+    Rejoindre une balade
+  </button>
 </div>

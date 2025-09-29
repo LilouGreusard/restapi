@@ -1,0 +1,62 @@
+<h1>Ajouter d'animal</h1>
+<form [formGroup]="modifierAnimal" (ngSubmit)="onSubmit()">
+    <label>
+        Prénom :
+    </label>
+    <input formControlName="name">
+    <div *ngIf="modifierAnimal.get('name')?.invalid && modifierAnimal.get('name')?.touched">
+        Le prénom est obligatoire.
+    </div>
+
+    <label>
+        Age :
+    </label>
+    <input type="number" formControlName="age">
+    <div *ngIf="modifierAnimal.get('age')?.invalid && modifierAnimal.get('age')?.touched">
+        L'âge est obligatoire.
+    </div>
+
+    <label>
+        Espèce :
+    </label>
+    <mat-select formControlName="espece" (selectionChange)="getRacesById($event.value)">
+        <mat-option *ngFor="let espece of especes" [value]="espece.id">{{ espece.name }}</mat-option>
+    </mat-select>
+    <div *ngIf="modifierAnimal.get('espece')?.invalid && modifierAnimal.get('espece')?.touched">
+        L'espèce est obligatoire'.
+    </div>
+
+    <label>
+        Race :
+    </label>
+    <mat-select formControlName="race">
+        <mat-option disabled>Choisissez une famille</mat-option>
+        <mat-option *ngFor="let race of races" [value]="race.id">{{ race?.name }}</mat-option>
+    </mat-select>
+    <div *ngIf="modifierAnimal.get('race')?.invalid && modifierAnimal.get('race')?.touched">
+        La race est obligatoire.
+    </div>
+
+    <label>
+        Taille :
+    </label>
+    <mat-select formControlName="size">
+        <mat-option value="PETIT">Petit</mat-option>
+        <mat-option value="MOYEN">Moyen</mat-option>
+        <mat-option value="GRAND">Grand</mat-option>
+    </mat-select>
+
+    <label>
+        Caractères :
+    </label>      
+    <mat-select formControlName="natures" multiple>
+        <mat-option *ngFor="let nature of naturesList" [value]="nature.id">{{ nature.name }}</mat-option>
+    </mat-select>
+
+    <label>
+        Infos Supplémentaires :
+    </label>
+    <input formControlName="description">
+
+    <button type="submit">Ajouter l'annimal</button>
+</form>
