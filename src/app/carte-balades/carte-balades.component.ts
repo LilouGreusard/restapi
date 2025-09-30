@@ -16,6 +16,7 @@ export class CarteBaladesComponent implements AfterViewInit {
   private map!: L.Map;
 
   ballades: Ballade[] = [];
+  userId: number = 0;
 
   constructor(private balladeService: BalladeService) {}
 
@@ -32,6 +33,11 @@ export class CarteBaladesComponent implements AfterViewInit {
     this.initMap();
     this.ballades = await this.balladeService.getAllBallades();
     this.addMarkers();
+
+    const storedId = localStorage.getItem('USER_ID');
+    if (storedId) {
+      this.userId = parseInt(storedId, 0);
+    }
   }
 
   ngOnDestroy(): void {
@@ -61,20 +67,24 @@ private addMarkers(): void {
 
     const marker = L.marker([coords.lat, coords.lng], { icon: myIcon }).addTo(this.map);
     marker.bindPopup(this.generatePopupHtml(ballade), { closeButton: false });
+
     marker.on('popupopen', () => {
-    const btnRejoindre = document.getElementById(`btn-rejoindre-${ballade.id}`);
-    if (btnRejoindre && ballade.id !== undefined) {
-      btnRejoindre.onclick = () => this.onRejoindreClick(ballade.id!);
-    }
+      const btn = document.getElementById(`btn-rejoindre-${ballade.id}`);
+      if (btn && ballade.id !== undefined) {
+        btn.onclick = () => this.onToggleParticipation(ballade, marker);
+      }
     });
   });
+
 }
 
   private generatePopupHtml(ballade: Ballade): string {
+    const isParticipant = ballade.participants?.some(p => p.Id === this.userId);
+
     return `
       <div style="max-width: 250px;">
         <img src="${ballade.organisateur?.profilePictures}" alt="${ballade.organisateur?.username}" 
-             style="width: 100%; border-radius: 8px; margin-bottom: 8px;" />
+            style="width: 100%; border-radius: 8px; margin-bottom: 8px;" />
         <ul style="padding-left: 20px;">
           <li>Jour : ${ballade.jours}</li>
           <li>Heure : ${ballade.heure}</li>
@@ -82,18 +92,37 @@ private addMarkers(): void {
           <li>Infos : ${ballade.infos}</li>
           <li>Organisateur : ${ballade.organisateur?.username}</li>
         </ul>
-        <button id="btn-rejoindre-${ballade.id}">Rejoindre</button>
+        <button id="btn-rejoindre-${ballade.id}">
+          ${isParticipant ? "Désinscrire" : "Rejoindre"}
+        </button>
       </div>
     `;
   }
 
-  private onRejoindreClick(id: number): void {
-    const ballade = this.ballades.find(b => b.id === id);
-    if (ballade) {
-      console.log("Rejoindre la balade :", ballade);
-      alert(`Vous avez rejoint la balade : ${ballade.infos}`);
-      // Ajouter id user connecter a ballade participant / se connecter
-      
-    }
+  private async onToggleParticipation(ballade: Ballade, marker: L.Marker): Promise<void> {
+  const isParticipant = ballade.participants?.some(p => p.Id === this.userId);
+
+  if (isParticipant) {
+    await this.balladeService.removeParticipant(ballade.id!, this.userId);
+    ballade.participants = ballade.participants?.filter(p => p.Id !== this.userId) || [];
+    alert(`Vous vous êtes désinscrit de la balade : ${ballade.infos}`);
+  } else {
+    await this.balladeService.addParticipant(ballade.id!, this.userId);
+    ballade.participants = [...(ballade.participants || []), { Id: this.userId } as any];
+    alert(`Vous avez rejoint la balade : ${ballade.infos}`);
   }
+
+  // 🔄 Met à jour le contenu du popup du marker
+  marker.setPopupContent(this.generatePopupHtml(ballade));
+
+  // 🔁 Ré-attache le listener sur le nouveau bouton
+  setTimeout(() => {
+    const btn = document.getElementById(`btn-rejoindre-${ballade.id}`);
+    if (btn) {
+      btn.onclick = () => this.onToggleParticipation(ballade, marker);
+    }
+  });
+}
+
+
 }

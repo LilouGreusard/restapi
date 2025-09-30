@@ -2,8 +2,10 @@
 <div *ngIf="error" class="error">{{ error }}</div>
 
 <div>
-    <div *ngIf="!loading && !error" class="ballades">
-        <div *ngFor="let ballade of ballades">
+    
+    <div *ngIf="!loading && !error  && (balladesOrganisees?.length ?? 0)" class="ballades">
+        <h2>Ballades organisées</h2>
+        <div *ngFor="let ballade of balladesOrganisees">
             <div class="ballade">
                 
                 <span class="name">{{ ballade.lieu?.rue }}</span>
@@ -40,8 +42,9 @@
             </div>
         </div>
     </div>
-    <div *ngIf="!loading && !error" class="ballades">
-        <div *ngFor="let ballade of ballades">
+    <div *ngIf="!loading && !error  && (balladesParticipees?.length ?? 0)" class="ballades">
+        <h2>Ballades rejoints</h2>
+        <div *ngFor="let ballade of balladesParticipees">
             <div class="ballade">
                 
                 <span class="name">{{ ballade.lieu?.rue }}</span>
@@ -71,8 +74,8 @@
                 <button matIconButton (click)="onSubmitModifier(ballade.id)">
                     Modifier ballade
                 </button>
-                <button matIconButton (click)="onSubmitDesinscrire(ballade.id)">
-                    Se désinscrire ballade
+                <button matIconButton (click)="onSubmitDesinscrire(ballade.id!)">
+                    Désinscrire ballade
                 </button>
   
             </div>

@@ -60,7 +60,7 @@ export class MesCompagnonsComponent implements OnInit {
     this.router.navigate(['/creation-compagnon']);
   }
   onSubmitRejoindre(){
-    this.router.navigate(['/cartes-balades'], { });
+    this.router.navigate(['/carte-balades'], { });
   }
 
   onSubmitSupprimer(compagnonId: any) {

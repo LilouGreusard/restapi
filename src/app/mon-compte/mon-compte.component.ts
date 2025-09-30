@@ -21,7 +21,7 @@ export class MonCompteComponent implements OnInit {
     loading = false;
     error = '';
     picture = '';
-    userId = localStorage.getItem('USER_ID');
+    userId = 0;
     ballades: Ballade[] = [];
   
     constructor(
@@ -35,6 +35,8 @@ export class MonCompteComponent implements OnInit {
       this.router.navigate(['login/']);
       return;
     }
+    const storedId = localStorage.getItem('USER_ID');
+    if (storedId) this.userId = parseInt(storedId, 0);
 
     this.loading = true;
 
@@ -91,7 +93,7 @@ export class MonCompteComponent implements OnInit {
               
               try {
                 this.loading = true;
-                const ballades = await this.balladeService.getMesBallades(this.userId!);
+                const ballades = await this.balladeService.getBalladesOrganisees(this.userId!);
 
               for (const b of ballades.filter(b => b.id !== undefined)) {
                 await this.balladeService.deletedById(b.id!);

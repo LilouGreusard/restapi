@@ -14,46 +14,47 @@ import { Router } from '@angular/router';
   styleUrl: './mes-ballades.component.scss',
 })
 export class MesBalladesComponent implements OnInit {
-  ballades: Ballade[] = [];
-  loading = false;
+  balladesOrganisees: Ballade[] = [];
+  balladesParticipees: Ballade[] = [];
+  loading = true;
   error = '';
   especeId = '';
   picture = '';
-  userId = localStorage.getItem('USER_ID');
+  userId = 0;
+
 
   constructor(
     private balladeService: BalladeService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {
 
-    //un compte existe en localStorage
-    if (this.userId) {
-      this.loading = true;
-      this.balladeService
-        .getMesBallades(this.userId)
-        .then((data) => {
-          this.ballades = data;
-          this.loading = false;
-        })
-        .catch((err) => {
-          this.error = 'Erreur lors du chargement de mes ballades';
-          this.loading = false;
-        });
-    }
-    //pas de compte en localStorage
-    else {
-      //TODO
-      //rediriger vers la page de connexion /création de compte
-      
-    }
+
+
+async ngOnInit() {
+  try {
+    const storedId = localStorage.getItem('USER_ID');
+    if (storedId) this.userId = parseInt(storedId, 0);
+
+    this.balladesOrganisees = await this.balladeService.getBalladesOrganisees(this.userId);
+    this.balladesParticipees = await this.balladeService.getBalladesParticipees(this.userId);
+
+  } catch (err) {
+    this.error = 'Erreur lors du chargement des ballades';
+  } finally {
+    this.loading = false;
   }
+}
 
   private loadBallades() {
     if (this.userId) {
-      this.balladeService.getMesBallades(this.userId).then(
-        (data) => this.ballades = data,
+      this.balladeService.getBalladesOrganisees(this.userId).then(
+        (data) => this.balladesOrganisees = data,
+        () => this.error = "Erreur lors du rechargement"
+      );
+
+      this.balladeService.getBalladesParticipees(this.userId).then(
+        (data) => this.balladesParticipees = data,
         () => this.error = "Erreur lors du rechargement"
       );
     }
@@ -70,7 +71,7 @@ export class MesBalladesComponent implements OnInit {
     if (confirm("Voulez-vous vraiment supprimer cette ballade ?")) {
       this.balladeService.deletedById(balladeId).subscribe({
         next: () => {
-          this.ballades = this.ballades.filter(b => b.id !== balladeId);
+          this.balladesOrganisees = this.balladesOrganisees.filter(b => b.id !== balladeId);
         },
         error: (err) => {
           console.error("Erreur suppression :", err);
@@ -79,4 +80,17 @@ export class MesBalladesComponent implements OnInit {
     }
   }
 
+ async onSubmitDesinscrire(balladeId: number) {
+    if (!this.userId) return;
+
+    if (!confirm("Voulez-vous vraiment vous désinscrire de cette ballade ?")) return;
+
+    try {
+      await this.balladeService.removeParticipant(balladeId, this.userId);
+      // Supprime la ballade de la liste locale
+      this.balladesParticipees = this.balladesParticipees.filter(b => b.id !== balladeId);
+    } catch (err) {
+      console.error("Erreur désinscription :", err);
+    }
+  }
 }
