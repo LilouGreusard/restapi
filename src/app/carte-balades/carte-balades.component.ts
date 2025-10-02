@@ -4,6 +4,8 @@ import * as L from 'leaflet';
 import { Ballade } from '../models/ballade.model';
 import { BalladeService } from '../services/ballade.service';
 import { Router } from '@angular/router';
+import { Compagnon } from '../models/compagnon.model';
+import { CompagnonService } from '../services/compagnon.service';
 
 @Component({
   selector: 'app-carte-balades',
@@ -15,11 +17,13 @@ import { Router } from '@angular/router';
 })
 export class CarteBaladesComponent implements AfterViewInit {
   private map!: L.Map;
-
+  mesCompagnons: Compagnon[] = [];
+  loading = false;
+  error = '';
   ballades: Ballade[] = [];
   userId: number = 0;
 
-  constructor(private balladeService: BalladeService,private router: Router) {}
+  constructor(private balladeService: BalladeService,private router: Router,private compagnonService: CompagnonService) {}
 
   private initMap(): void {
     this.map = L.map('map').setView([47.08, 2.39], 15);
@@ -35,7 +39,19 @@ export class CarteBaladesComponent implements AfterViewInit {
     if (storedId) {
       this.userId = parseInt(storedId, 0);
     }
+
     this.initMap();
+
+    if (this.userId) {
+      this.loading = true;
+      try {
+        this.mesCompagnons = await this.compagnonService.getMesCompagnons(this.userId);
+      } catch (err) {
+        this.error = 'Erreur lors du chargement de mes compagnons';
+      } finally {
+        this.loading = false;
+      }
+    }
     this.ballades = await this.balladeService.getAllBallades();
     this.addMarkers();
 
@@ -81,9 +97,6 @@ private addMarkers(): void {
       } else if (ballade.id !== undefined) {
         btn.onclick = () => this.onToggleParticipation(ballade, marker);
       }
-      // if (btn && ballade.id !== undefined) {
-      //   btn.onclick = () => this.onToggleParticipation(ballade, marker);
-      // }
     });
   });
 
@@ -98,23 +111,25 @@ private onVoirMesBallades(): void {
     const isOrganisateur = ballade.organisateur?.Id === this.userId;
 
     let buttonHtml = '';
+    const canJoin = this.mesCompagnons?.some(c => c.race?.espece?.id === ballade.compagnon?.race?.espece?.id);
     if (isOrganisateur) {
       buttonHtml = `<button id="btn-rejoindre-${ballade.id}">Voir mes balades</button>`;
     } else {
-      buttonHtml = `<button id="btn-rejoindre-${ballade.id}">
+      buttonHtml = `<button id="btn-rejoindre-${ballade.id}" ${!canJoin ? 'disabled' : ''}>
                       ${isParticipant ? "Désinscrire" : "Rejoindre"}
                     </button>`;
     }
 
     return `
       <div style="max-width: 250px;">
-        <img src="${ballade.organisateur?.profilePictures}" alt="${ballade.organisateur?.username}" 
-            style="width: 100%; border-radius: 8px; margin-bottom: 8px;" />
+        <img src="/assets/images/espece_${ballade.compagnon?.race?.espece?.id}.png" alt="${ballade.compagnon?.race?.espece?.id}" 
+            style="width: 100px; border-radius: 8px; margin-bottom: 8px;" />
         <ul style="padding-left: 20px;">
           <li>Jour : ${ballade.jours}</li>
           <li>Heure : ${ballade.heure}</li>
           <li>Durée : ${ballade.dureeMinute} min</li>
           <li>Infos : ${ballade.infos}</li>
+          <li>Annimal : ${ballade.compagnon?.race?.espece?.name}</li>
           <li>Organisateur : ${ballade.organisateur?.username}</li>
         </ul>
         ${buttonHtml}
@@ -125,6 +140,15 @@ private onVoirMesBallades(): void {
   private async onToggleParticipation(ballade: Ballade, marker: L.Marker): Promise<void> {
   const isOrganisateur = ballade.organisateur?.Id === this.userId;
   if (isOrganisateur) return; 
+
+  const hasMatchingCompanion = this.mesCompagnons?.some(
+    c => c.race?.espece?.id === ballade.compagnon?.race?.espece?.id
+  );
+
+  if (!hasMatchingCompanion) {
+    alert("Vous ne pouvez rejoindre cette balade car vous n'avez aucun compagnon avec la même race.");
+    return;
+  }
   
   const isParticipant = ballade.participants?.some(p => p.Id === this.userId);
 
