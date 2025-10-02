@@ -44,8 +44,7 @@ export class MesCompagnonsComponent implements OnInit {
     }
     //pas de compte en localStorage
     else {
-      //TODO
-      //rediriger vers la page de connexion /création de compte
+      this.router.navigate(['/creation-compte']);
     }
   }
   onSubmitCreer(compagnonId: any){

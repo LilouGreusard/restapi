@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { CompteService } from '../services/compte.service';
 import { Router } from '@angular/router';
 import { BalladeService } from '../services/ballade.service';
-import { User } from '../models/compte.model';
-import { Component, EventEmitter, computed, signal, ViewChild, Output } from '@angular/core';
+import { Component, EventEmitter, ViewChild, Output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -23,8 +21,6 @@ import { AdresseService } from '../services/adresse.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Ballade } from '../models/ballade.model';
-import { Statuts } from '../enums/status.enum';
-import { ActivatedRoute } from '@angular/router';
 import { LocalisationComponent } from '../localisation/localisation.component';
 import { ApiService } from '../services/api.service';
 import { map, Observable, startWith } from 'rxjs';

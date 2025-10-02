@@ -87,7 +87,6 @@ async ngOnInit() {
 
     try {
       await this.balladeService.removeParticipant(balladeId, this.userId);
-      // Supprime la ballade de la liste locale
       this.balladesParticipees = this.balladesParticipees.filter(b => b.id !== balladeId);
     } catch (err) {
       console.error("Erreur désinscription :", err);

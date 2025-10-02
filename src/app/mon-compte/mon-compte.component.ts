@@ -102,27 +102,7 @@ export class MonCompteComponent implements OnInit {
             // vérifie que l'id de l'user existe bien
             if (this.monCompte!.Id !== undefined) {
               
-              // récupère les ballades organisées, participées par le user
               try {
-              //   this.loading = true;
-              //   const balladesOrganisees = await this.balladeService.getBalladesOrganisees(this.userId!);
-              //   const balladesParticipees = await this.balladeService.getBalladesParticipees(this.userId!);
-              //   const compagnonsUser = await this.compagnonService.getMesCompagnons(this.userId!);
-              
-              // supprime les ballades organisées
-              // for (const b of balladesOrganisees.filter(b => b.id !== undefined)) {
-              //   await this.balladeService.deletedById(b.id!);
-              // }
-              // supprime les participations aux ballades participees
-              // for (const b of balladesParticipees.filter(b => b.id !== undefined)) {
-              //   await this.balladeService.removeParticipant(b.id!, this.userId!);
-              // }
-              // supprimes les annimaux de l'user
-              // for (const c of compagnonsUser.filter(c => c.id !== undefined)) {
-              //   await this.compagnonService.deletedById(c.id!);
-              // }
-
-              // supprime le user et le renvoie sur le login
               this.compteService.deletedById(this.monCompte!.Id).subscribe({
                 next: () => {
                   alert("Compte supprimé avec succès !");
