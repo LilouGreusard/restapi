@@ -3,6 +3,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import * as L from 'leaflet';
 import { Ballade } from '../models/ballade.model';
 import { BalladeService } from '../services/ballade.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carte-balades',
@@ -18,7 +19,7 @@ export class CarteBaladesComponent implements AfterViewInit {
   ballades: Ballade[] = [];
   userId: number = 0;
 
-  constructor(private balladeService: BalladeService) {}
+  constructor(private balladeService: BalladeService,private router: Router) {}
 
   private initMap(): void {
     this.map = L.map('map').setView([47.08, 2.39], 15);
@@ -30,14 +31,15 @@ export class CarteBaladesComponent implements AfterViewInit {
   }
 
   async ngAfterViewInit(): Promise<void> {
-    this.initMap();
-    this.ballades = await this.balladeService.getAllBallades();
-    this.addMarkers();
-
     const storedId = localStorage.getItem('USER_ID');
     if (storedId) {
       this.userId = parseInt(storedId, 0);
     }
+    this.initMap();
+    this.ballades = await this.balladeService.getAllBallades();
+    this.addMarkers();
+
+    
   }
 
   ngOnDestroy(): void {
@@ -70,16 +72,39 @@ private addMarkers(): void {
 
     marker.on('popupopen', () => {
       const btn = document.getElementById(`btn-rejoindre-${ballade.id}`);
-      if (btn && ballade.id !== undefined) {
+      if (!btn) return;
+
+      const isOrganisateur = ballade.organisateur?.Id === this.userId;
+      
+      if (isOrganisateur) {
+        btn.onclick = () => this.onVoirMesBallades();
+      } else if (ballade.id !== undefined) {
         btn.onclick = () => this.onToggleParticipation(ballade, marker);
       }
+      // if (btn && ballade.id !== undefined) {
+      //   btn.onclick = () => this.onToggleParticipation(ballade, marker);
+      // }
     });
   });
 
 }
 
+private onVoirMesBallades(): void {
+  this.router.navigate(['/mes-ballades']);
+}
+
   private generatePopupHtml(ballade: Ballade): string {
     const isParticipant = ballade.participants?.some(p => p.Id === this.userId);
+    const isOrganisateur = ballade.organisateur?.Id === this.userId;
+
+    let buttonHtml = '';
+    if (isOrganisateur) {
+      buttonHtml = `<button id="btn-rejoindre-${ballade.id}">Voir mes balades</button>`;
+    } else {
+      buttonHtml = `<button id="btn-rejoindre-${ballade.id}">
+                      ${isParticipant ? "Désinscrire" : "Rejoindre"}
+                    </button>`;
+    }
 
     return `
       <div style="max-width: 250px;">
@@ -92,14 +117,15 @@ private addMarkers(): void {
           <li>Infos : ${ballade.infos}</li>
           <li>Organisateur : ${ballade.organisateur?.username}</li>
         </ul>
-        <button id="btn-rejoindre-${ballade.id}">
-          ${isParticipant ? "Désinscrire" : "Rejoindre"}
-        </button>
+        ${buttonHtml}
       </div>
     `;
   }
 
   private async onToggleParticipation(ballade: Ballade, marker: L.Marker): Promise<void> {
+  const isOrganisateur = ballade.organisateur?.Id === this.userId;
+  if (isOrganisateur) return; 
+  
   const isParticipant = ballade.participants?.some(p => p.Id === this.userId);
 
   if (isParticipant) {
@@ -112,13 +138,13 @@ private addMarkers(): void {
     alert(`Vous avez rejoint la balade : ${ballade.infos}`);
   }
 
-  // 🔄 Met à jour le contenu du popup du marker
   marker.setPopupContent(this.generatePopupHtml(ballade));
 
-  // 🔁 Ré-attache le listener sur le nouveau bouton
   setTimeout(() => {
     const btn = document.getElementById(`btn-rejoindre-${ballade.id}`);
-    if (btn) {
+    if (!btn) return;
+
+    if (!isOrganisateur) {
       btn.onclick = () => this.onToggleParticipation(ballade, marker);
     }
   });
