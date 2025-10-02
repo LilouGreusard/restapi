@@ -11,6 +11,7 @@ import { User } from '../models/compte.model';
 import { LocalisationComponent } from '../localisation/localisation.component';
 import { Adresse } from '../models/adresse.model';
 import { ApiService } from '../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-creation-compte',
@@ -27,7 +28,7 @@ export class CreationCompteComponent {
   creationCompte: FormGroup;
   adresse: Adresse = {};
 
-  constructor() {
+  constructor(private router: Router) {
     this.creationCompte = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -61,11 +62,12 @@ export class CreationCompteComponent {
     compte.password = this.creationCompte.controls['password'].value;
     
     if (this.creationCompte.valid) {
-      ApiService.postData('users/save', compte)
+      ApiService.postData('/users/save', compte)
         .then((res: User) => {
           console.log('Succès ! Utilisateur créé :', res);
           if (res?.Id) localStorage.setItem('USER_ID', JSON.stringify(res.Id));
           alert('Compte créé avec succès !');
+          this.router.navigate(['/mon-compte']);
         })
         .catch((err) => {
           console.error('Erreur lors de la création :', err);

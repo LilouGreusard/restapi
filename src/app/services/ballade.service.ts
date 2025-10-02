@@ -12,39 +12,44 @@ export class BalladeService {
 
   constructor(private http: HttpClient) {}
 
-  /** Ballades que l'utilisateur organise */
+  // Récupère les ballades que l'utilisateur organise 
   async getBalladesOrganisees(userId: number): Promise<Ballade[]> {
     return ApiService.get(`/ballades/mes-ballades/organisateur${userId}`);
   }
 
-  /** Ballades auxquelles l'utilisateur participe */
+  // Récupère les ballades auxquelles l'utilisateur participe 
   async getBalladesParticipees(userId: number): Promise<Ballade[]> {
     return ApiService.get(`/ballades/mes-ballades/participants${userId}`);
   }
 
-  /** Toutes les ballades */
+  // Récupère toute les ballades 
   async getAllBallades(): Promise<Ballade[]> {
     return ApiService.get('/ballades/all');
   }
 
+  // Récupère une ballade par son id 
   getById(balladeId: number): Observable<Ballade> {
     return this.http.get<Ballade>(`${this.apiUrl}/${balladeId}`);
   }
 
+  // Modifie la ballade
   onSubmitModifier(ballade: Ballade): Observable<Ballade> {
     return this.http.post<Ballade>(`${this.apiUrl}/update`, ballade);
   }
 
+  // Supprime la ballade par son id
   deletedById(balladeId: number): Observable<string> {
     return this.http.delete<string>(`${this.apiUrl}/delete/${balladeId}`);
   }
 
+  // Ajoute un participant a une ballade avec id ballade et id user
   async addParticipant(balladeId: number, userId: number): Promise<Ballade> {
     return await firstValueFrom(
       this.http.post<Ballade>(`${this.apiUrl}/${balladeId}/participants/${userId}`, {})
     );
   }
 
+  // Supprime un participant a une ballade avec id ballade et id user
   async removeParticipant(balladeId: number, userId: number): Promise<Ballade> {
     return await firstValueFrom(
       this.http.delete<Ballade>(`${this.apiUrl}/${balladeId}/participants/${userId}`)

@@ -6,6 +6,7 @@ import { Ballade } from '../models/ballade.model';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { CompagnonService } from '../services/compagnon.service';
 
 @Component({
   selector: 'app-mon-compte',
@@ -27,19 +28,23 @@ export class MonCompteComponent implements OnInit {
     constructor(
       private compteService: CompteService,
       private balladeService: BalladeService,
+      private compagnonService: CompagnonService,
       private router: Router,
     ) {}
 
   ngOnInit(): void {
+    // vérifie la présence de user id dans local storage sinon redirige vers login
+    const storedId = localStorage.getItem('USER_ID');
+    if (storedId) this.userId = parseInt(storedId, 10);
+
     if (!this.userId) {
       this.router.navigate(['login/']);
       return;
-    }
-    const storedId = localStorage.getItem('USER_ID');
-    if (storedId) this.userId = parseInt(storedId, 0);
+    }   
 
     this.loading = true;
 
+    // récupère les infos de user par son id
     this.compteService.getById(Number(this.userId))
         .subscribe({
           next: (user) => {
@@ -54,51 +59,70 @@ export class MonCompteComponent implements OnInit {
         });
     }
 
+    // bouton redirige vers moidifer compte
     onSubmitModifier(){
       if (this.userId){
         this.router.navigate(['/modifier-compte'], { queryParams: { id: this.userId} });
       }
     }
 
+    // bouton redirige vers liste des annimaux
     onSubmitAnnimaux(){
       if (this.userId){
         this.router.navigate(['mes-compagnons/:id'], { queryParams: { id: this.userId} });
       }
     }
 
+    // bouton redirige vers liste ballade
     onSubmitBallades(){
       if (this.userId){
         this.router.navigate(['mes-ballades'], { queryParams: { id: this.userId} });
       }
     }
 
-    async onSubmitSupprimer() {
-      // Si le compte n'est pas chargé, on sort
-      if (!this.monCompte) return;
-      console.log(this.userId);
+    
 
+    // bouton suppression compte
+    async onSubmitSupprimer() {
+      // vérifie si le compte est chargé
+      if (!this.monCompte) return;
+
+      // demande de mot de passe
       const password = prompt("Veuillez entrer votre mot de passe pour confirmer la suppression :");
       if (!password) {
         alert("Suppression annulée : mot de passe non renseigné.");
         return;
       }
 
-      // Vérifier le mot de passe via login
+      // vérifie mot de passe via login (backend)
       this.compteService.login(this.monCompte.email!, password).subscribe({
         next: async (user) => {
-          // Mot de passe correct → demander confirmation
+          // si mot de passe correct demande confirmation
           if (confirm("Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible !")) {
-            // Ici on force TypeScript à considérer que Id existe
+            // vérifie que l'id de l'user existe bien
             if (this.monCompte!.Id !== undefined) {
               
+              // récupère les ballades organisées, participées par le user
               try {
-                this.loading = true;
-                const ballades = await this.balladeService.getBalladesOrganisees(this.userId!);
+              //   this.loading = true;
+              //   const balladesOrganisees = await this.balladeService.getBalladesOrganisees(this.userId!);
+              //   const balladesParticipees = await this.balladeService.getBalladesParticipees(this.userId!);
+              //   const compagnonsUser = await this.compagnonService.getMesCompagnons(this.userId!);
+              
+              // supprime les ballades organisées
+              // for (const b of balladesOrganisees.filter(b => b.id !== undefined)) {
+              //   await this.balladeService.deletedById(b.id!);
+              // }
+              // supprime les participations aux ballades participees
+              // for (const b of balladesParticipees.filter(b => b.id !== undefined)) {
+              //   await this.balladeService.removeParticipant(b.id!, this.userId!);
+              // }
+              // supprimes les annimaux de l'user
+              // for (const c of compagnonsUser.filter(c => c.id !== undefined)) {
+              //   await this.compagnonService.deletedById(c.id!);
+              // }
 
-              for (const b of ballades.filter(b => b.id !== undefined)) {
-                await this.balladeService.deletedById(b.id!);
-              }
-
+              // supprime le user et le renvoie sur le login
               this.compteService.deletedById(this.monCompte!.Id).subscribe({
                 next: () => {
                   alert("Compte supprimé avec succès !");

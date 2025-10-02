@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { CompteService } from '../services/compte.service';
 import {
   FormControl,
@@ -62,7 +61,7 @@ export class ModifierCompteComponent {
     }
   }
 
-  // Fonction récupérant les infos d'un user par son id
+  // fonction récupérant les infos d'un user par son id
   loadUser(id: number){
     this.compteService.getById(id).subscribe({
       next: (user)=>{
@@ -84,7 +83,7 @@ export class ModifierCompteComponent {
     });
   }
 
-
+  // défini nouvelle adresse
   setAdresse(adresse: Adresse) {
     this.adresse = adresse;
     this.modifierCompte.patchValue({adresse: this.adresse});

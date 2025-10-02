@@ -101,7 +101,7 @@ export class modifierBalladeComponent {
       .catch((err) =>
          console.log('erreur lors de la récupération des codes postaux')
       );
-    // on ajoute l'auto complétion sur les codes postaux
+    // auto complétion codes postaux
     this.filteredCodePostaux = this.formLocalisation
       .get('lieu')
       ?.valueChanges.pipe(
@@ -113,17 +113,17 @@ export class modifierBalladeComponent {
       else this.getAdresseByCp(value);
     });
 
-    // récupère l'id user stocker
+    // récupère id user stocker
     const storeUserId = localStorage.getItem('USER_ID');
-    // si id présent récupère les infos
+    // si id présent récupère infos
     if(storeUserId){
       this.userId =  JSON.parse(storeUserId);
       this.loadUser (this.userId);
     }
 
-    // récupère l'id user stocker
+    // récupère id ballade stocker
     const storeBalladeId = localStorage.getItem('BALLADE_ID');
-    // si id présent récupère les infos
+    // si id présent récupère infos
     if(storeBalladeId){
       this.balladeId =  JSON.parse(storeBalladeId);
       this.loadBallade (this.balladeId);
@@ -133,8 +133,10 @@ export class modifierBalladeComponent {
     console.log("id ballade :", storeBalladeId)
   }
 
+  // récupère adresse par code postal
   getAdresseByCp(codePostalSelected: String) {
     const codePostal = this.getCodePostalByCp(codePostalSelected);
+    // vérifie id codepostal existe
     if (codePostal?.id)
       this.adresseService
         .getByCodePostalId(codePostal?.id)
@@ -149,6 +151,7 @@ export class modifierBalladeComponent {
       .map((cp) => cp?.codePostal + ', ' + cp?.name || '');
   }
 
+  // récupère nom ville par code postal
   getCodePostalByCp(codepostalSelected: String) {
     const cpNameSelected = codepostalSelected.split(',');
     return this.codesPostaux.find(
@@ -156,10 +159,12 @@ export class modifierBalladeComponent {
     );
   }
 
+  // récupère adresse par son id
   getAdressById(id: number) {
     return this.adressesParCodePostal.find((adr) => adr.id == id);
   }
 
+  //
   emettreLieu(){
     const adresseId = this.modifierBallade.get('adresseCtrl')?.value;
     const adresse = this.getAdressById(adresseId);
@@ -170,10 +175,10 @@ export class modifierBalladeComponent {
     const selected = this.modifierBallade.controls['jours'].value.filter(
       (v: any) => v
     );
-    // Sélection de "Tout les jours" si chaque jour est individuellement sélectionné
+    // Sélection "Tout les jours" si chaque jour est individuellement sélectionné
     if (selected.length === this.jours.length) {
       this.allSelected.select();
-      // Déselection de "Tout les jours" si un jour est individuellement déselectionné
+      // Déselection "Tout les jours" si un jour est individuellement déselectionné
     } else if (selected.length !== this.jours.length) {
       this.allSelected.deselect();
     }
@@ -181,18 +186,18 @@ export class modifierBalladeComponent {
   }
 
   toggleAllSelection(): void {
-    // Sélection de "Tout les jours"
+    // vérifie si "Tout les jours" sélectionné
     if (this.allSelected.selected) {
       this.modifierBallade.controls['jours'].patchValue([...this.jours]);
       this.allSelected.select();
-      // Déselection de "Tout les jours"
+      // vérifie si "Tout les jours" désélectionné
     } else if (!this.allSelected.selected) {
       this.modifierBallade.controls['jours'].patchValue([]);
       this.allSelected.deselect();
     }
   }
 
-  // Fonction récupérant les infos d'un user par son id
+  // Fonction récupérant les infos de user par son id
   loadUser(id: number){
     this.compteService.getById(id).subscribe({
       next: (user)=>{
@@ -203,6 +208,7 @@ export class modifierBalladeComponent {
     });
   }
 
+  // Fonction récupérant les infos de ballade par son id  
   loadBallade(id: number){
     this.balladeService.getById(id).subscribe({
       next: (ballade)=>{    
@@ -240,12 +246,13 @@ export class modifierBalladeComponent {
     });
   }
   
+  // défini la nouvelle adresse
   setAdresse(adresse: Adresse) {
     this.adresse = adresse;
     this.modifierBallade.patchValue({adresse: this.adresse});
   }
 
-  // Quand bouton cliqué
+  // quand bouton cliqué
   onSubmit() {
     this.modifierBallade.markAllAsTouched();
 
@@ -272,7 +279,7 @@ export class modifierBalladeComponent {
     console.log(this.modifierBallade.controls['id'].value)
     console.log(ballade)
     
-    // Si tout les champs sont valides, envoie les modif au back
+    // si tout les champs sont valides, envoie les modif au back
     if (this.modifierBallade.valid) {
       console.log(ballade)
       ApiService.postData('/ballades/update', ballade)

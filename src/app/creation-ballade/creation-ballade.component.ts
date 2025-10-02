@@ -20,7 +20,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Ballade } from '../models/ballade.model';
 import { Statuts } from '../enums/status.enum';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocalisationComponent } from '../localisation/localisation.component';
 import { ApiService } from '../services/api.service';
 
@@ -65,7 +65,8 @@ export class CreationBalladeComponent {
 
   constructor(
     private adresseService: AdresseService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -140,6 +141,7 @@ export class CreationBalladeComponent {
         .then((res: Ballade) => {
           console.log('Succès ! Ballade créé :', res);
           alert('Ballade créé avec succès !');
+          this.router.navigate(['/mes-ballades']);
         })
         .catch((err) => {
           console.error('Erreur lors de la création :', err);

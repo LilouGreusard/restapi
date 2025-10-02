@@ -61,7 +61,7 @@ export class ModifierAnimalComponent {
     });
   }
 
-    // récupérer la liste des especes
+  // récupérer la liste des especes
   afficherEspece() {
     this.especeService
       .getAll()
@@ -80,6 +80,7 @@ export class ModifierAnimalComponent {
       })
       .catch();
   }
+  
   // récupérer la liste des races en fonction de especes
   getRacesById(especeId: number) {
     this.raceService.getByEpeceId(especeId).then((data) => (this.races = data));
@@ -141,7 +142,7 @@ export class ModifierAnimalComponent {
     });
   }
 
-  // Quand bouton cliqué
+  // quand bouton cliqué
   async onSubmit() {
     this.modifierAnimal.markAllAsTouched();
 
@@ -171,7 +172,7 @@ export class ModifierAnimalComponent {
       size:this.modifierAnimal.controls['size'].value,
     };
     
-    // Si tout les champs sont valides, envoie les modif au back
+    // si tout les champs valides envoie les modif au back
     if (this.modifierAnimal.valid) {
       console.log(compagnon)
       ApiService.postData('/compagnons/update', compagnon)
