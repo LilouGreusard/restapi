@@ -12,6 +12,7 @@ import { User } from '../models/compte.model';
 import { LocalisationComponent } from '../localisation/localisation.component';
 import { Adresse } from '../models/adresse.model';
 import { ApiService } from '../services/api.service';
+import { HeaderComponent } from '../header/header.component';
 
 
 @Component({
@@ -21,6 +22,7 @@ import { ApiService } from '../services/api.service';
     ReactiveFormsModule,
     CommonModule,
     LocalisationComponent,
+    HeaderComponent,
   ],
   templateUrl: './modifier-compte.component.html',
   styleUrl: './modifier-compte.component.scss'

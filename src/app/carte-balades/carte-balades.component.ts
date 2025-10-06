@@ -6,11 +6,12 @@ import { BalladeService } from '../services/ballade.service';
 import { Router } from '@angular/router';
 import { Compagnon } from '../models/compagnon.model';
 import { CompagnonService } from '../services/compagnon.service';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-carte-balades',
   standalone: true,
-  imports: [LeafletModule],
+  imports: [LeafletModule, HeaderComponent],
   templateUrl: './carte-balades.component.html',
   styleUrl: './carte-balades.component.scss',
   schemas: [NO_ERRORS_SCHEMA],
@@ -84,7 +85,7 @@ private addMarkers(): void {
     const coords = this.getCoordinates(ballade.lieu?.positionGps);
 
     const marker = L.marker([coords.lat, coords.lng], { icon: myIcon }).addTo(this.map);
-    marker.bindPopup(this.generatePopupHtml(ballade), { closeButton: false });
+    marker.bindPopup(this.generatePopupHtml(ballade), { closeButton: false, maxWidth: 500,});
 
     marker.on('popupopen', () => {
       const btn = document.getElementById(`btn-rejoindre-${ballade.id}`);
@@ -113,25 +114,57 @@ private onVoirMesBallades(): void {
     let buttonHtml = '';
     const canJoin = this.mesCompagnons?.some(c => c.race?.espece?.id === ballade.compagnon?.race?.espece?.id);
     if (isOrganisateur) {
-      buttonHtml = `<button id="btn-rejoindre-${ballade.id}">Voir mes balades</button>`;
+      buttonHtml = `<button id="btn-rejoindre-${ballade.id}" class="button">Voir mes balades</button>`;
     } else {
-      buttonHtml = `<button id="btn-rejoindre-${ballade.id}" ${!canJoin ? 'disabled' : ''}>
+      buttonHtml = `<button id="btn-rejoindre-${ballade.id}" ${!canJoin ? 'disabled' : ''} class="button">
                       ${isParticipant ? "Désinscrire" : "Rejoindre"}
                     </button>`;
     }
 
     return `
-      <div style="max-width: 250px;">
-        <img src="/assets/images/espece_${ballade.compagnon?.race?.espece?.id}.png" alt="${ballade.compagnon?.race?.espece?.id}" 
-            style="width: 100px; border-radius: 8px; margin-bottom: 8px;" />
-        <ul style="padding-left: 20px;">
-          <li>Jour : ${ballade.jours}</li>
-          <li>Heure : ${ballade.heure}</li>
-          <li>Durée : ${ballade.dureeMinute} min</li>
-          <li>Infos : ${ballade.infos}</li>
-          <li>Annimal : ${ballade.compagnon?.race?.espece?.name}</li>
-          <li>Organisateur : ${ballade.organisateur?.username}</li>
-        </ul>
+      <div class="popup-ballade">
+
+        <img src="/assets/images/espece_${ballade.compagnon?.race?.espece?.id}.png" alt="${ballade.compagnon?.race?.espece?.id}"/>
+  
+        <div class="infos">
+
+          <div class="center">
+            <label>Jour : </label>
+            <p>${ballade.jours}</p>
+          </div>
+
+          <div class="row">
+            <div class="column">
+              <div class="info">
+                <label>Heure : </label>
+                <p>${ballade.heure}</p>
+              </div>
+
+              <div class="info">
+                <label>Durée : </label>
+                <p>${ballade.dureeMinute} min</p>
+              </div>
+            </div>
+            <div class="column">
+              <div class="info">
+                <label>Annimal : </label>
+                <p>${ballade.compagnon?.race?.espece?.name}</p>
+              </div>
+
+              <div class="info">
+                <label>Organisateur : </label>
+                <p>${ballade.organisateur?.username}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="center">
+            <label>Infos : </label>
+            <p>${ballade.infos}</p>
+          </div>
+
+        </div>
+
         ${buttonHtml}
       </div>
     `;

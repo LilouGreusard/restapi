@@ -1,9 +1,9 @@
-<form [formGroup]="creationCompte" (ngSubmit)="onSubmit()">
+<form [formGroup]="creationCompte" (ngSubmit)="onSubmit()" id="creationCompte">
     <label>
         Prénom :
     </label>
     <input formControlName="firstName">
-    <div *ngIf="creationCompte.get('firstName')?.invalid && creationCompte.get('firstName')?.touched">
+    <div *ngIf="creationCompte.get('firstName')?.invalid && creationCompte.get('firstName')?.touched" class="condition">
         Le prénom est obligatoire.
     </div>
 
@@ -11,7 +11,7 @@
         Nom :
     </label>
     <input formControlName="lastName">
-    <div *ngIf="creationCompte.get('lastName')?.invalid && creationCompte.get('lastName')?.touched">
+    <div *ngIf="creationCompte.get('lastName')?.invalid && creationCompte.get('lastName')?.touched" class="condition">
         Le nom est obligatoire.
     </div>
 
@@ -24,10 +24,7 @@
         Age :
     </label>
     <input type="number" formControlName="age">
-    <div *ngIf="creationCompte.get('age')?.invalid && creationCompte.get('age')?.touched">
-        L'âge est obligatoire.
-    </div>
-    <div *ngIf="verifAge && creationCompte.get('age')?.touched">
+    <div *ngIf="verifAge && creationCompte.get('age')?.touched" class="condition">
         Vous devez avoir au moins 18 ans.
     </div>
 
@@ -37,7 +34,7 @@
         Email :
     </label>
     <input formControlName="email">
-    <div *ngIf="creationCompte.get('email')?.invalid && creationCompte.get('email')?.touched">
+    <div *ngIf="creationCompte.get('email')?.invalid && creationCompte.get('email')?.touched" class="condition">
         L'email est obligatoire.
     </div>
 
@@ -45,9 +42,13 @@
         Password :
     </label>
     <input formControlName="password">
-    <div *ngIf="creationCompte.get('password')?.invalid && creationCompte.get('password')?.touched">
+    <div *ngIf="creationCompte.get('password')?.invalid && creationCompte.get('password')?.touched" class="condition">
         Le mot de passe est obligatoire.
     </div>
 
-    <button type="submit">S'inscrire</button>
+    <button type="submit" class="button">S'inscrire</button>
 </form>
+
+<div class="space-btn">
+    <div class="button" (click)="connexion()">Connexion</div>
+</div>

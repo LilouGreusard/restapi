@@ -1,10 +1,13 @@
-<h1>Ajouter d'animal</h1>
-<form [formGroup]="creationAnimal" (ngSubmit)="onSubmit()">
+<app-header></app-header>
+
+<h2>Ajouter d'animal</h2>
+<form [formGroup]="creationAnimal" (ngSubmit)="onSubmit()" id="creationAnimal">
+
     <label>
         Prénom :
     </label>
     <input formControlName="name">
-    <div *ngIf="creationAnimal.get('name')?.invalid && creationAnimal.get('name')?.touched">
+    <div *ngIf="creationAnimal.get('name')?.invalid && creationAnimal.get('name')?.touched" class="condition">
         Le prénom est obligatoire.
     </div>
 
@@ -12,35 +15,35 @@
         Age :
     </label>
     <input type="number" formControlName="age">
-    <div *ngIf="creationAnimal.get('age')?.invalid && creationAnimal.get('age')?.touched">
+    <div *ngIf="creationAnimal.get('age')?.invalid && creationAnimal.get('age')?.touched" class="condition">
         L'âge est obligatoire.
     </div>
 
     <label>
         Espèce :
     </label>
-    <mat-select formControlName="espece" (ngModelChange)="getRacesById($event)">
+    <mat-select formControlName="espece" (ngModelChange)="getRacesById($event)" panelClass="custom-select-panel" class="mat-select">
         <mat-option *ngFor="let espece of especes" [value]="espece.id">{{ espece.name }}</mat-option>
     </mat-select>
-    <div *ngIf="creationAnimal.get('espece')?.invalid && creationAnimal.get('espece')?.touched">
-        L'espèce est obligatoire'.
+    <div *ngIf="creationAnimal.get('espece')?.invalid && creationAnimal.get('espece')?.touched" class="condition">
+        L'espèce est obligatoire.
     </div>
 
     <label>
         Race :
     </label>
-    <mat-select formControlName="race">
+    <mat-select formControlName="race" panelClass="custom-select-panel" class="mat-select">
         <mat-option disabled>Choisissez une famille</mat-option>
         <mat-option *ngFor="let race of races" [value]="race.id">{{ race.name }}</mat-option>
     </mat-select>
-    <div *ngIf="creationAnimal.get('race')?.invalid && creationAnimal.get('race')?.touched">
+    <div *ngIf="creationAnimal.get('race')?.invalid && creationAnimal.get('race')?.touched" class="condition">
         La race est obligatoire.
     </div>
 
     <label>
         Taille :
     </label>
-    <mat-select formControlName="size">
+    <mat-select formControlName="size" panelClass="custom-select-panel" class="mat-select">
         <mat-option value=0>Petit</mat-option>
         <mat-option value=1>Moyen</mat-option>
         <mat-option value=2>Grand</mat-option>
@@ -49,7 +52,7 @@
     <label>
         Caractères :
     </label>      
-    <mat-select formControlName="natures" multiple>
+    <mat-select formControlName="natures" multiple panelClass="custom-select-panel" class="mat-select">
         <mat-option *ngFor="let nature of naturesList" [value]="nature">{{ nature.name }}</mat-option>
     </mat-select>
 
@@ -57,6 +60,6 @@
         Infos Supplémentaires :
     </label>
     <input formControlName="description">
-
-    <button type="submit">Ajouter l'annimal</button>
+    
+    <button type="submit" class="button">Ajouter l'annimal</button>
 </form>

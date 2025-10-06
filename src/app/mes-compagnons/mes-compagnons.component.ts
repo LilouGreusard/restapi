@@ -58,9 +58,6 @@ export class MesCompagnonsComponent implements OnInit {
   onSubmitCreerA(){
     this.router.navigate(['/creation-compagnon']);
   }
-  onSubmitRejoindre(){
-    this.router.navigate(['/carte-balades'], { });
-  }
 
   onSubmitSupprimer(compagnonId: any) {
     if (confirm("Voulez-vous vraiment supprimer ce compagnon ?")) {

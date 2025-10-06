@@ -25,6 +25,7 @@ import { LocalisationComponent } from '../localisation/localisation.component';
 import { ApiService } from '../services/api.service';
 import { map, Observable, startWith } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { HeaderComponent } from '../header/header.component';
 
 
 @Component({
@@ -41,6 +42,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CommonModule,
     LocalisationComponent,
     MatFormFieldModule,
+    HeaderComponent,
   ],
   providers: [AdresseService],
   templateUrl: './modifier-ballade.component.html',

@@ -31,6 +31,10 @@ export class LoginComponent {
     });
   }
 
+  inscription(){
+    this.router.navigate(['/creation-compte']);
+  }
+
   onSubmit() {
     this.login.markAllAsTouched();
 

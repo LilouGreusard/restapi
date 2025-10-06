@@ -1,5 +1,7 @@
-<h1>Modification d'une Ballade</h1>
-<form [formGroup]="modifierBallade" (ngSubmit)="onSubmit()">
+<app-header></app-header>
+
+<h2>Modification d'une Ballade</h2>
+<form [formGroup]="modifierBallade" (ngSubmit)="onSubmit()" id="modifierBallade">
 
     <label>
         Commune :
@@ -52,5 +54,5 @@
     <label for="infos"> Description</label>
     <textarea formControlName="infos" maxlength="250" rows="5"></textarea>
 
-    <button type="submit">Modifier la ballade</button>
+    <button type="submit" class="button">Modifier la ballade</button>
 </form>

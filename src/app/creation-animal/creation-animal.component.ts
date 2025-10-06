@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { CompteService } from '../services/compte.service';
 import { ApiService } from '../services/api.service';
 import { Compagnon } from '../models/compagnon.model';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-creation-animal',
@@ -29,6 +30,7 @@ import { Compagnon } from '../models/compagnon.model';
     FormsModule,
     MatFormFieldModule,
     MatSelectModule,
+    HeaderComponent
   ],
   templateUrl: './creation-animal.component.html',
   styleUrl: './creation-animal.component.scss',
@@ -128,7 +130,7 @@ export class CreationAnimalComponent implements OnInit {
 
           alert('Compagnon créé avec succès !');
           // TODO redirection vers le composant mes compagnons
-          this.router.navigate(['/mes-compagnons', this.userId]);
+          this.router.navigate(['/mon-compte']);
         })
         .catch((err) => {
           console.error('Erreur lors de la création :', err);

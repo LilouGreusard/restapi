@@ -23,6 +23,7 @@ import { Statuts } from '../enums/status.enum';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalisationComponent } from '../localisation/localisation.component';
 import { ApiService } from '../services/api.service';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-creation-ballade',
@@ -37,6 +38,7 @@ import { ApiService } from '../services/api.service';
     AsyncPipe,
     CommonModule,
     LocalisationComponent,
+    HeaderComponent,
   ],
   providers: [AdresseService],
   templateUrl: './creation-ballade.component.html',

@@ -1,4 +1,7 @@
-<form [formGroup]="modifierCompte" (ngSubmit)="onSubmit()">
+<app-header></app-header>
+
+<h2>Modification Compte</h2>
+<form [formGroup]="modifierCompte" (ngSubmit)="onSubmit()" id="modifierCompte">
     <label>
         Prénom :
     </label>
@@ -49,5 +52,5 @@
         Le mot de passe est obligatoire.
     </div>
 
-    <button type="submit">Modifier</button>
+    <button type="submit" class="button">Modifier</button>
 </form>

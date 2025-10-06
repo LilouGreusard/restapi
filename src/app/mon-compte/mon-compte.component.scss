@@ -1,69 +1,70 @@
-div {
-  font-family: Arial, sans-serif;
-  .compagnons {
-    margin-left: 100px;
-    margin-right: 100px;
+@use '../../mixins' as *;
+
+.compteCompagnons{
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  overflow: hidden;
+  .compte{
+    height: calc(100vh - 80px);
+    width: 20vw;
+    background-color: var(--secondary-color);
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    div {
-      .compagnon {
-        display: flex;
-        flex-direction: column;
-        border-radius: 15px;
-        border: 1px solid #ccc;
-        background-color: #f9f9f9;
-        padding: 10px;
-        width: 250px;
-        height: 300px;
-        margin: 10px;
-        .pictureFrame {
-          display: flex;
-          justify-content: center;
-          .picture {
-            height: 100px;
-            width: 100px;
-            border-radius: 100%;
-            img{
-                width: 100%;
-            }
-          }
-        }
-        .name {
-          text-align: center;
-          font-weight: 700;
-          margin-bottom: 10px;
-          margin-top: 10px;
-          color: #007bff;
-        }
-        .attributes {
-          display: flex;
-          flex-direction: column;
-          margin-left: 10px;
-        }
-        button {
-          margin-top: 10px;
-          display: block;
-          width: 100%;
-          padding: 0.7rem;
-          background-color: #007BFF;
-          color: white;
-          border: none;
-          font-size: 1rem;
-          border-radius: 4px;
-          cursor: pointer;
-          transition: background-color 0.2s ease-in-out;
-          
-          &:hover {
-            background-color: #0056b3;
-          }
-        }
-        .color {
-          color: #0056b3;
-          font-weight: 600;
-        }
+    flex-direction: column;
+    justify-content: space-between; 
+
+    .names{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 100px;
+      .name{
+        font-family: var(--secondary-font);
+        font-size: 17px;
+      }
+      .username, .fieldname{
+        font-family: var(--primary-font);
+        font-weight: 600;
+        font-size: 20px;
+      }
+
+      .name, .username, .fieldname{
+        color: var(--background-color);
       }
     }
+
+    .attributes{
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .attribute{
+        font-family: var(--secondary-font);
+        color: var(--background-color);
+        font-size: 17px;
+      }
+    }
+
+    .btns{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 35px;
+      .button{
+        @include button-style;
+        height: 35px;
+        font-size: 17px;
+      }
+    }
+  }
+  .mes-compagnons{
+    width: 80vw;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }

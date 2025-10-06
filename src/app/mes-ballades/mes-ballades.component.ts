@@ -4,11 +4,12 @@ import { BalladeService } from '../services/ballade.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-mes-ballades',
   standalone: true,
-  imports: [ CommonModule, MatButtonModule],
+  imports: [ CommonModule, MatButtonModule, HeaderComponent],
   providers: [],
   templateUrl: './mes-ballades.component.html',
   styleUrl: './mes-ballades.component.scss',

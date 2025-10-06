@@ -7,11 +7,13 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { CompagnonService } from '../services/compagnon.service';
+import { HeaderComponent } from '../header/header.component';
+import { MesCompagnonsComponent } from '../mes-compagnons/mes-compagnons.component';
 
 @Component({
   selector: 'app-mon-compte',
   standalone: true,
-  imports: [ CommonModule, MatButtonModule],
+  imports: [ CommonModule, MatButtonModule, HeaderComponent, MesCompagnonsComponent],
   templateUrl: './mon-compte.component.html',
   styleUrl: './mon-compte.component.scss'
 })
@@ -65,22 +67,6 @@ export class MonCompteComponent implements OnInit {
         this.router.navigate(['/modifier-compte'], { queryParams: { id: this.userId} });
       }
     }
-
-    // bouton redirige vers liste des annimaux
-    onSubmitAnnimaux(){
-      if (this.userId){
-        this.router.navigate(['mes-compagnons/:id'], { queryParams: { id: this.userId} });
-      }
-    }
-
-    // bouton redirige vers liste ballade
-    onSubmitBallades(){
-      if (this.userId){
-        this.router.navigate(['mes-ballades'], { queryParams: { id: this.userId} });
-      }
-    }
-
-    
 
     // bouton suppression compte
     async onSubmitSupprimer() {

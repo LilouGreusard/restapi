@@ -1,0 +1,18 @@
+@mixin button-style{        
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  font-family: var(--primary-font);
+  color: var(--secondary-color);
+  cursor: pointer;
+}
+
+@mixin h2-style{
+  font-family: var(--primary-font);
+  color: var(--secondary-color);
+  font-size: 40px;
+}

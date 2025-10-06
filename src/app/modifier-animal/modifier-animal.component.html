@@ -1,5 +1,8 @@
-<h1>Ajouter d'animal</h1>
-<form [formGroup]="modifierAnimal" (ngSubmit)="onSubmit()">
+<app-header></app-header>
+
+<h2>Modification d'animal</h2>
+<form [formGroup]="modifierAnimal" (ngSubmit)="onSubmit()" id="modifierAnimal">
+
     <label>
         Prénom :
     </label>
@@ -58,5 +61,5 @@
     </label>
     <input formControlName="description">
 
-    <button type="submit">Ajouter l'annimal</button>
+    <button type="submit" class="button">Ajouter l'annimal</button>
 </form>

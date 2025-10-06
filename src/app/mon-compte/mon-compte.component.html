@@ -1,30 +1,36 @@
-<div *ngIf="loading">Chargement des compagnons...</div>
+<div *ngIf="loading">Chargement du compte...</div>
 <div *ngIf="error" class="error">{{ error }}</div>
 
 <div *ngIf="monCompte">
-  <div  class="compagnons">
-    <div class="compagnon">
-            <span class="name">{{ monCompte.firstName }}</span>
-            <span class="name">{{ monCompte.lastName }}</span>
-            <span *ngIf="" class="name">{{ monCompte.username }}</span>
-            <div class="attributes">
-                <span class="attribute"> <span class="color">Age :</span> {{ monCompte.age }} ans</span>
-                <span class="attribute"> <span class="color">Adresse :</span> {{ monCompte.adresse?.rue }}, {{ monCompte.adresse?.codePostal?.name }} {{ monCompte.adresse?.codePostal?.codePostal}}</span>
-                <span class="attribute"> <span class="color"> Email : </span> {{  monCompte.email }}</span>
-                <span class="attribute"> <span class="color"> Mot de passe : </span> {{  monCompte.password }}</span>
+    <app-header></app-header>
+    <div class="compteCompagnons">
+        <div class="compte">
+            <div class="start">
+                <div class="names">
+                    <span class="username">{{ monCompte.username }}</span>
+                    <div class="namespace"><span class="fieldname">Prénom : </span><span class="name">{{ monCompte.firstName }}</span></div>
+                    <div class="namespace"><span class="fieldname">Nom : </span><span class="name">{{ monCompte.lastName }}</span></div>
+                </div>
+
+                <div class="attributes">
+                    <span class="attribute">{{ monCompte.age }} ans</span>
+                    <span class="attribute">{{ monCompte.adresse?.rue }}, {{ monCompte.adresse?.codePostal?.name }} {{ monCompte.adresse?.codePostal?.codePostal}}</span>
+                    <span class="attribute">{{  monCompte.email }}</span>
+                    <span class="attribute">{{  monCompte.password }}</span>
+                </div>
             </div>
-            <button matIconButton (click)="onSubmitModifier()">
-                Modifier mon monCompte
-            </button>
-            <button matIconButton (click)="onSubmitAnnimaux()">
-                Mes annimaux
-            </button>
-            <button matIconButton (click)="onSubmitBallades()">
-                Mes ballades
-            </button>
-            <button matIconButton (click)="onSubmitSupprimer()">
-                Supprimer mon monCompte
-            </button>
+
+            <div class="btns end">
+                <div class="button" (click)="onSubmitModifier()">
+                    Modifier mon compte
+                </div>
+                <div class="button" (click)="onSubmitSupprimer()">
+                    Supprimer mon compte
+                </div>
+            </div>        
+        </div>
+        <div class="mes-compagnons">
+            <app-mes-compagnons></app-mes-compagnons>
         </div>
     </div>
 </div>

@@ -18,6 +18,7 @@ import { LocalisationComponent } from '../localisation/localisation.component';
 import { ApiService } from '../services/api.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { HeaderComponent } from '../header/header.component';
 
 
 @Component({
@@ -29,6 +30,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     LocalisationComponent,
     MatFormFieldModule,
     MatSelectModule,
+    HeaderComponent,
   ],
   templateUrl: './modifier-animal.component.html',
   styleUrl: './modifier-animal.component.scss',

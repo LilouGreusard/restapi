@@ -1,83 +1,100 @@
 <div *ngIf="loading">Chargement des ballades...</div>
 <div *ngIf="error" class="error">{{ error }}</div>
 
-<div>
-    
-    <div *ngIf="!loading && !error  && (balladesOrganisees?.length ?? 0)" class="ballades">
-        <h2>Ballades organisées</h2>
-        <div *ngFor="let ballade of balladesOrganisees">
-            <div class="ballade">
-                
-                <span class="name">{{ ballade.lieu?.rue }}</span>
-                <span class="name">{{ ballade.lieu?.codePostal?.name }}</span>
-                <div class="attributes">
-                    <span class="attribute"> <span class="color">Jours :</span> {{ ballade.jours }}</span>
-                    <span class="attribute"> <span class="color">Heure :</span> {{ ballade.heure }}</span>
-                    <span class="attribute"> <span class="color">Durée :</span> {{ ballade.dureeMinute }}</span>
-                    <span class="attribute"> <span class="color">Statut :</span> {{ ballade.statut }}</span>
-                    <br />
-                    <span class="attribute color">Compagnon :</span>
-                    <span class="attribute">{{ ballade.compagnon?.name }}</span>
-                    <span class="attribute">{{ ballade.compagnon?.age }} ans</span>
-                    <span class="attribute">{{ ballade.compagnon?.race?.espece?.name }}</span>
-                    <span class="attribute">{{ ballade.compagnon?.race?.name }}</span>
-                    <span class="color">Natures du Compagnon : </span>
-                    <span class="nature" *ngFor="let nature of ballade.compagnon?.natures; let last = last">
-                        {{ nature.name }}<span *ngIf="!last">, </span>
-                    </span>
-                    <br />
-                    <span class="color">Participants : </span>
-                    <span class="participant" *ngFor="let participant of ballade.participants; let last = last">
-                        {{ participant.username }}<span *ngIf="!last">, </span>
-                    </span>
-                </div>
 
-                <button matIconButton (click)="onSubmitModifier(ballade.id)">
-                    Modifier ballade
-                </button>
-                <button matIconButton (click)="onSubmitSupprimer(ballade.id)">
-                    Supprimer ballade
-                </button>
-  
+<app-header></app-header>
+<div class="all-ballades">
+
+    <div *ngIf="!loading && !error  && (balladesOrganisees?.length ?? 0)" class="ballades-organisees">
+        <div class="title">
+            <h2>Ballades organisées</h2>
+        </div>
+        
+        <div class="ballades">
+            <div *ngFor="let ballade of balladesOrganisees">
+                <div class="ballade">
+
+                    <div class="lieu">
+                        <span class="name">{{ ballade.lieu?.rue }} </span>
+                        <span class="name"> {{ ballade.lieu?.codePostal?.name }} {{ ballade.lieu?.codePostal?.codePostal }}</span> 
+                    </div>
+                        
+                    <div class="attributelist">
+                        <span class="attribute">{{ ballade.jours }}</span>
+                        <span class="attribute"> <span class="color">Heure :</span> {{ ballade.heure }}</span>
+                        <span class="attribute"> <span class="color">Durée :</span> {{ ballade.dureeMinute }}min</span>
+                    </div>
+
+                    <div class="attributelist">
+                        <span class="attribute color">Compagnon :</span>
+                        <span class="attribute">Nom - {{ ballade.compagnon?.name }}</span>
+                        <span class="attribute">Age - {{ ballade.compagnon?.age }} ans</span>
+                        <span class="attribute">Espece - {{ ballade.compagnon?.race?.espece?.name }}</span>
+                        <span class="attribute">Race - {{ ballade.compagnon?.race?.name }}</span>
+                        <span class="color">Natures du Compagnon : </span>
+                        <span class="nature" *ngFor="let nature of ballade.compagnon?.natures; let last = last">{{ nature.name }}<span *ngIf="!last">, </span></span>
+                    </div>
+
+                    <div class="attributelist">
+                        <span class="color">Participants : </span>
+                        <span class="participant" *ngFor="let participant of ballade.participants; let last = last">{{ participant.username }}<span *ngIf="!last">, </span></span>
+                    </div>
+
+                    <div class="buttons">
+                        <div class="button" (click)="onSubmitModifier(ballade.id)">
+                            Modifier ballade
+                        </div>
+                        <div class="button" (click)="onSubmitSupprimer(ballade.id)">
+                            Supprimer ballade
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div *ngIf="!loading && !error  && (balladesParticipees?.length ?? 0)" class="ballades">
-        <h2>Ballades rejoints</h2>
-        <div *ngFor="let ballade of balladesParticipees">
-            <div class="ballade">
-                
-                <span class="name">{{ ballade.lieu?.rue }}</span>
-                <span class="name">{{ ballade.lieu?.codePostal?.name }}</span>
-                <div class="attributes">
-                    <span class="attribute"> <span class="color">Jours :</span> {{ ballade.jours }}</span>
-                    <span class="attribute"> <span class="color">Heure :</span> {{ ballade.heure }}</span>
-                    <span class="attribute"> <span class="color">Durée :</span> {{ ballade.dureeMinute }}</span>
-                    <span class="attribute"> <span class="color">Statut :</span> {{ ballade.statut }}</span>
-                    <br />
-                    <span class="attribute color">Compagnon :</span>
-                    <span class="attribute">{{ ballade.compagnon?.name }}</span>
-                    <span class="attribute">{{ ballade.compagnon?.age }} ans</span>
-                    <span class="attribute">{{ ballade.compagnon?.race?.espece?.name }}</span>
-                    <span class="attribute">{{ ballade.compagnon?.race?.name }}</span>
-                    <span class="color">Natures du Compagnon : </span>
-                    <span class="nature" *ngFor="let nature of ballade.compagnon?.natures; let last = last">
-                        {{ nature.name }}<span *ngIf="!last">, </span>
-                    </span>
-                    <br />
-                    <span class="color">Participants : </span>
-                    <span class="participant" *ngFor="let participant of ballade.participants; let last = last">
-                        {{ participant.username }}<span *ngIf="!last">, </span>
-                    </span>
-                </div>
+    
 
-                <button matIconButton (click)="onSubmitModifier(ballade.id)">
-                    Modifier ballade
-                </button>
-                <button matIconButton (click)="onSubmitDesinscrire(ballade.id!)">
-                    Désinscrire ballade
-                </button>
-  
+    <div *ngIf="!loading && !error  && (balladesParticipees?.length ?? 0)" class="ballades-participees">
+
+        <div class="title">
+            <h2>Ballades rejoints</h2>
+        </div>
+
+        <div class="ballades">
+            <div *ngFor="let ballade of balladesParticipees">
+
+                <div class="ballade">
+
+                    <div class="lieu">
+                        <span class="name">{{ ballade.lieu?.rue }} </span>
+                        <span class="name"> {{ ballade.lieu?.codePostal?.name }} {{ ballade.lieu?.codePostal?.codePostal }}</span> 
+                    </div>
+
+                    <div class="attributelist">
+                        <span class="attribute">{{ ballade.jours }}</span>
+                        <span class="attribute"> <span class="color">Heure :</span> {{ ballade.heure }}</span>
+                        <span class="attribute"> <span class="color">Durée :</span> {{ ballade.dureeMinute }}min</span>
+                    </div>
+
+                    <div class="attributelist">
+                        <span class="attribute color">Compagnon :</span>
+                        <span class="attribute">Nom - {{ ballade.compagnon?.name }}</span>
+                        <span class="attribute">Age - {{ ballade.compagnon?.age }} ans</span>
+                        <span class="attribute">Espece - {{ ballade.compagnon?.race?.espece?.name }}</span>
+                        <span class="attribute">Race - {{ ballade.compagnon?.race?.name }}</span>
+                        <span class="color">Natures du Compagnon : </span>
+                        <span class="nature" *ngFor="let nature of ballade.compagnon?.natures; let last = last">{{ nature.name }}<span *ngIf="!last">, </span></span>
+                    </div>
+
+                    <div class="attributelist">
+                        <span class="color">Participants : </span>
+                        <span class="participant" *ngFor="let participant of ballade.participants; let last = last">{{ participant.username }}<span *ngIf="!last">, </span></span>
+                    </div>
+
+                    <div class="button" (click)="onSubmitDesinscrire(ballade.id!)">
+                        Désinscrire ballade
+                    </div>
+                </div>
             </div>
         </div>
     </div>

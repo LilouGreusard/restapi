@@ -39,6 +39,11 @@ export class CreationCompteComponent {
       password: new FormControl('', [Validators.required]),
     });
   }
+
+  connexion(){
+    this.router.navigate(['/login']);
+  }
+
   get verifAge(): boolean {
     return (this.creationCompte.get('age')?.value ?? 0) < 18;
   }
