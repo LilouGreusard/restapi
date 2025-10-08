@@ -35,6 +35,9 @@ export class MonCompteComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
+    localStorage.removeItem('COMPAGNON_ID');
+    localStorage.removeItem('BALLADE_ID');
+
     // vérifie la présence de user id dans local storage sinon redirige vers login
     const storedId = localStorage.getItem('USER_ID');
     if (storedId) this.userId = parseInt(storedId, 10);
@@ -65,6 +68,13 @@ export class MonCompteComponent implements OnInit {
     onSubmitModifier(){
       if (this.userId){
         this.router.navigate(['/modifier-compte'], { queryParams: { id: this.userId} });
+      }
+    }
+
+    // bouton redirige vers moidifer mot de passe
+    onSubmitMotDePasse(){
+      if (this.userId){
+        this.router.navigate(['/modifier-mot-de-passe'], { queryParams: { id: this.userId} });
       }
     }
 

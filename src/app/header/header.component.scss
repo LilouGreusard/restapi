@@ -37,6 +37,8 @@
     }
 
     .end{
+        display: flex;
+        flex-direction: row;
         .bouton{
             display: flex;
             flex-direction: column;

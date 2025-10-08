@@ -11,6 +11,11 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   constructor(private router: Router) {}
 
+  logout(){
+    localStorage.clear();
+    this.router.navigate(['/login'])
+  }
+
   monCompte() {
     this.router.navigate(['/mon-compte']);
   }

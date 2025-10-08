@@ -93,6 +93,8 @@ export class modifierBalladeComponent {
   }
 
   ngOnInit(){
+    localStorage.removeItem('COMPAGNON_ID');
+
     this.adresseService
       .getAllCp()
       .then((data) => (this.codesPostaux = data))

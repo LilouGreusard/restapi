@@ -27,6 +27,8 @@ export class MesCompagnonsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    localStorage.removeItem('COMPAGNON_ID');
+    localStorage.removeItem('BALLADE_ID');
     
     //un compte existe en localStorage
     if (this.userId) {

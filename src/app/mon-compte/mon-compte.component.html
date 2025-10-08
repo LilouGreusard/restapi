@@ -16,11 +16,13 @@
                     <span class="attribute">{{ monCompte.age }} ans</span>
                     <span class="attribute">{{ monCompte.adresse?.rue }}, {{ monCompte.adresse?.codePostal?.name }} {{ monCompte.adresse?.codePostal?.codePostal}}</span>
                     <span class="attribute">{{  monCompte.email }}</span>
-                    <span class="attribute">{{  monCompte.password }}</span>
                 </div>
             </div>
 
             <div class="btns end">
+                <div class="button" (click)="onSubmitMotDePasse()">
+                    Modifier mon mot de passe
+                </div>
                 <div class="button" (click)="onSubmitModifier()">
                     Modifier mon compte
                 </div>

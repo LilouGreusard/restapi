@@ -40,6 +40,9 @@ export class LocalisationComponent implements OnInit {
   constructor(private adresseService: AdresseService) {}
 
   ngOnInit(): void {
+    localStorage.removeItem('COMPAGNON_ID');
+    localStorage.removeItem('BALLADE_ID');
+
     this.formLocalisation = new FormGroup({
       lieu: this.lieuCtrl,
       adresseCtrl: new FormControl('', [Validators.required]),

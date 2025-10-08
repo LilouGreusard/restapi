@@ -31,6 +31,12 @@ export class LoginComponent {
     });
   }
 
+  ngOnInit(): void{
+    if(localStorage.getItem('USER_ID') !== null){
+      this.router.navigate(['/mon-compte']);
+    }
+  }
+
   inscription(){
     this.router.navigate(['/creation-compte']);
   }
@@ -47,7 +53,6 @@ export class LoginComponent {
           if (res.Id !== undefined) {
             console.log('Connexion réussie :', res);
             localStorage.setItem('USER_ID', res.Id.toString());
-            alert('Connexion réussie !');
             this.router.navigate(['/mon-compte']);
           }
         },

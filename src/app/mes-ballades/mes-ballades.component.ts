@@ -33,6 +33,9 @@ export class MesBalladesComponent implements OnInit {
 
 
 async ngOnInit() {
+  localStorage.removeItem('COMPAGNON_ID');
+  localStorage.removeItem('BALLADE_ID');
+
   try {
     const storedId = localStorage.getItem('USER_ID');
     if (storedId) this.userId = parseInt(storedId, 0);

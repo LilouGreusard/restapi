@@ -31,4 +31,10 @@ export class CompteService {
   deletedById(userId: number): Observable<string> {
     return this.http.delete<string>(`${this.apiUrl}/delete/${userId}`);
   }
+
+  updatePassword(userId: number, newPassword: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/update-password?userId=${userId}`, newPassword, {
+      headers: { 'Content-Type': 'text/plain' }
+    });
+  }
 }

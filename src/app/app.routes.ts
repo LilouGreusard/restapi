@@ -9,7 +9,7 @@ import { MonCompteComponent } from './mon-compte/mon-compte.component';
 import { ModifierCompteComponent } from './modifier-compte/modifier-compte.component';
 import { ModifierAnimalComponent } from './modifier-animal/modifier-animal.component';
 import { modifierBalladeComponent } from './modifier-ballade/modifier-ballade.component';
-import { HeaderComponent } from './header/header.component';
+import { ModifierMotDePasseComponent } from './modifier-mot-de-passe/modifier-mot-de-passe.component';
 
 export const routes: Routes = [
     { path: 'creation-compte', component: CreationCompteComponent },
@@ -18,6 +18,7 @@ export const routes: Routes = [
     { path: 'mes-ballades', component: MesBalladesComponent},
     { path: 'modifier-animal', component: ModifierAnimalComponent },
     { path: 'modifier-compte', component: ModifierCompteComponent},
+    { path: 'modifier-mot-de-passe', component: ModifierMotDePasseComponent},
     { path: 'modifier-ballade', component: modifierBalladeComponent},
     { path: 'login', component: LoginComponent},
     { path: 'carte-ballades', component: CarteBaladesComponent},

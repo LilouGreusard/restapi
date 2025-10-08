@@ -102,6 +102,8 @@ export class ModifierAnimalComponent {
   }
 
   ngOnInit(){
+    localStorage.removeItem('BALLADE_ID');
+
     this.afficherEspece();
     this.afficherNature();
 

@@ -18,7 +18,10 @@
     <label>
         Pseudonyme :
     </label>
-    <input formControlName="username">
+    <input formControlName="username" (blur)="checkUsername()">
+    <div *ngIf="creationCompte.get('username')?.errors?.['usernameExists'] && creationCompte.get('username')?.touched" class="condition">
+        Ce nom d'utilisateur est déjà utilisé.
+    </div>
 
     <label>
         Age :
@@ -33,15 +36,18 @@
     <label>
         Email :
     </label>
-    <input formControlName="email">
-    <div *ngIf="creationCompte.get('email')?.invalid && creationCompte.get('email')?.touched" class="condition">
+    <input formControlName="email" (blur)="checkEmail()">
+    <div *ngIf="creationCompte.get('email')?.hasError('required') && creationCompte.get('email')?.touched" class="condition">
         L'email est obligatoire.
+    </div>
+    <div *ngIf="creationCompte.get('email')?.hasError('emailExists')" class="condition">
+        Cet email est déjà utilisé.
     </div>
 
     <label>
         Password :
     </label>
-    <input formControlName="password">
+    <input formControlName="password" type="password">
     <div *ngIf="creationCompte.get('password')?.invalid && creationCompte.get('password')?.touched" class="condition">
         Le mot de passe est obligatoire.
     </div>

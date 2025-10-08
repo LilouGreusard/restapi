@@ -72,6 +72,8 @@ export class CreationBalladeComponent {
   ) {}
 
   ngOnInit() {
+    localStorage.removeItem('BALLADE_ID');
+    
     this.route.queryParams.subscribe((params) => {
       this.organisateur = params['user'];
       this.compagnon = params['compagnon'];

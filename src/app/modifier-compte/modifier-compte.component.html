@@ -6,7 +6,7 @@
         Prénom :
     </label>
     <input formControlName="firstName">
-    <div *ngIf="modifierCompte.get('firstName')?.invalid && modifierCompte.get('firstName')?.touched">
+    <div *ngIf="modifierCompte.get('firstName')?.invalid && modifierCompte.get('firstName')?.touched" class="condition">
         Le prénom est obligatoire.
     </div>
 
@@ -14,23 +14,27 @@
         Nom :
     </label>
     <input formControlName="lastName">
-    <div *ngIf="modifierCompte.get('lastName')?.invalid && modifierCompte.get('lastName')?.touched">
+    <div *ngIf="modifierCompte.get('lastName')?.invalid && modifierCompte.get('lastName')?.touched" class="condition">
         Le nom est obligatoire.
     </div>
 
     <label>
         Pseudonyme :
     </label>
-    <input formControlName="username">
+    <input formControlName="username" (blur)="checkUsername()">
+    <div *ngIf="modifierCompte.get('username')?.errors?.['usernameExists'] && modifierCompte.get('username')?.touched" class="condition">
+        Ce nom d'utilisateur est déjà utilisé.
+    </div>
+
 
     <label>
         Age :
     </label>
     <input type="number" formControlName="age">
-    <div *ngIf="modifierCompte.get('age')?.invalid && modifierCompte.get('age')?.touched">
+    <div *ngIf="modifierCompte.get('age')?.invalid && modifierCompte.get('age')?.touched" class="condition">
         L'âge est obligatoire.
     </div>
-    <div *ngIf="verifAge && modifierCompte.get('age')?.touched">
+    <div *ngIf="verifAge && modifierCompte.get('age')?.touched" class="condition">
         Vous devez avoir au moins 18 ans.
     </div>
 
@@ -39,18 +43,18 @@
     <label>
         Email :
     </label>
-    <input formControlName="email">
-    <div *ngIf="modifierCompte.get('email')?.invalid && modifierCompte.get('email')?.touched">
+    <input formControlName="email" (blur)="checkEmail()">
+    <div *ngIf="modifierCompte.get('email')?.invalid && modifierCompte.get('email')?.touched" class="condition">
         L'email est obligatoire.
+    </div>
+    <div *ngIf="modifierCompte.get('email')?.hasError('emailExists')" class="condition">
+        Cet email est déjà utilisé.
     </div>
 
     <label>
         Password :
     </label>
-    <input formControlName="password">
-    <div *ngIf="modifierCompte.get('password')?.invalid && modifierCompte.get('password')?.touched">
-        Le mot de passe est obligatoire.
-    </div>
+    <span class="masked-password">********</span>
 
     <button type="submit" class="button">Modifier</button>
 </form>

@@ -46,7 +46,6 @@ export class ModifierCompteComponent {
       age: new FormControl(''),
       adresse: new FormControl(''),
       email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
     });
   }
   get verifAge(): boolean {
@@ -54,6 +53,12 @@ export class ModifierCompteComponent {
   }
 
   ngOnInit(){
+    localStorage.removeItem('COMPAGNON_ID');
+    localStorage.removeItem('BALLADE_ID');
+
+    this.modifierCompte.get('username')?.valueChanges.subscribe(() => this.checkUsername());
+    this.modifierCompte.get('email')?.valueChanges.subscribe(() => this.checkEmail());
+
     // récupère l'id user stocker
     const storeId = localStorage.getItem('USER_ID');
     // si id présent récupère les infos
@@ -62,6 +67,45 @@ export class ModifierCompteComponent {
       this.loadUser (this.userId);
     }
   }
+
+  checkEmail() {
+ const usernameControl = this.modifierCompte.get('username');
+  const username = usernameControl?.value;
+  if (!username) return;
+
+  // si le username n'a pas changé, ne pas marquer d'erreur
+  if (username === usernameControl?.value && this.userId) {
+    ApiService.get(`/users/check-username?username=${username}`)
+      .then((res: { exists: boolean }) => {
+        if (res.exists && username !== this.modifierCompte.get('username')?.value) {
+          const errors = usernameControl.errors || {};
+          errors['usernameExists'] = true;
+          usernameControl.setErrors(errors);
+        } else {
+          const errors = usernameControl.errors || {};
+          delete errors['usernameExists'];
+          usernameControl.setErrors(Object.keys(errors).length ? errors : null);
+        }
+      })
+      .catch(err => console.error('Erreur vérification username:', err));
+  }
+  }
+
+  checkUsername() {
+    const username = this.modifierCompte.get('username')?.value;
+    if (!username) return;
+
+    ApiService.get(`/users/check-username?username=${username}`)
+      .then((res: { exists: boolean }) => {
+        if (res.exists) {
+          this.modifierCompte.get('username')?.setErrors({ usernameExists: true });
+        } else {
+          this.modifierCompte.get('username')?.setErrors(null);
+        }
+      })
+      .catch(err => console.error('Erreur vérification username:', err));
+  }
+
 
   // fonction récupérant les infos d'un user par son id
   loadUser(id: number){
@@ -77,7 +121,6 @@ export class ModifierCompteComponent {
         age : user.age,
         adresse: user.adresse,
         email: user.email,
-        password:user.password,
         });
       },
       error: (err)=>
@@ -104,7 +147,6 @@ export class ModifierCompteComponent {
       age:this.modifierCompte.controls['age'].value,
       adresse:this.adresse,
       email:this.modifierCompte.controls['email'].value,
-      password:this.modifierCompte.controls['password'].value,
     };
     
     // Si tout les champs sont valides, envoie les modif au back

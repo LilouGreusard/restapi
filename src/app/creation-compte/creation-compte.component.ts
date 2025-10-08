@@ -36,8 +36,17 @@ export class CreationCompteComponent {
       age: new FormControl(''),
       adresse: new FormControl(''),
       email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
+  }
+
+  ngOnInit(): void{
+    if(localStorage.getItem('USER_ID') !== null){
+      this.router.navigate(['/mon-compte']);
+    }
+
+    this.creationCompte.get('username')?.valueChanges.subscribe(() => this.checkUsername());
+    this.creationCompte.get('email')?.valueChanges.subscribe(() => this.checkEmail());
   }
 
   connexion(){
@@ -52,25 +61,54 @@ export class CreationCompteComponent {
     this.adresse = adresse;
   }
 
+ checkEmail() {
+    const email = this.creationCompte.get('email')?.value;
+    if (!email) return;
+
+    ApiService.get(`/users/check-email?email=${email}`)
+      .then((res: { exists: boolean }) => {
+        if (res.exists) {
+          this.creationCompte.get('email')?.setErrors({ emailExists: true });
+        } else {
+          this.creationCompte.get('email')?.setErrors(null);
+        }
+      })
+      .catch(err => console.error('Erreur vérification email:', err));
+  }
+
+  checkUsername() {
+    const username = this.creationCompte.get('username')?.value;
+    if (!username) return;
+
+    ApiService.get(`/users/check-username?username=${username}`)
+      .then((res: { exists: boolean }) => {
+        if (res.exists) {
+          this.creationCompte.get('username')?.setErrors({ usernameExists: true });
+        } else {
+          this.creationCompte.get('username')?.setErrors(null);
+        }
+      })
+      .catch(err => console.error('Erreur vérification username:', err));
+  }
+
   onSubmit() {
     this.creationCompte.markAllAsTouched();
 
     let compte: User = {};
-
-    compte.firstName = this.creationCompte.controls['firstName'].value;
-    compte.lastName = this.creationCompte.controls['lastName'].value;
-    compte.username = this.creationCompte.controls['username'].value;
-    compte.age = this.creationCompte.controls['age'].value;
-    compte.adresse = this.adresse;
-    compte.email = this.creationCompte.controls['email'].value;
-    compte.password = this.creationCompte.controls['password'].value;
-    
     if (this.creationCompte.valid) {
+
+      compte.firstName = this.creationCompte.controls['firstName'].value;
+      compte.lastName = this.creationCompte.controls['lastName'].value;
+      compte.username = this.creationCompte.controls['username'].value;
+      compte.age = this.creationCompte.controls['age'].value;
+      compte.adresse = this.adresse;
+      compte.email = this.creationCompte.controls['email'].value;
+      compte.password = this.creationCompte.controls['password'].value;
+    
       ApiService.postData('/users/save', compte)
         .then((res: User) => {
           console.log('Succès ! Utilisateur créé :', res);
           if (res?.Id) localStorage.setItem('USER_ID', JSON.stringify(res.Id));
-          alert('Compte créé avec succès !');
           this.router.navigate(['/mon-compte']);
         })
         .catch((err) => {

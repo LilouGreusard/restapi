@@ -36,6 +36,9 @@ export class CarteBaladesComponent implements AfterViewInit {
   }
 
   async ngAfterViewInit(): Promise<void> {
+    localStorage.removeItem('COMPAGNON_ID');
+    localStorage.removeItem('BALLADE_ID');
+
     const storedId = localStorage.getItem('USER_ID');
     if (storedId) {
       this.userId = parseInt(storedId, 0);
