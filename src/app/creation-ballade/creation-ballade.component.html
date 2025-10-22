@@ -3,7 +3,7 @@
 <h2>Création d'une Ballade</h2>
 <form [formGroup]="creationBallade" (ngSubmit)="onSubmit()" id="creationBallade">
 
-    <app-localisation [lilou]="'chouette'" (adresseEmit)="setAdresse($event)"></app-localisation>
+    <app-localisation [adresseListen]="'18800, Bourges'" (adresseEmit)="setAdresse($event)"></app-localisation>
 
     <label>
         Horaire :
@@ -33,5 +33,5 @@
     <label for="infos"> Description :</label>
     <textarea formControlName="infos" maxlength="250" rows="5"></textarea>
 
-    <button (type)="onSubmit" class="button">Créer la ballade</button>
+    <button type="onSubmit" class="button">Créer la ballade</button>
 </form>

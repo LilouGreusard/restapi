@@ -21,6 +21,7 @@ h2{
   }
 
   input, select, mat-select {
+    box-sizing: border-box; 
     background-color: white;
     border: 0;
     width: 400px;
@@ -60,5 +61,14 @@ h2{
     margin-bottom: 30px;
     margin-top: 30px;
     border: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  #creationAnimal{
+    input, select, mat-select {
+      width: 200px;
+      height: 45px;
+    }
   }
 }

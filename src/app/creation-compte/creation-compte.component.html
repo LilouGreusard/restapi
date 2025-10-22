@@ -40,6 +40,9 @@
     <div *ngIf="creationCompte.get('email')?.hasError('required') && creationCompte.get('email')?.touched" class="condition">
         L'email est obligatoire.
     </div>
+    <div *ngIf="creationCompte.get('email')?.hasError('email') && creationCompte.get('email')?.touched" class="condition">
+        L'email doit être dans un format correct.
+    </div>
     <div *ngIf="creationCompte.get('email')?.hasError('emailExists')" class="condition">
         Cet email est déjà utilisé.
     </div>
@@ -47,10 +50,7 @@
     <label>
         Password :
     </label>
-    <input formControlName="password" type="password">
-    <div *ngIf="creationCompte.get('password')?.invalid && creationCompte.get('password')?.touched" class="condition">
-        Le mot de passe est obligatoire.
-    </div>
+    <app-password-input [control]="passwordControl"></app-password-input>
 
     <button type="submit" class="button">S'inscrire</button>
 </form>

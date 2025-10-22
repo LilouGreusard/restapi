@@ -1,0 +1,157 @@
+@media (max-width: 1250px) {
+    .compagnons{
+        width: 100vw;
+        .compagnon{
+        .buttons{
+            flex-direction: row;
+        }
+        }
+    }
+    .spacebtn{
+        width: 100vw;
+    }
+}
+
+@media (max-width: 900px) {
+    .header{
+        h2{
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .leaflet-popup-content-wrapper, .leaflet-popup-content{
+        max-width: 250px;
+    }
+
+    .popup-ballade{
+        img{
+        width: 50px; 
+        }
+
+        .infos{
+        width: 100%;
+        .info{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        label{
+            margin-top: 7px;
+        }
+        p{
+            word-wrap: break-word;
+            overflow-wrap: break-word; 
+        }
+        }
+        .row{
+        flex-direction: column;
+        justify-content: center;
+        .column{
+            flex-direction: column;
+            justify-content: center;
+        }
+        }
+    }
+
+    .password-container input {
+        width: 200px;
+        padding-right: 70px;
+    }
+
+    .compteCompagnons{
+        flex-direction: column;
+        width: 100vw;
+
+        .compte{
+        height: 450px;
+        .start{
+            flex-direction: column;
+        }
+        .names{
+            width: 80%;
+        }
+        .btns{
+            margin-top: 25px;
+        }
+        }
+    }
+
+    #modifierMotDePasse, #modifierCompte, #modifierAnimal, #formLocalisation, #creationAnimal{
+        input, select, mat-select {
+        width: 200px;
+        height: 45px;
+        }
+    }
+    
+
+    #modifierBallade, #login, #creationCompte, #creationBallade{
+        input, select, mat-select, textarea {
+        width: 200px;
+        }
+    }
+
+    .compagnons{
+        flex-direction: column;
+        .compagnon{
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            .picture{
+            margin-left: 0;
+            }
+            .attributes{
+                width: 90%;
+                margin-left: 0;
+                justify-content: center;
+                text-align: center;
+                margin-top: 10px;
+            }
+            .natures{
+                width: 90%;
+                margin-left: 0;
+                justify-content: center;
+                text-align: center;
+                margin-top: 10px;
+            }
+            .description{
+                width: 90%;
+                margin-left: 0;
+                justify-content: center;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            .buttons{
+                width: 80%;
+                justify-content: space-around;
+                align-items: center;
+                margin-right: 0;
+                .iconbtns{
+                display: flex;
+                flex-direction: column;
+                    i{
+                        margin-top: 10px;
+                        color: var(--secondary-color);
+                        font-size: 25px;
+                    }
+                }
+            }
+        }
+    }
+    .spacebtn{
+        width: 100vw;
+    }
+
+    .all-ballades{
+        .ballades{
+        .ballade{
+            width: 250px;
+        }
+        }
+    }  
+
+}

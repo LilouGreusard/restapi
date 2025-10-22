@@ -21,6 +21,7 @@ h2{
   }
 
   input, select, mat-select{
+    box-sizing: border-box; 
     background-color: white;
     border: 0;
     width: 400px;
@@ -46,6 +47,7 @@ h2{
   }
 
   .masked-password {
+    box-sizing: border-box; 
     background-color: rgb(192, 191, 191);
     border: 0;
     width: 400px;
@@ -79,5 +81,14 @@ h2{
     margin-bottom: 30px;
     margin-top: 30px;
     border: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  #modifierCompte{
+    input, select, mat-select, .masked-password {
+      width: 200px;
+      height: 45px;
+    }
   }
 }

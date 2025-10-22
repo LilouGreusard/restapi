@@ -1,39 +1,50 @@
 export class ApiService {
-  static api_base_url = 'http://localhost:8080/api';
+  static baseUrl = 'http://localhost:8080/api';
 
-  static async get(chemin: string): Promise<any> {
+  static async get(endpoint: string): Promise<any> {
+    const token = localStorage.getItem('TOKEN'); 
+    const headers: any = {
+      'Content-Type': 'application/json',
+    };
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     try {
-      const response = await fetch(this.api_base_url + chemin);
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP ! statut : ${response.status}`);
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Erreur lors du fetch :', error);
-      throw error;
+      const res = await fetch(`${this.baseUrl}${endpoint}`, {
+        method: 'GET',
+        headers: headers,
+      });
+      if (!res.ok) throw new Error(`Erreur HTTP ! statut : ${res.status}`);
+      return await res.json();
+    } catch (err) {
+      console.error('Erreur lors du fetch :', err);
+      throw err;
     }
   }
 
-  static async postData(chemin: string, bodyData: any) {
+  static async postData(endpoint: string, data: any): Promise<any> {
+    const token = localStorage.getItem('TOKEN');
+    const headers: any = {
+      'Content-Type': 'application/json',
+    };
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     try {
-      const response = await fetch(this.api_base_url + chemin, {
+      const res = await fetch(`${this.baseUrl}${endpoint}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // Indique que le corps est en JSON
-          'Access-Control-Allow-Origin': '*',
-          
-        },
-        body: JSON.stringify(bodyData), // On stringify les données à envoyer
+        headers: headers,
+        body: JSON.stringify(data),
       });
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP ! statut : ${response.status}`);
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Erreur lors du fetch POST :', error);
-      throw error;
+      if (!res.ok) throw new Error(`Erreur HTTP ! statut : ${res.status}`);
+      return await res.json();
+    } catch (err) {
+      console.error('Erreur lors du fetch POST :', err);
+      throw err;
     }
   }
 }

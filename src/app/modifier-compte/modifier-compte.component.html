@@ -44,8 +44,11 @@
         Email :
     </label>
     <input formControlName="email" (blur)="checkEmail()">
-    <div *ngIf="modifierCompte.get('email')?.invalid && modifierCompte.get('email')?.touched" class="condition">
+    <div *ngIf="modifierCompte.get('email')?.hasError('required') && modifierCompte.get('email')?.touched" class="condition">
         L'email est obligatoire.
+    </div>
+    <div *ngIf="modifierCompte.get('email')?.hasError('email') && modifierCompte.get('email')?.touched" class="condition">
+        L'email doit être dans un format correct.
     </div>
     <div *ngIf="modifierCompte.get('email')?.hasError('emailExists')" class="condition">
         Cet email est déjà utilisé.

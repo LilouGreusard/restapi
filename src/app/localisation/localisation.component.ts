@@ -23,7 +23,6 @@ import { MatSelectModule } from '@angular/material/select';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AdresseService],
   templateUrl: './localisation.component.html',
   styleUrl: './localisation.component.scss',
 })
@@ -34,7 +33,7 @@ export class LocalisationComponent implements OnInit {
   adressesParCodePostal: Adresse[] = [];
   lieuCtrl = new FormControl('', [Validators.required]);
 
-  @Input() lilou : String = '';
+  @Input() adresseListen : String = '';
   @Output() adresseEmit = new EventEmitter<Adresse>();
   
   constructor(private adresseService: AdresseService) {}

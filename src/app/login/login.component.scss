@@ -20,6 +20,7 @@ h2{
   }
 
   input{
+    box-sizing: border-box; 
     background-color: white;
     border: 0;
     width: 400px;
@@ -57,4 +58,12 @@ h2{
 .space-btn{
   display: flex;
   justify-content: center;
+}
+
+@media (max-width: 600px) {
+  #login{
+    input{
+      width: 200px;
+    }
+  }
 }

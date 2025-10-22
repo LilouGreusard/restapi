@@ -19,6 +19,7 @@ import { ApiService } from '../services/api.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HeaderComponent } from '../header/header.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -49,6 +50,7 @@ export class ModifierAnimalComponent {
     private raceService: RaceService,
     private especeService: EspeceService,
     private natureService: NatureService,
+    private router: Router,
   ) {
     this.modifierAnimal = new FormGroup({
       id: new FormControl(null),
@@ -182,6 +184,7 @@ export class ModifierAnimalComponent {
         .then((res: Compagnon) => {
           console.log('Succès ! Compagnon modifié:', res);
           alert('Compagnon modifié avec succès !');
+          this.router.navigate(['/mon-compte']);
         })
         .catch((err) => {
           console.error('Erreur lors de la modification :', err);

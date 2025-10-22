@@ -29,7 +29,7 @@
     .attributes{
       display: flex;
       flex-direction: column;
-      width: 20vw;
+      width: 20%;
       margin-left: 20px;
       .name{
         color: var(--secondary-color);
@@ -41,13 +41,13 @@
     .natures{
       display: flex;
       flex-direction: column;
-      width: 20vw;
+      width: 20%;
       margin-left: 10px;
     }
     .description{
       display: flex;
       flex-direction: column;
-      width: 45vw;
+      width: 45%;
       margin-left: 10px;
     }
 
@@ -87,4 +87,76 @@
   width: 150px;
   cursor: pointer;
   margin-top: 25px;
+}
+
+@media (max-width: 1250px) {
+  .compagnons{
+    width: 100vw;
+    .compagnon{
+      .buttons{
+        flex-direction: row;
+      }
+    }
+  }
+  .spacebtn{
+    width: 100vw;
+  }
+}
+.button{
+  margin-right: 15px;
+}
+
+@media (max-width: 600px) {
+  .compagnons{
+    flex-direction: column;
+    .compagnon{
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    .picture{
+      margin-left: 0;
+    }
+      .attributes{
+        width: 90%;
+        margin-left: 0;
+        justify-content: center;
+        text-align: center;
+        margin-top: 10px;
+      }
+      .natures{
+        width: 90%;
+        margin-left: 0;
+        justify-content: center;
+        text-align: center;
+        margin-top: 10px;
+      }
+      .description{
+        width: 90%;
+        margin-left: 0;
+        justify-content: center;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .buttons{
+        width: 80%;
+        justify-content: space-around;
+        align-items: center;
+        margin-right: 0;
+        .iconbtns{
+          display: flex;
+          flex-direction: column;
+          i{
+            margin-top: 10px;
+            color: var(--secondary-color);
+            font-size: 25px;
+          }
+        }
+      }
+    }
+  }
+  .spacebtn{
+    width: 100vw;
+  }
 }

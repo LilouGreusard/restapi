@@ -4,6 +4,7 @@ import { CompagnonService } from '../services/compagnon.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-mes-compagnons',
@@ -19,38 +20,31 @@ export class MesCompagnonsComponent implements OnInit {
   error = '';
   especeId = '';
   picture = '';
-  userId = localStorage.getItem('USER_ID');
 
   constructor(
     private compagnonService: CompagnonService,
     private router: Router,
   ) {}
 
-  ngOnInit(): void {
-    localStorage.removeItem('COMPAGNON_ID');
-    localStorage.removeItem('BALLADE_ID');
-    
-    //un compte existe en localStorage
-    if (this.userId) {
-      this.loading = true;
-      this.compagnonService
-        .getMesCompagnons(this.userId)
-        .then((data) => {
-          this.mesCompagnons = data;
-          this.loading = false;
-        })
-        .catch((err) => {
-          this.error = 'Erreur lors du chargement de mes compagnons';
-          this.loading = false;
-        });
-    }
-    //pas de compte en localStorage
-    else {
-      this.router.navigate(['/creation-compte']);
-    }
+  async ngOnInit(): Promise<void> {
+  localStorage.removeItem('COMPAGNON_ID');
+  localStorage.removeItem('BALLADE_ID');
+
+  this.loading = true;
+  try {
+    console.log("Appel à mes Compagnons...");
+    // recupere les compagnons de user via token
+    this.mesCompagnons = await lastValueFrom(this.compagnonService.getMesCompagnons())
+  } catch (err) {
+    console.error("Erreur lors du chargement des compagnons :", err);
+    this.error = 'Erreur lors du chargement de mes compagnons';
+  } finally {
+    this.loading = false;
   }
+}
+
   onSubmitCreer(compagnonId: any){
-    this.router.navigate(['/creation-ballade'], { queryParams: { user: this.userId, compagnon: compagnonId} })
+    this.router.navigate(['/creation-ballade'], { queryParams: { compagnon: compagnonId} })
   }
   onSubmitModifier(compagnonId: any){
     localStorage.setItem('COMPAGNON_ID', compagnonId.toString());

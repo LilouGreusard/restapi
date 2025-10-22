@@ -19,11 +19,11 @@ import { AdresseService } from '../services/adresse.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Ballade } from '../models/ballade.model';
-import { Statuts } from '../enums/status.enum';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalisationComponent } from '../localisation/localisation.component';
 import { ApiService } from '../services/api.service';
 import { HeaderComponent } from '../header/header.component';
+import { BalladeService } from '../services/ballade.service';
 
 @Component({
   selector: 'app-creation-ballade',
@@ -67,15 +67,22 @@ export class CreationBalladeComponent {
 
   constructor(
     private adresseService: AdresseService,
+    private balladeService: BalladeService,
     private route: ActivatedRoute,
     private router: Router,
   ) {}
 
   ngOnInit() {
     localStorage.removeItem('BALLADE_ID');
+
+    const token = localStorage.getItem('TOKEN');
+
+    if (!token) {
+      this.router.navigate(['login/']);
+      return;
+    }
     
     this.route.queryParams.subscribe((params) => {
-      this.organisateur = params['user'];
       this.compagnon = params['compagnon'];
     });
     this.creationBallade = new FormGroup({
@@ -97,7 +104,6 @@ export class CreationBalladeComponent {
     } else if (selected.length !== this.jours.length) {
       this.allSelected.deselect();
     }
-    this.creationBallade.controls['date'];
   }
 
   toggleAllSelection(): void {
@@ -125,32 +131,33 @@ export class CreationBalladeComponent {
       (v: any) => v
     );
 
-    this.balade.compagnon = { id: Number.parseInt(this.compagnon) };
-    this.balade.organisateur = { Id: Number.parseInt(this.organisateur) };
-    this.balade.jours = joursSelected.join(',');
-    this.balade.dureeMinute = this.creationBallade.controls['duree'].value;
-    this.balade.heure = this.creationBallade.controls['horaire'].value;
-    this.balade.infos = this.creationBallade.controls['infos'].value;
-    this.balade.statut = Statuts.FUTUR;
-
-    console.log(this.organisateur);
-    console.log(this.compagnon);
-    console.log(this.balade);
+    
+    this.balade = {
+      ...this.balade,
+      compagnon: { id: Number.parseInt(this.compagnon) },
+      jours: joursSelected.join(', '),
+      dureeMinute: this.creationBallade.controls['duree'].value,
+      heure: this.creationBallade.controls['horaire'].value,
+      infos: this.creationBallade.controls['infos'].value,
+    };
     
     if (this.creationBallade.valid) {
-      ApiService.postData(
-        '/ballades/save',
-        this.balade
-      )
-        .then((res: Ballade) => {
+      this.balladeService.createBallade(this.balade).subscribe({
+        next: (res: Ballade) => {
           console.log('Succès ! Ballade créé :', res);
           alert('Ballade créé avec succès !');
           this.router.navigate(['/mes-ballades']);
-        })
-        .catch((err) => {
+        },
+        error: (err) => {
           console.error('Erreur lors de la création :', err);
-          alert('Erreur lors de la création de la Ballade.');
-        });
+          if (err.status === 401) {
+            alert('Session expirée, veuillez vous reconnecter.');
+            this.router.navigate(['/login']);
+          } else {
+            alert('Erreur lors de la création de la Ballade.');
+          }
+        }
+      });
     } else {
       alert('Champs Invalide !');
     }

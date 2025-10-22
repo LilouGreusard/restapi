@@ -57,8 +57,8 @@ export class modifierBalladeComponent {
   lieuCtrl = new FormControl('', [Validators.required]);
   modifierBallade: FormGroup;
   adresse: Adresse = {};
-  userId = 0;
   balladeId = 0;
+  userId = 0;
   jours: string[] = [
     'Lundi',
     'Mardi',
@@ -85,7 +85,6 @@ export class modifierBalladeComponent {
       heure: new FormControl('', [Validators.required]),
       dureeMinute: new FormControl('', [Validators.required]),
       compagnon: new FormControl('', [Validators.required]),
-      statut: new FormControl('', [Validators.required]),
       organisateur: new FormControl('', [Validators.required]),
       lieu: this.lieuCtrl,
       adresseCtrl: new FormControl('', [Validators.required]),
@@ -113,13 +112,19 @@ export class modifierBalladeComponent {
       else this.getAdresseByCp(value);
     });
 
-    // récupère id user stocker
-    const storeUserId = localStorage.getItem('USER_ID');
-    // si id présent récupère infos
-    if(storeUserId){
-      this.userId =  JSON.parse(storeUserId);
-      this.loadUser (this.userId);
-    }
+    this.compteService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.userId = user.Id!;
+        this.adresse = user.adresse || {};
+        console.log('Utilisateur connecté :', user);
+      },
+      error: (err) => {
+        console.error('Erreur récupération user courant', err);
+        alert('Session expirée, veuillez vous reconnecter.');
+        localStorage.removeItem('TOKEN');
+        this.router.navigate(['/login']);
+      }
+    });
 
     // récupère id ballade stocker
     const storeBalladeId = localStorage.getItem('BALLADE_ID');
@@ -127,10 +132,10 @@ export class modifierBalladeComponent {
     if(storeBalladeId){
       this.balladeId =  JSON.parse(storeBalladeId);
       this.loadBallade (this.balladeId);
+    }else{
+      this.router.navigate(['/mes-ballades']);
     }
 
-    console.log("id user :", storeUserId)
-    console.log("id ballade :", storeBalladeId)
   }
 
   // récupère adresse par code postal
@@ -236,7 +241,6 @@ export class modifierBalladeComponent {
         heure : ballade.heure,
         dureeMinute: ballade.dureeMinute,
         compagnon: ballade.compagnon?.id,
-        statut: ballade.statut,
         organisateur: ballade.organisateur?.Id,
         });
       },
@@ -273,7 +277,6 @@ export class modifierBalladeComponent {
       heure:this.modifierBallade.controls['heure'].value,
       dureeMinute:this.modifierBallade.controls['dureeMinute'].value,
       compagnon:{ id: this.modifierBallade.controls['compagnon'].value},
-      statut:this.modifierBallade.controls['statut'].value,
       organisateur:{ Id: this.modifierBallade.controls['organisateur'].value},
     };
     console.log(this.modifierBallade.controls['id'].value)

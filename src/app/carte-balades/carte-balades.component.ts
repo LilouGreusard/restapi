@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { Compagnon } from '../models/compagnon.model';
 import { CompagnonService } from '../services/compagnon.service';
 import { HeaderComponent } from '../header/header.component';
+import { lastValueFrom } from 'rxjs';
+import { CompteService } from '../services/compte.service';
 
 @Component({
   selector: 'app-carte-balades',
@@ -22,9 +24,9 @@ export class CarteBaladesComponent implements AfterViewInit {
   loading = false;
   error = '';
   ballades: Ballade[] = [];
-  userId: number = 0;
+  userId!: number;
 
-  constructor(private balladeService: BalladeService,private router: Router,private compagnonService: CompagnonService) {}
+  constructor(private balladeService: BalladeService,private router: Router,private compagnonService: CompagnonService, private compteService: CompteService) {}
 
   private initMap(): void {
     this.map = L.map('map').setView([47.08, 2.39], 15);
@@ -39,27 +41,37 @@ export class CarteBaladesComponent implements AfterViewInit {
     localStorage.removeItem('COMPAGNON_ID');
     localStorage.removeItem('BALLADE_ID');
 
-    const storedId = localStorage.getItem('USER_ID');
-    if (storedId) {
-      this.userId = parseInt(storedId, 0);
+    try {
+      const currentUser = await lastValueFrom(this.compteService.getCurrentUser());
+      this.userId = currentUser.Id!;
+    } catch (err) {
+      console.error("Erreur récupération userId :", err);
+      alert("Impossible de récupérer l'utilisateur connecté.");
+      this.router.navigate(['/login']);
+      return;
     }
 
     this.initMap();
 
-    if (this.userId) {
-      this.loading = true;
-      try {
-        this.mesCompagnons = await this.compagnonService.getMesCompagnons(this.userId);
-      } catch (err) {
-        this.error = 'Erreur lors du chargement de mes compagnons';
-      } finally {
-        this.loading = false;
-      }
+    this.loading = true;
+    try {
+      this.mesCompagnons = await lastValueFrom(this.compagnonService.getMesCompagnons());
+    } catch (err) {
+      this.error = 'Erreur lors du chargement de mes compagnons';
+    } finally {
+      this.loading = false;
     }
-    this.ballades = await this.balladeService.getAllBallades();
-    this.addMarkers();
 
-    
+    this.balladeService.getAllBallades().subscribe({
+      next: (data) => {
+        this.ballades = data;
+        this.addMarkers();
+      },
+      error: (err) => {
+        console.error('Erreur chargement des ballades :', err);
+        this.error = 'Erreur lors du chargement des ballades';
+      }
+    }); 
   }
 
   ngOnDestroy(): void {
@@ -111,17 +123,17 @@ private onVoirMesBallades(): void {
 }
 
   private generatePopupHtml(ballade: Ballade): string {
-    const isParticipant = ballade.participants?.some(p => p.Id === this.userId);
     const isOrganisateur = ballade.organisateur?.Id === this.userId;
+    const isParticipant = ballade.participants?.some(p => p.Id === this.userId);
 
     let buttonHtml = '';
     const canJoin = this.mesCompagnons?.some(c => c.race?.espece?.id === ballade.compagnon?.race?.espece?.id);
     if (isOrganisateur) {
       buttonHtml = `<button id="btn-rejoindre-${ballade.id}" class="button">Voir mes balades</button>`;
     } else {
-      buttonHtml = `<button id="btn-rejoindre-${ballade.id}" ${!canJoin ? 'disabled' : ''} class="button">
-                      ${isParticipant ? "Désinscrire" : "Rejoindre"}
-                    </button>`;
+      buttonHtml = `<button id="btn-rejoindre-${ballade.id}" class="button">
+                        ${isParticipant ? "Désinscrire" : "Rejoindre"}
+                      </button>`;
     }
 
     return `
@@ -173,9 +185,10 @@ private onVoirMesBallades(): void {
     `;
   }
 
-  private async onToggleParticipation(ballade: Ballade, marker: L.Marker): Promise<void> {
-  const isOrganisateur = ballade.organisateur?.Id === this.userId;
-  if (isOrganisateur) return; 
+private async onToggleParticipation(ballade: Ballade, marker: L.Marker): Promise<void> {
+const isOrganisateur = ballade.organisateur?.Id === this.userId;
+if (isOrganisateur) return;
+
 
   const hasMatchingCompanion = this.mesCompagnons?.some(
     c => c.race?.espece?.id === ballade.compagnon?.race?.espece?.id
@@ -185,30 +198,37 @@ private onVoirMesBallades(): void {
     alert("Vous ne pouvez rejoindre cette balade car vous n'avez aucun compagnon avec la même race.");
     return;
   }
-  
+
   const isParticipant = ballade.participants?.some(p => p.Id === this.userId);
 
-  if (isParticipant) {
-    await this.balladeService.removeParticipant(ballade.id!, this.userId);
-    ballade.participants = ballade.participants?.filter(p => p.Id !== this.userId) || [];
-    alert(`Vous vous êtes désinscrit de la balade : ${ballade.infos}`);
-  } else {
-    await this.balladeService.addParticipant(ballade.id!, this.userId);
-    ballade.participants = [...(ballade.participants || []), { Id: this.userId } as any];
-    alert(`Vous avez rejoint la balade : ${ballade.infos}`);
-  }
+  try {
+    let updatedBallade: Ballade; 
 
-  marker.setPopupContent(this.generatePopupHtml(ballade));
-
-  setTimeout(() => {
-    const btn = document.getElementById(`btn-rejoindre-${ballade.id}`);
-    if (!btn) return;
-
-    if (!isOrganisateur) {
-      btn.onclick = () => this.onToggleParticipation(ballade, marker);
+    if (isParticipant) {
+      // Supprimer participant
+      updatedBallade = await lastValueFrom(this.balladeService.removeParticipant(ballade.id!));
+      alert(`Vous vous êtes désinscrit de la balade : ${ballade.infos}`);
+    } else {
+      // Ajouter participant
+      updatedBallade = await lastValueFrom(this.balladeService.addParticipant(ballade.id!));
+      alert(`Vous avez rejoint la balade : ${ballade.infos}`);
     }
-  });
+
+    ballade.participants = updatedBallade.participants;// mettre à jour côté front
+
+    // Fermer et rouvrir le popup pour rafraîchir le bouton
+    marker.closePopup();
+    marker.bindPopup(this.generatePopupHtml(ballade), { closeButton: false, maxWidth: 500 }).openPopup();
+
+    // Réattacher l'événement du bouton
+    setTimeout(() => {
+      const btn = document.getElementById(`btn-rejoindre-${ballade.id}`);
+      if (!btn) return;
+      if (!isOrganisateur) btn.onclick = () => this.onToggleParticipation(ballade, marker);
+    });
+  } catch (err) {
+    console.error("Erreur participation :", err);
+    alert("Impossible de rejoindre/désinscrire la balade pour le moment.");
+  }
 }
-
-
 }

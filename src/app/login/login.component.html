@@ -14,10 +14,7 @@
         <label>
             Password :
         </label>
-        <input type="password" formControlName="password">
-        <div *ngIf="login.get('password')?.invalid && login.get('password')?.touched">
-            Le mot de passe est obligatoire.
-        </div>
+        <app-password-input [control]="passwordControl"></app-password-input>
 
         <button type="submit" class="button">Se connecter</button>
     </form>

@@ -57,3 +57,13 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .all-ballades{
+    .ballades{
+      .ballade{
+        width: 250px;
+      }
+    }
+  }
+}

@@ -41,7 +41,6 @@ export class CreationAnimalComponent implements OnInit {
   races: Race[] = [];
   especes: Espece[] = [];
   naturesList: Nature[] = [];
-  userId: number | null = null;
 
   constructor(
     private raceService: RaceService,
@@ -101,22 +100,12 @@ export class CreationAnimalComponent implements OnInit {
   ngOnInit() {
     this.afficherEspece();
     this.afficherNature();
-
-    // récupérer userID
-    const userId = localStorage.getItem('USER_ID');
-    if (userId) this.userId = Number.parseInt(userId);
-    console.log(this.userId);
-    if (!this.userId) {
-      alert("le user ID n'existe pas !!!!!");
-      // this.router.navigate(['login'])
-    }
   }
 
   onSubmit() {
     this.creationAnimal.markAllAsTouched();
 
-    let postForm = this.creationAnimal.value;
-    postForm.user = { Id: this.userId };
+    const postForm = { ...this.creationAnimal.value }; 
 
     // valoriser la race à partir de l'id recu dans le form
     const raceId: number = this.creationAnimal.get('race')?.value;
@@ -129,7 +118,6 @@ export class CreationAnimalComponent implements OnInit {
           console.log('Succès ! Compagnon créé :', res);
 
           alert('Compagnon créé avec succès !');
-          // TODO redirection vers le composant mes compagnons
           this.router.navigate(['/mon-compte']);
         })
         .catch((err) => {

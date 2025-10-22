@@ -21,6 +21,7 @@ h2{
   }
 
   input, select, mat-select {
+    box-sizing: border-box; 
     background-color: white;
     border: 0;
     width: 400px;
@@ -46,6 +47,7 @@ h2{
   }
 
   textarea{
+    box-sizing: border-box; 
     width: 400px;
     height: 150px;
     resize: none;
@@ -90,5 +92,13 @@ h2{
     margin-bottom: 30px;
     margin-top: 30px;
     border: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  #creationBallade{
+    input, select, mat-select, textarea {
+      width: 200px;
+    }
   }
 }

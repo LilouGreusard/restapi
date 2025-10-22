@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, firstValueFrom } from 'rxjs';
 import { Ballade } from '../models/ballade.model';
 
@@ -12,47 +12,56 @@ export class BalladeService {
 
   constructor(private http: HttpClient) {}
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('TOKEN');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  }
+
+  // Creer une ballade
+  createBallade(ballade: Ballade): Observable<Ballade> {
+    return this.http.post<Ballade>(`${this.apiUrl}/save`, ballade, {headers: this.getAuthHeaders()});
+  }
+
   // Récupère les ballades que l'utilisateur organise 
-  async getBalladesOrganisees(userId: number): Promise<Ballade[]> {
-    return ApiService.get(`/ballades/mes-ballades/organisateur${userId}`);
+  getBalladesOrganisees(): Observable<Ballade[]> {
+    return this.http.get<Ballade[]>(`${this.apiUrl}/mes-ballades/organisees`, { headers: this.getAuthHeaders() });
   }
 
   // Récupère les ballades auxquelles l'utilisateur participe 
-  async getBalladesParticipees(userId: number): Promise<Ballade[]> {
-    return ApiService.get(`/ballades/mes-ballades/participants${userId}`);
+  getBalladesParticipees(): Observable<Ballade[]> {
+    return this.http.get<Ballade[]>(`${this.apiUrl}/mes-ballades/participees`, { headers: this.getAuthHeaders() });
   }
 
   // Récupère toute les ballades 
-  async getAllBallades(): Promise<Ballade[]> {
-    return ApiService.get('/ballades/all');
+  getAllBallades(): Observable<Ballade[]> {
+    return this.http.get<Ballade[]>(`${this.apiUrl}/all`, {headers: this.getAuthHeaders()});
   }
 
   // Récupère une ballade par son id 
   getById(balladeId: number): Observable<Ballade> {
-    return this.http.get<Ballade>(`${this.apiUrl}/${balladeId}`);
+    return this.http.get<Ballade>(`${this.apiUrl}/${balladeId}`, {headers: this.getAuthHeaders()});
   }
 
   // Modifie la ballade
   onSubmitModifier(ballade: Ballade): Observable<Ballade> {
-    return this.http.post<Ballade>(`${this.apiUrl}/update`, ballade);
+    return this.http.post<Ballade>(`${this.apiUrl}/update`, ballade, {headers: this.getAuthHeaders()});
   }
 
   // Supprime la ballade par son id
-  deletedById(balladeId: number): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/delete/${balladeId}`);
+  deletedById(balladeId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/delete/${balladeId}`, {headers: this.getAuthHeaders()});
   }
 
-  // Ajoute un participant a une ballade avec id ballade et id user
-  async addParticipant(balladeId: number, userId: number): Promise<Ballade> {
-    return await firstValueFrom(
-      this.http.post<Ballade>(`${this.apiUrl}/${balladeId}/participants/${userId}`, {})
-    );
+  // Ajoute un participant a une ballade avec id ballade
+  addParticipant(balladeId: number): Observable<Ballade> {
+    return this.http.post<Ballade>(`${this.apiUrl}/${balladeId}/participants`, {}, {headers: this.getAuthHeaders()});
   }
 
-  // Supprime un participant a une ballade avec id ballade et id user
-  async removeParticipant(balladeId: number, userId: number): Promise<Ballade> {
-    return await firstValueFrom(
-      this.http.delete<Ballade>(`${this.apiUrl}/${balladeId}/participants/${userId}`)
-    );
+  // Supprime un participant a une ballade avec id ballade
+  removeParticipant(balladeId: number) {
+    return this.http.delete(`${this.apiUrl}/${balladeId}/participants`, { headers: this.getAuthHeaders() });
   }
 }

@@ -4,7 +4,7 @@
 <form [formGroup]="modifierMotDePasse" (ngSubmit)="onSubmit()" id="modifierMotDePasse">
 
     <label>Mot de Passe</label>
-    <input formControlName="password" type="password">
+    <app-password-input [control]="passwordControl"></app-password-input>
 
     <label>Confirmation Mot de Passe</label>
     <input formControlName="confirmPassword" type="password">
@@ -12,12 +12,11 @@
     <div *ngIf="modifierMotDePasse.errors?.['passwordMismatch'] && modifierMotDePasse.get('confirmPassword')?.touched" class="condition">
       Les mots de passe ne correspondent pas.
     </div>
-
-      <div *ngIf="modifierMotDePasse.get('password')?.hasError('required') && modifierMotDePasse.get('password')?.touched" class="condition">
-        Merci de définir un nouveau mot de passe.
+    <div *ngIf="modifierMotDePasse.get('password')?.hasError('required') && modifierMotDePasse.get('password')?.touched" class="condition">
+      Merci de définir un nouveau mot de passe.
     </div>
     <div *ngIf="modifierMotDePasse.get('password')?.hasError('minlength') && modifierMotDePasse.get('password')?.touched" class="condition">
-        Le mot de passe doit contenir au moins 8 caractères.
+      Le mot de passe doit contenir au moins 8 caractères.
     </div>
 
 

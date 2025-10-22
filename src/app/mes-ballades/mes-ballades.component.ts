@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
+import { lastValueFrom } from 'rxjs';
+import { CompteService } from '../services/compte.service';
 
 @Component({
   selector: 'app-mes-ballades',
@@ -21,15 +23,12 @@ export class MesBalladesComponent implements OnInit {
   error = '';
   especeId = '';
   picture = '';
-  userId = 0;
-
 
   constructor(
     private balladeService: BalladeService,
-    private router: Router
+    private router: Router,
+    private compteService: CompteService
   ) {}
-
-
 
 
 async ngOnInit() {
@@ -37,33 +36,24 @@ async ngOnInit() {
   localStorage.removeItem('BALLADE_ID');
 
   try {
-    const storedId = localStorage.getItem('USER_ID');
-    if (storedId) this.userId = parseInt(storedId, 0);
+    console.log("Chargement des ballades de l'utilisateur connecté...");
 
-    this.balladesOrganisees = await this.balladeService.getBalladesOrganisees(this.userId);
-    this.balladesParticipees = await this.balladeService.getBalladesParticipees(this.userId);
+    // ballades organisees
+    this.balladesOrganisees = await lastValueFrom(
+      this.balladeService.getBalladesOrganisees()
+    );
 
-  } catch (err) {
-    this.error = 'Erreur lors du chargement des ballades';
-  } finally {
-    this.loading = false;
-  }
-}
-
-  private loadBallades() {
-    if (this.userId) {
-      this.balladeService.getBalladesOrganisees(this.userId).then(
-        (data) => this.balladesOrganisees = data,
-        () => this.error = "Erreur lors du rechargement"
-      );
-
-      this.balladeService.getBalladesParticipees(this.userId).then(
-        (data) => this.balladesParticipees = data,
-        () => this.error = "Erreur lors du rechargement"
-      );
+    // ballades participees
+    this.balladesParticipees = await lastValueFrom(
+      this.balladeService.getBalladesParticipees()
+    );
+    } catch (err) {
+      console.error("Erreur lors du chargement des ballades :", err);
+      this.error = 'Erreur lors du chargement des ballades';
+    } finally {
+      this.loading = false;
     }
   }
-
 
   onSubmitModifier(balladeId: any){
     localStorage.setItem('BALLADE_ID', balladeId.toString());
@@ -85,15 +75,17 @@ async ngOnInit() {
   }
 
  async onSubmitDesinscrire(balladeId: number) {
-    if (!this.userId) return;
-
     if (!confirm("Voulez-vous vraiment vous désinscrire de cette ballade ?")) return;
 
     try {
-      await this.balladeService.removeParticipant(balladeId, this.userId);
+      // Transformer l'observable en Promise pour utiliser await
+      await lastValueFrom(this.balladeService.removeParticipant(balladeId));
+      
+      // Mettre à jour le front
       this.balladesParticipees = this.balladesParticipees.filter(b => b.id !== balladeId);
     } catch (err) {
       console.error("Erreur désinscription :", err);
+      alert("Impossible de se désinscrire pour le moment.");
     }
   }
 }

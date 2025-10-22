@@ -11,6 +11,7 @@ import { LocalisationComponent } from '../localisation/localisation.component';
 import { Adresse } from '../models/adresse.model';
 import { ApiService } from '../services/api.service';
 import { Router } from '@angular/router';
+import { PasswordInputComponent } from '../password-input/password-input.component';
 
 @Component({
   selector: 'app-creation-compte',
@@ -19,12 +20,14 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     CommonModule,
     LocalisationComponent,
+    PasswordInputComponent,
   ],
   templateUrl: './creation-compte.component.html',
   styleUrl: './creation-compte.component.scss',
 })
 export class CreationCompteComponent {
   creationCompte: FormGroup;
+  showPassword = false;
   adresse: Adresse = {};
 
   constructor(private router: Router) {
@@ -35,7 +38,7 @@ export class CreationCompteComponent {
       profilePicture: new FormControl(''),
       age: new FormControl(''),
       adresse: new FormControl(''),
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
   }
@@ -47,6 +50,10 @@ export class CreationCompteComponent {
 
     this.creationCompte.get('username')?.valueChanges.subscribe(() => this.checkUsername());
     this.creationCompte.get('email')?.valueChanges.subscribe(() => this.checkEmail());
+  }
+
+  get passwordControl(): FormControl {
+    return this.creationCompte.get('password') as FormControl;
   }
 
   connexion(){
@@ -70,7 +77,7 @@ export class CreationCompteComponent {
         if (res.exists) {
           this.creationCompte.get('email')?.setErrors({ emailExists: true });
         } else {
-          this.creationCompte.get('email')?.setErrors(null);
+          return;
         }
       })
       .catch(err => console.error('Erreur vérification email:', err));
@@ -106,9 +113,16 @@ export class CreationCompteComponent {
       compte.password = this.creationCompte.controls['password'].value;
     
       ApiService.postData('/users/save', compte)
-        .then((res: User) => {
+        .then((res: any) => {
           console.log('Succès ! Utilisateur créé :', res);
-          if (res?.Id) localStorage.setItem('USER_ID', JSON.stringify(res.Id));
+
+          if (res.user?.Id !== undefined) {
+            localStorage.setItem('USER_ID', res.user.Id.toString());
+          }
+
+          if (res.token) {
+            localStorage.setItem('TOKEN', res.token);
+          }
           this.router.navigate(['/mon-compte']);
         })
         .catch((err) => {

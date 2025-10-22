@@ -12,6 +12,7 @@
   }
 
   input, select, mat-select {
+    box-sizing: border-box; 
     background-color: white;
     border: 0;
     width: 400px;
@@ -41,5 +42,14 @@
       box-shadow: 0 0 5px var(--primary-color);
     }
     
+  }
+}
+
+@media (max-width: 600px) {
+  #formLocalisation{
+    input, select, mat-select {
+      width: 200px;
+      height: 45px;
+    }
   }
 }

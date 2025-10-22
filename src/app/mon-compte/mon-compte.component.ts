@@ -23,8 +23,6 @@ export class MonCompteComponent implements OnInit {
     monCompte : User | null = null;
     loading = false;
     error = '';
-    picture = '';
-    userId = 0;
     ballades: Ballade[] = [];
   
     constructor(
@@ -38,44 +36,45 @@ export class MonCompteComponent implements OnInit {
     localStorage.removeItem('COMPAGNON_ID');
     localStorage.removeItem('BALLADE_ID');
 
-    // vérifie la présence de user id dans local storage sinon redirige vers login
-    const storedId = localStorage.getItem('USER_ID');
-    if (storedId) this.userId = parseInt(storedId, 10);
+    // vérifie la présence du token dans local storage sinon redirige vers login
+    const token = localStorage.getItem('TOKEN');
 
-    if (!this.userId) {
+    if (!token) {
       this.router.navigate(['login/']);
       return;
     }   
 
     this.loading = true;
 
-    // récupère les infos de user par son id
-    this.compteService.getById(Number(this.userId))
-        .subscribe({
+    // récupère les infos de user par son token
+    this.compteService.getCurrentUser().subscribe({
           next: (user) => {
             this.monCompte = user;
             this.loading = false;
+            console.log("Utilisateur connecté :", user);
           },
           error: (err) => {
-            this.error = 'Erreur lors du chargement de mon compte';
+            console.error("Erreur lors du chargement de l'utilisateur :", err);
             this.loading = false;
-            console.error(err);
+            if (err.status === 401) {
+              alert("Session expirée, veuillez vous reconnecter.");
+              localStorage.removeItem('TOKEN');
+              this.router.navigate(['/login']);
+            } else {
+              this.error = "Impossible de charger votre compte.";
+            }
           }
         });
     }
 
     // bouton redirige vers moidifer compte
     onSubmitModifier(){
-      if (this.userId){
-        this.router.navigate(['/modifier-compte'], { queryParams: { id: this.userId} });
-      }
+      this.router.navigate(['/modifier-compte']);
     }
 
     // bouton redirige vers moidifer mot de passe
     onSubmitMotDePasse(){
-      if (this.userId){
-        this.router.navigate(['/modifier-mot-de-passe'], { queryParams: { id: this.userId} });
-      }
+      this.router.navigate(['/modifier-mot-de-passe']);
     }
 
     // bouton suppression compte
@@ -91,41 +90,20 @@ export class MonCompteComponent implements OnInit {
       }
 
       // vérifie mot de passe via login (backend)
-      this.compteService.login(this.monCompte.email!, password).subscribe({
-        next: async (user) => {
-          // si mot de passe correct demande confirmation
-          if (confirm("Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible !")) {
-            // vérifie que l'id de l'user existe bien
-            if (this.monCompte!.Id !== undefined) {
-              
-              try {
-              this.compteService.deletedById(this.monCompte!.Id).subscribe({
-                next: () => {
-                  alert("Compte supprimé avec succès !");
-                  localStorage.removeItem('USER_ID');
-                  this.router.navigate(['/login']);
-                  this.loading = false;
-                },
-                error: (err) => {
-                  console.error("Erreur suppression compte :", err);
-                  this.loading = false;
-                }
-              });
-          } catch (err) {
-            console.error("Erreur lors de la suppression des ballades :", err);
-            this.error = "Erreur lors de la suppression des ballades";
-            this.loading = false;
-          }
+    this.compteService.login(this.monCompte.email!, password).subscribe({
+      next: () => {
+        if (confirm("Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible !")) {
+          this.compteService.deletedById(this.monCompte!.Id!).subscribe({
+            next: () => {
+              alert("Compte supprimé avec succès !");
+              localStorage.removeItem('TOKEN');
+              this.router.navigate(['/login']);
+            },
+            error: (err) => console.error("Erreur suppression compte :", err)
+          });
         }
-      }
-    },
-        error: (err) => {
-          alert("Mot de passe incorrect !");
-          console.error("Erreur vérification mot de passe :", err);
-        }
-      });
-    }
-
-
+      },
+      error: () => alert("Mot de passe incorrect !"),
+    });
+  }
 }
- 
