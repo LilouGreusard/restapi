@@ -12,15 +12,16 @@ import { modifierBalladeComponent } from './modifier-ballade/modifier-ballade.co
 import { ModifierMotDePasseComponent } from './modifier-mot-de-passe/modifier-mot-de-passe.component';
 
 export const routes: Routes = [
-    { path: 'creation-compte', component: CreationCompteComponent },
-    { path: 'creation-compagnon', component: CreationAnimalComponent },
-    { path: 'creation-ballade', component: CreationBalladeComponent},
-    { path: 'mes-ballades', component: MesBalladesComponent},
-    { path: 'modifier-animal', component: ModifierAnimalComponent },
-    { path: 'modifier-compte', component: ModifierCompteComponent},
-    { path: 'modifier-mot-de-passe', component: ModifierMotDePasseComponent},
-    { path: 'modifier-ballade', component: modifierBalladeComponent},
-    { path: 'login', component: LoginComponent},
-    { path: 'carte-ballades', component: CarteBaladesComponent},
-    { path: 'mon-compte', component: MonCompteComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'creation-compte', component: CreationCompteComponent },
+  { path: 'creation-compagnon', component: CreationAnimalComponent },
+  { path: 'creation-ballade', component: CreationBalladeComponent },
+  { path: 'mes-ballades', component: MesBalladesComponent },
+  { path: 'modifier-animal', component: ModifierAnimalComponent },
+  { path: 'modifier-compte', component: ModifierCompteComponent },
+  { path: 'modifier-mot-de-passe', component: ModifierMotDePasseComponent },
+  { path: 'modifier-ballade', component: modifierBalladeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'carte-ballades', component: CarteBaladesComponent },
+  { path: 'mon-compte', component: MonCompteComponent },
 ];

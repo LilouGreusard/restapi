@@ -3,6 +3,7 @@
 <h2>Ajouter d'animal</h2>
 <form [formGroup]="creationAnimal" (ngSubmit)="onSubmit()" id="creationAnimal">
 
+    <!-- Prénom : obligatoire  -->
     <label>
         Prénom :
     </label>
@@ -11,6 +12,7 @@
         Le prénom est obligatoire.
     </div>
 
+    <!-- Age : obligatoire  -->
     <label>
         Age :
     </label>
@@ -19,6 +21,7 @@
         L'âge est obligatoire.
     </div>
 
+    <!-- Espece : obligatoire  -->
     <label>
         Espèce :
     </label>
@@ -29,6 +32,7 @@
         L'espèce est obligatoire.
     </div>
 
+    <!-- Race : obligatoire  -->
     <label>
         Race :
     </label>
@@ -40,6 +44,7 @@
         La race est obligatoire.
     </div>
 
+    <!-- Taille : optionnel  -->
     <label>
         Taille :
     </label>
@@ -49,6 +54,7 @@
         <mat-option value=2>Grand</mat-option>
     </mat-select>
 
+    <!-- Caractères : optionnel, multiple  -->
     <label>
         Caractères :
     </label>      
@@ -56,6 +62,7 @@
         <mat-option *ngFor="let nature of naturesList" [value]="nature">{{ nature.name }}</mat-option>
     </mat-select>
 
+    <!-- Infos : optionnel  -->
     <label>
         Infos Supplémentaires :
     </label>

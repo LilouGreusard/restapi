@@ -3,6 +3,7 @@
 <h2>Modification d'une Ballade</h2>
 <form [formGroup]="modifierBallade" (ngSubmit)="onSubmit()" id="modifierBallade">
 
+    <!-- Adresse, commune : obligatoire  -->
     <label>
         Commune :
     </label>
@@ -13,7 +14,7 @@
         }
     </mat-autocomplete>
 
-    <!-- Adresse, rue  -->
+    <!-- Adresse, rue : obligatoire -->
     <label>
         Adresse :
     </label>
@@ -21,14 +22,14 @@
         <mat-option [value]="item.id" *ngFor="let item of adressesParCodePostal"> {{item?.rue}}</mat-option>
     </mat-select>
 
-    <!-- Horaire  -->
+    <!-- Horaire : obligatoire -->
     <label>
         Horaire :
     </label>
     <input type="time" formControlName="heure">
 
 
-    <!-- Jours de la semaine  -->
+    <!-- Jours de la semaine : obligatoire-->
     <label>
         Date :
     </label>
@@ -39,7 +40,7 @@
         </mat-option>
     </mat-select>
 
-    <!-- Durée  -->
+    <!-- Durée : obligatoire -->
     <label>
         Durée :
     </label>
@@ -50,7 +51,7 @@
         <mat-option [value]="60">1 heure</mat-option>
     </mat-select>
 
-    <!-- Description -->
+    <!-- Description : optionnel -->
     <label for="infos"> Description</label>
     <textarea formControlName="infos" maxlength="250" rows="5"></textarea>
 

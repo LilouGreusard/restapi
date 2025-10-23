@@ -69,7 +69,7 @@ export class CreationBalladeComponent {
     private adresseService: AdresseService,
     private balladeService: BalladeService,
     private route: ActivatedRoute,
-    private router: Router,
+    public router: Router,
   ) {}
 
   ngOnInit() {
@@ -127,9 +127,10 @@ export class CreationBalladeComponent {
     this.creationBallade.markAllAsTouched();
 
     //supprimer la valeur undefined due à la case selectAll
-    const joursSelected = this.creationBallade.controls['date'].value.filter(
-      (v: any) => v
-    );
+    const joursSelected = this.creationBallade.get('date')?.value || [];
+    const jours = Array.isArray(joursSelected)
+      ? joursSelected.filter(j => j).join(', ')
+      : '';
 
     
     this.balade = {

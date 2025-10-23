@@ -30,7 +30,7 @@ export class CreationCompteComponent {
   showPassword = false;
   adresse: Adresse = {};
 
-  constructor(private router: Router) {
+  constructor(public router: Router) {
     this.creationCompte = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),

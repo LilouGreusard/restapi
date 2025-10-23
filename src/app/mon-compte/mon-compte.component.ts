@@ -40,7 +40,7 @@ export class MonCompteComponent implements OnInit {
     const token = localStorage.getItem('TOKEN');
 
     if (!token) {
-      this.router.navigate(['login/']);
+      this.router.navigate(['/login']);
       return;
     }   
 

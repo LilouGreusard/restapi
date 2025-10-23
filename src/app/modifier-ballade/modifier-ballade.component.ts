@@ -223,7 +223,7 @@ export class modifierBalladeComponent {
         return;
       }
 
-      let joursArray: string[] = ballade.jours ? ballade.jours.split(',') : [];
+      let joursArray: string[] = ballade.jours ? ballade.jours.split(', ') : [];
 
       // Si tous les jours sont sélectionnés, coche "Tout les jours" visuellement
       if (joursArray.length === 7) {
@@ -263,7 +263,7 @@ export class modifierBalladeComponent {
     const formValues = this.modifierBallade.value;
 
     const joursString = Array.isArray(formValues.jours) 
-    ? formValues.jours.join(',') 
+    ? formValues.jours.join(', ') 
     : '';
 
     

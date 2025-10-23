@@ -2,6 +2,7 @@
 
 <h2>Modification Compte</h2>
 <form [formGroup]="modifierCompte" (ngSubmit)="onSubmit()" id="modifierCompte">
+    <!-- Nom : obligatoire -->
     <label>
         Prénom :
     </label>
@@ -10,6 +11,7 @@
         Le prénom est obligatoire.
     </div>
 
+    <!-- Nom : obligatoire -->
     <label>
         Nom :
     </label>
@@ -18,6 +20,7 @@
         Le nom est obligatoire.
     </div>
 
+    <!-- Pseudonyme : optionnel, unique -->
     <label>
         Pseudonyme :
     </label>
@@ -26,7 +29,7 @@
         Ce nom d'utilisateur est déjà utilisé.
     </div>
 
-
+    <!-- Age : obligatoire, min 18 -->
     <label>
         Age :
     </label>
@@ -38,8 +41,10 @@
         Vous devez avoir au moins 18 ans.
     </div>
 
+    <!-- Adresse : optionnel -->
     <app-localisation (adresseEmit)="setAdresse($event)"></app-localisation>
 
+    <!-- EMail : obligatoire, unique -->
     <label>
         Email :
     </label>
@@ -54,6 +59,7 @@
         Cet email est déjà utilisé.
     </div>
 
+    <!-- Mot de passe : non modifiable ici -->
     <label>
         Password :
     </label>

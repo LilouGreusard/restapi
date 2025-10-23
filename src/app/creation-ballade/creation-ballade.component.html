@@ -3,13 +3,16 @@
 <h2>Création d'une Ballade</h2>
 <form [formGroup]="creationBallade" (ngSubmit)="onSubmit()" id="creationBallade">
 
+    <!-- Adresse : obligatoire -->
     <app-localisation [adresseListen]="'18800, Bourges'" (adresseEmit)="setAdresse($event)"></app-localisation>
 
+    <!-- Horaire : obligatoire  -->
     <label>
         Horaire :
     </label>
     <input type="time" formControlName="horaire">
 
+    <!-- Jour Semaine : obligatoire  -->
     <label>
         Date :
     </label>
@@ -20,6 +23,7 @@
         </mat-option>
     </mat-select>
 
+    <!-- Durée : obligatoire  -->
     <label>
         Durée :
     </label>

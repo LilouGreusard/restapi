@@ -10,7 +10,7 @@ import { lastValueFrom } from 'rxjs';
   selector: 'app-mes-compagnons',
   standalone: true,
   imports: [ CommonModule, MatButtonModule],
-  providers: [CompagnonService],
+  // providers: [CompagnonService],
   templateUrl: './mes-compagnons.component.html',
   styleUrl: './mes-compagnons.component.scss',
 })
@@ -56,7 +56,7 @@ export class MesCompagnonsComponent implements OnInit {
   }
 
   onSubmitSupprimer(compagnonId: any) {
-    if (confirm("Voulez-vous vraiment supprimer ce compagnon ?")) {
+    if (window.confirm("Voulez-vous vraiment supprimer ce compagnon ?")) {
       this.compagnonService.deletedById(compagnonId).subscribe({
         next: () => {
           this.mesCompagnons = this.mesCompagnons.filter(c => c.id !== compagnonId);

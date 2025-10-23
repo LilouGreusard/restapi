@@ -7,7 +7,7 @@
             Email :
         </label>
         <input formControlName="email">
-        <div *ngIf="login.get('email')?.invalid && login.get('email')?.touched">
+        <div *ngIf="login.get('email')?.invalid && login.get('email')?.touched" class="condition">
             L'email est obligatoire.
         </div>
 

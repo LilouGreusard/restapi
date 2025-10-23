@@ -1,5 +1,27 @@
 @use '../../mixins' as *;
 
+.empty{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 25px;
+
+  p{
+    color: var(--third-color);
+    font-family: var(--primary-font);
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  img{
+    width: 200px;
+    height: 200px;
+  }
+}
+
 .all-ballades{
   width: 100%;
   overflow: hidden;

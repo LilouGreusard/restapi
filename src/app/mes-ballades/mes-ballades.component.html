@@ -3,8 +3,14 @@
 
 
 <app-header></app-header>
-<div class="all-ballades">
 
+<div *ngIf="!loading && !error  && (balladesOrganisees?.length == 0) && (balladesParticipees?.length == 0)" class="empty">
+    <p> Pas de ballades par ici...</p>
+    <img src="../../assets/images/desert.png" alt="desert vide">
+    <p>Créez des ballades depuis votre compte, ou rejoignez en depuis la carte !</p>
+</div>
+
+<div class="all-ballades">
     <div *ngIf="!loading && !error  && (balladesOrganisees?.length ?? 0)" class="ballades-organisees">
         <div class="title">
             <h2>Ballades organisées</h2>

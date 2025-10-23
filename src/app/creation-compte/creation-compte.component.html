@@ -1,4 +1,5 @@
-<form [formGroup]="creationCompte" (ngSubmit)="onSubmit()" id="creationCompte">
+<form [formGroup]="creationCompte" (ngSubmit)="onSubmit()" id="creationCompte" class="creationCompte">
+    <!-- Prénom : obligatoire  -->
     <label>
         Prénom :
     </label>
@@ -7,6 +8,7 @@
         Le prénom est obligatoire.
     </div>
 
+    <!-- Nom : obligatoire  -->
     <label>
         Nom :
     </label>
@@ -15,6 +17,7 @@
         Le nom est obligatoire.
     </div>
 
+    <!-- Pseudonyme : unique optionnel  -->
     <label>
         Pseudonyme :
     </label>
@@ -23,6 +26,7 @@
         Ce nom d'utilisateur est déjà utilisé.
     </div>
 
+    <!-- Age : min 18 -->
     <label>
         Age :
     </label>
@@ -31,8 +35,10 @@
         Vous devez avoir au moins 18 ans.
     </div>
 
+    <!-- Adresse : optionnel -->
     <app-localisation (adresseEmit)="setAdresse($event)"></app-localisation>
 
+    <!-- Email : unique obligatoire -->
     <label>
         Email :
     </label>
@@ -47,6 +53,7 @@
         Cet email est déjà utilisé.
     </div>
 
+    <!-- Mot de passe : obligatoire, min 8 car.  -->
     <label>
         Password :
     </label>

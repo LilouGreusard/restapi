@@ -28,12 +28,16 @@ export class CarteBaladesComponent implements AfterViewInit {
 
   constructor(private balladeService: BalladeService,private router: Router,private compagnonService: CompagnonService, private compteService: CompteService) {}
 
-  private initMap(): void {
-    this.map = L.map('map').setView([47.08, 2.39], 15);
+  private initMap(coords?: {lat: number; lng: number;}): void {
+    const initialCoords = coords ?? { lat: 47.08, lng: 2.39};
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-      maxZoom: 18,
+    this.map = L.map('map').setView([initialCoords.lat, initialCoords.lng], 19);
+
+    const jawgToken = '8RGCU43AXOqXMyoBl06KlQIeO0e4JftXpvGVqntKAMH3nDUtCDXL3ngZ90Xpn5J6';
+
+    L.tileLayer(`https://tile.jawg.io/jawg-lagoon/{z}/{x}/{y}{r}.png?access-token=${jawgToken}`, {
+      attribution:'<a href="https://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19,
     }).addTo(this.map);
   }
 
@@ -41,9 +45,19 @@ export class CarteBaladesComponent implements AfterViewInit {
     localStorage.removeItem('COMPAGNON_ID');
     localStorage.removeItem('BALLADE_ID');
 
+    let userCoords: {lat: number, lng: number} | undefined;
+
     try {
       const currentUser = await lastValueFrom(this.compteService.getCurrentUser());
       this.userId = currentUser.Id!;
+
+      if (currentUser.adresse?.positionGps){
+        const [latStr, lngStr] = currentUser.adresse.positionGps?.split(",");
+
+        userCoords = {lat: parseFloat(latStr), lng: parseFloat(lngStr)};
+      }
+
+
     } catch (err) {
       console.error("Erreur récupération userId :", err);
       alert("Impossible de récupérer l'utilisateur connecté.");
@@ -51,7 +65,7 @@ export class CarteBaladesComponent implements AfterViewInit {
       return;
     }
 
-    this.initMap();
+    this.initMap(userCoords);
 
     this.loading = true;
     try {
@@ -89,15 +103,16 @@ private getCoordinates(positionGPS?: string): { lat: number; lng: number } {
 }
 
 private addMarkers(): void {
-  const myIcon = L.icon({
-    iconUrl: 'assets/images/local.gif',
-    iconSize: [60, 60],
-    iconAnchor: [30, 60],
-    popupAnchor: [0, -60],
-  });
 
   this.ballades.forEach((ballade) => {
     const coords = this.getCoordinates(ballade.lieu?.positionGps);
+    const especeId = ballade.compagnon?.race?.espece?.id ?? 'default'
+    const myIcon = L.icon({
+      iconUrl: `assets/images/espece_${especeId}.png`,
+      iconSize: [60, 60],
+      iconAnchor: [30, 60],
+      popupAnchor: [0, -60],
+    });
 
     const marker = L.marker([coords.lat, coords.lng], { icon: myIcon }).addTo(this.map);
     marker.bindPopup(this.generatePopupHtml(ballade), { closeButton: false, maxWidth: 500,});
